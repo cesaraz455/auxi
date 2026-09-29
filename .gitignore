@@ -45,3 +45,6 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# KiCad MCP automatic backups
+.mcp-backups/

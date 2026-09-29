@@ -143,10 +143,10 @@ These are reference values for the physical layout. Clones vary: confirm them wi
 
 | Component | Approx. dimensions (mm) | Note |
 |---|---|---|
-| ESP32-S3-DevKitC-1 | 62.74 long × ~25.4 wide | Espressif's official drawing; measure the real clone and its height |
-| ESP32-CAM AI Thinker | 27 × 40.5 × 4.5 | Without pins or camera |
-| TB6612FNG module | ~20 × 20 (varies by model) | Pin rows 20.32 mm apart on several models; verify |
-| MP1584EN mini module | 22 × 17 × 4 | Solder pads, no connectors |
+| ESP32-S3-DevKitC-1 | 62.74 × 25.40 official; user's clone ~68 × 25 | Official DXF: headers 1.27 mm from each long edge, so **rows 22.86 mm apart**; USB at the pin-22 end, antenna at the pin-1 end |
+| ESP32-CAM AI Thinker | 26.9 × 39.8 (seller photo) | Rows **22.86 mm apart** (common value); pins at the microSD end, antenna and FPC at the other end (assumed) |
+| TB6612FNG module | 20.5 × 20.4 (seller photo, red generic module) | Row spacing **assumed 17.78 mm (0.7")**; verify |
+| MP1584EN mini module | 22.5 × 17.2 × 4 (seller photo, D-SUN type) | 8 through-holes, 2 per terminal (2.54 mm pitch), ~19.9 mm between sides (estimated) |
 | 2×18650 battery holder | ~75–78 × ~40 × ~18–22 | Bottom level |
 | TT motor (body) | 70 × 22 × 18; ~37 wide including both shafts | Bottom level, plus the wheel |
 | VL53L0X GY-530 | ~25 × 11 | Off-board, in the concave area |
@@ -416,7 +416,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 
 | Reference | Off-board part | Connector type | Signals | Suggested location |
 |---|---|---|---|---|
-| J_BAT1 | 2S batteries | XT30 male vertical (AMASS XT30UPB-M) | 1 BAT+, 2 BAT− | Near where the battery wires come up |
+| J_BAT1 | 2S batteries | XT30 male vertical (AMASS XT30UPB-M) | 1 BAT− (chamfered side), 2 BAT+ (flat side), matching the KiCad footprint's `−`/`+` marks | Near where the battery wires come up |
 | J_SWITCH1 | Switch | 2P screw terminal, 5.08 mm, ≥3 A | SW_BAT, SW_OUT | Near J_BAT1 |
 | J_LED_POWER1 | Power LED (blue) | 2P male header, 2.54 mm | LED+, LED− | Near J_SWITCH1 |
 | J_MOTOR_LEFT1 | Left motor | 2P screw terminal, 5.08 mm | M_L1, M_L2 | Left edge |
@@ -565,11 +565,30 @@ Do not place text on pads or in areas covered by the modules once mounted.
 - The pin mapping is approved.
 - The design is **preliminary** until the §20 items are closed against the real modules.
 
-### Later stages (only when the user explicitly asks)
+### Stage 2: PCB (IN PROGRESS, started at the user's request)
 
-- **Do NOT start PCB work** until the user approves the schematic and asks for it.
-- 2D space check (§4.3).
-- 90 × 100 mm PCB design, DRC and mechanical verification (§14, §15, §17).
+The user had no calipers, so they approved using common web dimensions (§4.4). Every module position is **provisional** until checked against the real part.
+
+**Board orientation (from the user's sketch):**
+- Board coordinates: origin at the top-left corner, (100, 100) in KiCad.
+- **Left edge (x = 100) = robot FRONT** (concave area).
+- **Top edge (y = 100) = robot RIGHT side**, **bottom edge (y = 200) = robot LEFT side**, right edge (x = 190) = REAR.
+- The 90 mm side runs front to back; the 100 mm side runs across the robot.
+
+**Placement done:**
+- ESP32-S3 at the rear, USB at the bottom edge. Its antenna points into the board, with a keepout `ANT_ESP32` (no tracks, vias or pour).
+- ESP32-CAM at the front-middle, with FPC and antenna toward the front, and keepout `ANT_CAM`.
+- TB6612 at the front-top, MP1584 at the front-bottom, and power entry (switch, XT30, C1, power LED) at the top-rear.
+- Right-side connectors (motor, LED, sensor) on the top edge and front-top corner; left-side ones on the bottom edge; FRONT sensor and LED on the front edge.
+- 4 × M3 holes (`MountingHole_3.2mm_M3`) at 5 mm from each corner.
+- Module outlines are drawn on the silkscreen.
+- Rendered overview: `docs/auxi_pcb_placement.png`.
+
+**Pending:** user approval of the placement → routing → GND pours → silkscreen cleanup → DRC. Freerouting is not installed (no Java), so routing is manual unless the user installs it.
+
+### Later stages
+
+- Mechanical verification (§17) once the real parts are measured.
 
 ---
 
@@ -627,7 +646,8 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 3. Real TT motor stall current, to validate the driver, switch and power connectors.
 4. Green LED Vf, to set the final value of R7.
 5. ESP32-CAM silkscreen, to confirm the pin order used.
-6. Which XT30UPB-M pin is `+` in the footprint, for the `BAT+` / `BAT−` silkscreen.
+6. ~~Which XT30UPB-M pin is `+`~~ **Resolved:** pad 2 = `+` (flat side), pad 1 = `−` (chamfered side). The schematic was corrected to match.
+7a. Caliper check of row spacing: ESP32-S3 clone (22.86 mm assumed), ESP32-CAM (22.86 mm assumed), TB6612 red module (17.78 mm assumed), and MP1584 hole positions (estimated from a photo). Also confirm which end of the ESP32-CAM has the header pins.
 
 **Needed for the PCB (later stages):**
 
