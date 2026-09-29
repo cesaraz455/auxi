@@ -1,0 +1,47 @@
+# KiCad: archivos de bloqueo
+*.lck
+~*.lck
+
+# KiCad: backups y autoguardado
+*-backups/
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-bak
+*~
+_autosave-*
+\#auto_saved_files\#
+_saved_*
+
+# KiCad: preferencias locales de proyecto (vista, capas visibles, etc.)
+*.kicad_prl
+
+# KiCad: caches y archivos temporales
+fp-info-cache
+*.sch-bak
+*.lib.bak
+*.dcm.bak
+*.tmp
+
+# Salidas de fabricación generadas (regenerables desde el diseño)
+gerbers/
+fabrication/
+production/
+*.gbr
+*.gbrjob
+*.drl
+*.pos
+*.zip
+
+# Reportes de DRC/ERC
+*-drc.rpt
+*-erc.rpt
+*.rpt
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
