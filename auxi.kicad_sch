@@ -4536,26 +4536,6 @@
 	)
 	(wire
 		(pts
-			(xy 408.94 118.11) (xy 419.1 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "35e2bb81-9f06-4b05-8e44-1a1727c415f3")
-	)
-	(wire
-		(pts
-			(xy 408.94 120.65) (xy 419.1 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b2e4d40b-f8e7-435f-a20f-9c6433cfd344")
-	)
-	(wire
-		(pts
 			(xy 165.1 43.18) (xy 170.18 43.18)
 		)
 		(stroke
@@ -14058,6 +14038,26 @@
 				)
 			)
 		)
+	)
+	(wire
+		(pts
+			(xy 408.94 118.11) (xy 419.1 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "edb59158-759e-4dad-90ed-7af1247e69be")
+	)
+	(wire
+		(pts
+			(xy 408.94 120.64999999999999) (xy 419.1 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "624e9c21-2bec-448a-aa24-6af7822c98f9")
 	)
 	(sheet_instances
 		(path "/"
