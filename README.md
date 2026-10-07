@@ -38,7 +38,7 @@ BAT 2S (6.0–8.4 V) ─ XT30 ─ external switch ─ +VBAT_SW
           ├─ bulk caps ─ TB6612 VM (motors)
           └─ MP1584 ─ +5V ─┬─ D1 Schottky ─ +5V_ESP ─ ESP32-S3 5V pin
                            └─ ESP32-CAM 5V pin
-ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic, I2C pull-ups (DNP)
+ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on the GY-530 modules)
 ```
 
 - Nothing connects to the battery before the switch. When the switch is off, the whole robot is off.
@@ -99,8 +99,8 @@ These need the real, purchased parts. See [`CLAUDE.md`](CLAUDE.md) §20 for deta
 1. Photos and measurements of the ESP32-S3 board if it is a clone (row spacing, RGB LED revision).
 2. Pin order of the purchased TB6612FNG breakout (the SparkFun order was assumed).
 3. Photo and measurements of the MP1584 module (its footprint is provisional).
-4. GY-530 photos: whether R3/R4 pull-ups are needed, and the XSHUT voltage level.
+4. GY-530 photos: the XSHUT voltage level (R3/R4 were removed; the modules already include pull-ups).
 5. Measured stall current of the TT motor, to validate the driver, switch and wiring.
-6. Green LED forward voltage, to set the final value of R7.
+6. Green LED forward voltage, to set the final value of R5.
 7. ESP32-CAM silkscreen, to confirm the pin order.
 8. Which XT30UPB-M pin is `+` in the footprint.

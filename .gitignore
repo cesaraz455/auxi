@@ -48,3 +48,6 @@ desktop.ini
 
 # KiCad MCP automatic backups
 .mcp-backups/
+
+# KiCad Local History (KiCad crea su propio repo git aqui)
+.history/

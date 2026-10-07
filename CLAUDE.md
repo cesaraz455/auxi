@@ -55,6 +55,7 @@ Guidance for Claude Code when working in this repository. This file is the **com
 | Topic | Decision |
 |---|---|
 | Number of PCBs | **Exactly one custom PCB.** Commercial modules do not count as extra PCBs. |
+| PCB layers and parts | **2 layers, no GND plane** (tracks only). **All components THT** (no SMD), so they can be hand-soldered. |
 | PCB location | Top level, on 4 M3 standoffs, above the batteries and motors. |
 | PCB size | **90 × 100 mm**, set by the user. Do not enlarge it without approval. Its orientation in the chassis is confirmed during the space check (§4.3). |
 | On the PCB | ESP32-S3-DevKitC-1, ESP32-CAM, TB6612FNG module, MP1584 module, capacitors, resistors, diode and connectors. |
@@ -350,7 +351,7 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
 - **XSHUT:** FRONT on GPIO4, LEFT on GPIO5, RIGHT on GPIO6.
 - **Pull-ups:**
   - Check the ones on the modules (three in parallel).
-  - The PCB has 4.7 kΩ footprints to 3V3 (R3, R4), marked **DNP** (do not populate). Populate them only if the analysis calls for it.
+  - **Decision (user):** no extra pull-ups on the PCB. The VL53L0X GY-530 modules already include their pull-ups, so R3 and R4 were removed from the design.
 - **XSHUT level:** check what voltage the module's pull-up takes XSHUT to, and that the ESP32 can drive it safely. Recommended: "enable" a sensor by setting its pin as an input so the module pull-up raises it, instead of driving a logic 1.
 - **Firmware startup sequence:**
   1. Drive all XSHUT pins low.
@@ -383,7 +384,7 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
   - Silkscreen with the name, color and polarity (`+` on the anode).
 - **Resistors:** one per LED, on the PCB, sized from each color's Vf for about 2–5 mA at 3.3 V.
   - The current value is 470 Ω, which gives about 2.5–3 mA.
-  - **R7 (green) is provisional:** it suits a classic green (Vf ≈ 2.1 V). A bright green (Vf ≈ 3 V) needs a recalculation.
+  - **R5 (green) is provisional:** it suits a classic green (Vf ≈ 2.1 V). A bright green (Vf ≈ 3 V) needs a recalculation.
 - **Documentation note:** a LED connected backwards simply does not light and is not damaged. Just flip the connector.
 - **Power LED:** this is a different LED from these three. It is blue, off-board and sits next to the switch (§5.4).
 
@@ -471,7 +472,11 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 
 > **Later stage (PCB).** Do not execute now; keep it in mind when choosing footprints.
 
-- 2 layers, 1.6 mm FR4, 1 oz copper, standard fab rules (0.2 mm minimum trace and 0.2 mm minimum clearance).
+- **Decision (user, revised during routing):** 2 layers with a **solid GND plane (copper pour) on the bottom layer (B.Cu)**. Signals and the positive rails are routed on the top layer (F.Cu); the bottom layer is ground, with short B.Cu jumpers only where a track has to cross another one.
+  - This replaces the earlier "no plane, tracks only" decision. Reason: the 43 GND connections were competing for routing space with the 26 signal connections, and the motor return path was becoming long. The plane removes all GND routing, shortens the motor return and keeps switching noise away from I2C, UART and the camera (§14 "Ground and routing").
+  - It changes nothing about assembly or cost: still 2 layers, still all THT. The pour uses **thermal reliefs** on pads so they can still be hand-soldered.
+- **Decision (user, confirmed):** **all components are through-hole (THT)** so they can be soldered easily by hand. No SMD parts on the board.
+- 1.6 mm FR4, 1 oz copper, standard fab rules (0.2 mm minimum trace and 0.2 mm minimum clearance).
 - **Starting trace widths** (verify with an IPC-2152 calculator using the stall current, not the nominal current):
   - Signals: 0.25–0.3 mm.
   - `+5V` and `+3V3`: 0.5–0.8 mm.
@@ -481,8 +486,9 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
   - Power zone: XT30, J_SWITCH, MP1584, TB6612 and motor terminals.
   - Logic and radio zone: ESP32, ESP32-CAM, sensor and LED connectors.
 - **Ground and routing:**
-  - GND plane on the bottom layer and GND fill on the top, not cut under signals.
-  - Short motor return: TB6612 → bulk capacitor → battery.
+  - GND is the B.Cu plane (see the decision above). Every GND pad connects to it directly, through a thermal relief.
+  - Keep B.Cu traces short so the plane stays in one piece. The only long ones are the two left-motor nets (`M_L1`, `M_L2`); the plane stays connected around them, north and south.
+  - Short motor return: TB6612 → bulk capacitor → battery, all through the plane in the top (north) area of the board.
   - Keep motor currents away from I2C, UART, the ESP32-CAM and the antennas.
 - Keepouts at the M3 holes and under both antennas.
 - **Bottom side:** no components. Only through-hole solder joints, with the §4.3 clearance to the batteries.
@@ -577,6 +583,8 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 
 **Placement done:**
 - ESP32-S3 at the rear, USB at the bottom edge. Its antenna points into the board, with a keepout `ANT_ESP32` (no tracks, vias or pour).
+  - **Resized during routing (user approved):** `ANT_ESP32` is now **x 152.5–178.5, y 130–139** (26 × 9 mm). The first version (x 151–179.5, y 122–138) reached ~10 mm further back than the module itself and still left the strip y 138–139.66 uncovered. The new one is centred on where the antenna actually sits — the board overhangs pin 1 (y = 139.66) by about 7 mm — covers it fully, and stops 0.66 mm short of the pin row so tracks can still reach pins 1. It opens an 8 mm channel at y 122–130 for the TB6612 signals.
+  - Confirm it against the real module when it arrives (§20 item 1).
 - ESP32-CAM at the front-middle, with FPC and antenna toward the front, and keepout `ANT_CAM`.
 - TB6612 at the front-top, MP1584 at the front-bottom, and power entry (switch, XT30, C1, power LED) at the top-rear.
 - Right-side connectors (motor, LED, sensor) on the top edge and front-top corner; left-side ones on the bottom edge; FRONT sensor and LED on the front edge.
@@ -584,7 +592,40 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 - Module outlines are drawn on the silkscreen.
 - Rendered overview: `docs/auxi_pcb_placement.png`.
 
-**Pending:** user approval of the placement → routing → GND pours → silkscreen cleanup → DRC. Freerouting is not installed (no Java), so routing is manual unless the user installs it.
+**Routing (in progress).** Strategy: **solid GND plane on B.Cu, everything else on F.Cu**, with short B.Cu jumpers only where a track must cross another. Freerouting is not installed (no Java), so routing is manual.
+
+Routed and verified — 112 segments, 9 vias (0.6/0.3 mm), DRC 0 errors:
+
+| Net | Width | Notes |
+|---|---|---|
+| `SW_BAT`, `+VBAT_SW` (power entry) | 1.2 mm | |
+| `+VBAT_SW` → MP1584 | 0.8 mm | only the ~0.75 A of the 5 V rail passes here |
+| `+VBAT_SW` → R1 (power LED) | 0.4 mm | 2–4 mA only |
+| `+5V`, `+5V_ESP`, `+3V3` | 0.6 mm | |
+| `M_L1`, `M_L2`, `M_R2` | 1.2 mm | |
+| `M_R1` | 1.05 mm | narrower only in the top-edge channel, next to C4 |
+| `GND` | plane | all 44 pads, thermal reliefs |
+
+- The plane fills as **one continuous piece** (no isolated islands).
+- `M_L1` and `M_L2` are the only long B.Cu power runs; the plane stays connected around them, north and south.
+- Net classes live in `auxi.kicad_pro`: `PWR_BAT` 1.2 mm, `GND` 0.8 mm, `PWR_LOW` 0.6 mm, `Default` 0.3 mm.
+
+**All signals are now routed (update).**
+- The 21 signal nets (TB6612 control, I2C, XSHUT, UART, LEDs) and `+3V3` were routed with a small custom A* router (two layers, 0.1 mm grid, 0.2 mm clearance plus margin; Freerouting needs Java, which is not installed). The tracks were written into `auxi.kicad_pcb` with a script, not with the MCP, because that is about 300 individual calls.
+- **Signals are 0.3 mm. `+3V3` was re-routed at 0.35 mm** (it was 0.6 mm by hand): its whole load is about 100 mA (3 × VL53L0X, TB6612 logic), so 0.35 mm is enough. §14 gives 0.5–0.8 mm as a *starting* value; the reduction is a rough estimate and should be confirmed with an IPC-2152 calculator.
+- Board totals: 317 track segments (250 on F.Cu, 67 on B.Cu) and 75 vias (0.6/0.3 mm).
+- **Real KiCad DRC (`kicad-cli pcb drc`, zones refilled): 0 errors, 0 unconnected items.** Only the 114 silkscreen warnings remain (5 `silk_edge_clearance`, 100 `silk_overlap`, 9 `silk_over_copper`).
+- **To review by eye before fabrication (not checked by DRC):** that I2C/UART/XSHUT tracks stay away from the motor tracks and the antenna keepouts (§14), and the length of the long signals (SDA/SCL ≈ 150 mm in total; fine for 100 kHz).
+
+**Silkscreen (done).** DRC went from 114 warnings to **0 violations, 0 unconnected items**.
+- All reference designators (C4, R5, J_LED_FRONT1…) were moved from `F.SilkS` to `F.Fab`: they still exist for documentation, but no longer clutter the board.
+- The TB6612 outline rectangle was moved to `F.Fab`: it covered several capacitors and resistors that sit under the module. The module is still shown by its two header outlines and the `TB6612FNG` text. The ESP32-CAM and ESP32-S3 outlines stay on the silkscreen.
+- Added the labels §15 asks for: `BAT+`, `BAT-`, `SWITCH ON-OFF`, `POWER LED`, `MOTOR_LEFT`, `MOTOR_RIGHT`, `SENSOR_FRONT/LEFT/RIGHT`, `LED_FRONT RED`, `LED_LEFT YELLOW`, `LED_RIGHT GREEN`, a `+` next to each LED header, `<- FRONT` and `auxi v1`. Placed automatically in free spots, checked with the DRC and with the 3D render (the DRC cannot see that a terminal block's 3D body hides the silkscreen under it).
+- The diode's `K` marker was moved off the motor terminal's outline.
+- Render of the top side: `docs/auxi_pcb_top.png`.
+- Not on the silkscreen yet: a text note that LED headers are `+` on the square pad (pin 1) and the pin order of the JST sensor connectors (1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT). The JST connectors are keyed, so they cannot be swapped.
+
+**Pending:** a visual review of the routing in KiCad (distance of I2C/UART from the motor tracks, §14), the 2D mechanical check with real measurements (§4.3/§17), and the open items in §20.
 
 ### Later stages
 
@@ -609,7 +650,7 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 |---|---|
 | 1 | Switch ≥ 5 A DC and ≥ 12 V DC, **verified in its datasheet** (panel-mount mini rocker). Confirm it against the measured stall current. |
 | 1 | 5 mm blue LED (power) |
-| 1 + 1 + 1 | 5 mm LEDs: red, yellow and green (see the R7 note in §10) |
+| 1 + 1 + 1 | 5 mm LEDs: red, yellow and green (see the R5 note in §10) |
 | 3 | VL53L0X GY-530 modules |
 | 3 | 5-pin JST-XH cables, ≤ 25 cm (with XHP-5 female housing) |
 | 4 × 2 | Female Dupont jumpers for the 4 LEDs |
@@ -642,9 +683,9 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 **Needed to finalize the schematic:**
 
 1. Confirm that the purchased ESP32-S3-DevKitC-1 N16R8 matches the official pinout. If it is a clone, ask for photos of both sides. Also confirm its RGB LED revision and its row spacing.
-2. Real pinout of the purchased TB6612FNG (SparkFun order assumed), MP1584 (footprint `auxi:MP1584_Mini_PROVISIONAL` has estimated pads) and GY-530 (whether R3/R4 are needed; XSHUT level).
+2. Real pinout of the purchased TB6612FNG (SparkFun order assumed), MP1584 (footprint `auxi:MP1584_Mini_PROVISIONAL` has estimated pads) and GY-530 (XSHUT level; the pull-ups are already on the module, so R3/R4 were removed).
 3. Real TT motor stall current, to validate the driver, switch and power connectors.
-4. Green LED Vf, to set the final value of R7.
+4. Green LED Vf, to set the final value of R5.
 5. ESP32-CAM silkscreen, to confirm the pin order used.
 6. ~~Which XT30UPB-M pin is `+`~~ **Resolved:** pad 2 = `+` (flat side), pad 1 = `−` (chamfered side). The schematic was corrected to match.
 7a. Caliper check of row spacing: ESP32-S3 clone (22.86 mm assumed), ESP32-CAM (22.86 mm assumed), TB6612 red module (17.78 mm assumed), and MP1584 hole positions (estimated from a photo). Also confirm which end of the ESP32-CAM has the header pins.
