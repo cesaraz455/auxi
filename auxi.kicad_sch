@@ -4920,7 +4920,7 @@
 		)
 		(uuid "798a999a-147a-4682-8d29-b59fa42783d0")
 	)
-	(label "SDA"
+	(label "XSHUT_RIGHT"
 		(at 251.46 107.95 180)
 		(effects
 			(font
@@ -4930,7 +4930,7 @@
 		)
 		(uuid "e51fcd67-9426-4ac6-ad5c-7368ff7ab018")
 	)
-	(label "SCL"
+	(label "XSHUT_FRONT"
 		(at 251.46 110.49 180)
 		(effects
 			(font
@@ -4940,7 +4940,7 @@
 		)
 		(uuid "6f7f9438-c701-4e8e-a40d-2c3f2e9774da")
 	)
-	(label "XSHUT_RIGHT"
+	(label "XSHUT_LEFT"
 		(at 251.46 113.03 180)
 		(effects
 			(font
@@ -4950,7 +4950,7 @@
 		)
 		(uuid "f0017daa-410f-4c98-8521-aa4de14f7888")
 	)
-	(label "XSHUT_FRONT"
+	(label "SCL"
 		(at 251.46 115.57 180)
 		(effects
 			(font
@@ -4960,7 +4960,7 @@
 		)
 		(uuid "ea52ef36-26d0-4b54-8606-beb0b6d5d922")
 	)
-	(label "XSHUT_LEFT"
+	(label "SDA"
 		(at 251.46 118.11 180)
 		(effects
 			(font
@@ -4970,7 +4970,7 @@
 		)
 		(uuid "1bab3de4-0759-47a5-b5a6-39a4dc155bcf")
 	)
-	(label "UART_ESP_TO_CAM"
+	(label "UART_CAM_TO_ESP"
 		(at 251.46 123.19 180)
 		(effects
 			(font
@@ -4980,7 +4980,7 @@
 		)
 		(uuid "520fe064-ffad-481d-bf91-462ca0394ab4")
 	)
-	(label "UART_CAM_TO_ESP"
+	(label "UART_ESP_TO_CAM"
 		(at 251.46 125.73 180)
 		(effects
 			(font
@@ -5293,7 +5293,7 @@
 		)
 		(uuid "f6d3d42c-5c95-4f27-be8d-62cbb8698e43")
 	)
-	(text "Pinout oficial Espressif v1.1 - VERIFICAR contra el clon comprado.\nNo usar: GPIO0/3/45/46 (arranque), 19/20 (USB), 43/44 (consola),\n35/36/37 (PSRAM octal), 38/48 (LED RGB), 47.\nBluetooth: solo BLE (control Xbox por BLE).\nPCB de 1 capa: pines reasignados para que las pistas no se crucen.\nJ1: SDA=GPIO4, SCL=GPIO5, XSHUT R/F/L=GPIO6/7/15, UART=GPIO17/18,\nLED F/L/R=GPIO8/9/10. J3: PWMB=1, BIN2=2, BIN1=42, STBY=41,\nAIN1=40, AIN2=39, PWMA=21."
+	(text "Pinout oficial Espressif v1.1 - VERIFICAR contra el clon comprado.\nNo usar: GPIO0/3/45/46 (arranque), 19/20 (USB), 43/44 (consola),\n35/36/37 (PSRAM octal), 38/48 (LED RGB), 47.\nBluetooth: solo BLE (control Xbox por BLE).\nPCB de 1 capa: pines reasignados para que las pistas no se crucen.\nJ1: XSHUT R/F/L=GPIO4/5/6, SCL=GPIO7, SDA=GPIO15,\nUART RX(cam->esp)=GPIO17, UART TX(esp->cam)=GPIO18,\nLED F/L/R=GPIO8/9/10. J3: PWMB=1, BIN2=2, BIN1=42, STBY=41,\nAIN1=40, AIN2=39, PWMA=21."
 		(exclude_from_sim no)
 		(at 255 189.00 0)
 		(effects

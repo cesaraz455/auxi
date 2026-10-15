@@ -36,9 +36,9 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 - **One copper layer: `B.Cu` (the bottom face).** Every track is on the bottom. The rest of the bottom face is a **GND pour** (copper plane) that replaces the ground tracks.
 - **All parts are through-hole (THT).** They go on the **top face** (the face without copper). Their legs go through the holes and are **soldered from below**, on the copper side. No hole needs plating, because there is nothing to connect on the top face.
-- **No vias and no jumper wires.** The 199 tracks are all on `B.Cu`, and no track crosses another one.
+- **No vias and no jumper wires.** The 197 tracks are all on `B.Cu`, and no track crosses another one.
 - **Size: 110 × 140 mm**, 4 × M3 holes 5 mm from each corner, 2 mm rounded corners.
-- **Orientation (assumed, confirm it against the chassis):** the 110 mm side runs front to back and the 140 mm side runs across the robot. In KiCad the **left edge is the robot FRONT**, the top edge is the robot RIGHT side, the bottom edge is the LEFT side and the right edge is the REAR.
+- **Orientation (given by the user, see the photo of the chassis):** the **110 mm side is the FRONT of the robot** (it sits between the two wheels) and the 140 mm side runs front to back. In KiCad the **top edge is the robot FRONT**, the bottom edge is the REAR, the left edge is the robot LEFT side and the right edge is the RIGHT side. The ESP32-CAM is at the front (camera looking forward) and the ESP32-S3 is at the rear.
 - The `F.Cu` layer has no copper at all. A keepout covers the whole top face so no track or pour can appear there by mistake. Only the pads show on top.
 
 ![Top view](docs/auxi_pcb_top.png)
@@ -47,11 +47,19 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 ### Layout in one paragraph
 
-Seen in KiCad (front of the robot = left edge), the three sensor connectors are on the front edge, stacked from RIGHT (top) to LEFT (bottom). The ESP32-CAM is below them, with its antenna and flex connector toward the front. The ESP32-S3 is in the middle, with its **USB end about 5 mm from the bottom edge** (the robot's left side), so the USB-C plug can be connected from the side. The parts are spread over the whole board: sensors and big power capacitors in the upper half, modules in the middle, and the LED headers, diode, battery and switch connectors along the bottom. The TB6612FNG is right behind the ESP32-S3 (toward the rear), so its control signals are short. The battery, switch, MP1584 and motor terminals are at the rear and in the rear-left corner of the robot. The free areas between the groups are GND plane.
+Seen in KiCad (front of the robot = top edge):
+
+- **Front (top):** the **ESP32-CAM** is in the front-left corner, with its antenna and flex connector at the top edge, so the camera looks forward. The three **sensor connectors** are side by side along the top edge, to the right of the camera (LEFT, FRONT, RIGHT from left to right).
+- **Rear (bottom):** the **ESP32-S3** sits in the middle of the rear edge with its **USB end only 1 mm from the bottom edge** (user request: at most 2 mm). The USB-C plug overhangs the edge, so the cable plugs in without any obstacle.
+- **East side:** the TB6612FNG is right next to the ESP32-S3 header row `J3` (short control signals), with the motor terminals on the right edge and the big capacitors, the power LED header and the battery/switch connectors on the east side and the bottom-right corner.
+- **West side:** the MP1584, the 3 proximity LED headers and the capacitors of the camera.
+- The free areas between the groups are GND plane.
 
 ## Why the pins moved
 
 A single layer cannot cross two tracks. To avoid any crossing (and any jumper wire), the GPIOs were **reassigned** so the signals leave the ESP32 headers in the same order as their destinations. The firmware has not been written yet, so this costs nothing. See the new table in [Pin map](#pin-map-gpio).
+
+The mapping changed **once more** when the board orientation was fixed (110 mm side = front): the I2C pins and the camera UART pins moved to the order that the new layout needs, and the UART **TX and RX swapped places** (`GPIO18` is now the ESP32 transmit pin). Always check the table below.
 
 ## Power architecture
 
@@ -74,13 +82,13 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 
 | Signal | GPIO | Header pin |
 |---|---|---|
-| SDA | GPIO4 | J1-4 |
-| SCL | GPIO5 | J1-5 |
-| XSHUT_RIGHT | GPIO6 | J1-6 |
-| XSHUT_FRONT | GPIO7 | J1-7 |
-| XSHUT_LEFT | GPIO15 | J1-8 |
-| UART_ESP_TO_CAM (TX) | GPIO17 | J1-10 |
-| UART_CAM_TO_ESP (RX) | GPIO18 | J1-11 |
+| XSHUT_RIGHT | GPIO4 | J1-4 |
+| XSHUT_FRONT | GPIO5 | J1-5 |
+| XSHUT_LEFT | GPIO6 | J1-6 |
+| SCL | GPIO7 | J1-7 |
+| SDA | GPIO15 | J1-8 |
+| UART_CAM_TO_ESP (ESP32 **RX**) | GPIO17 | J1-10 |
+| UART_ESP_TO_CAM (ESP32 **TX**) | GPIO18 | J1-11 |
 | LED_FRONT | GPIO8 | J1-12 |
 | LED_LEFT | GPIO9 | J1-15 |
 | LED_RIGHT | GPIO10 | J1-16 |
@@ -97,7 +105,8 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 | AIN2 | GPIO39 | J3-9 |
 | PWMA | GPIO21 | J3-18 |
 
-- I2C is **not** on the Arduino default pins any more: call `Wire.begin(4, 5)`.
+- I2C is **not** on the Arduino default pins any more: call `Wire.begin(15, 7)` (SDA = GPIO15, SCL = GPIO7).
+- The camera UART is also not on the default `Serial1` pins: call `Serial1.begin(115200, SERIAL_8N1, 17, 18)` (RX = GPIO17, TX = GPIO18).
 - Spare pins: GPIO11, 12, 13, 14 and 16.
 - Still avoided on purpose: strapping pins (0, 3, 45, 46), USB (19, 20), console (43, 44), octal PSRAM (35, 36, 37), RGB LED (38, 48) and 47.
 - R2 (10 kΩ to GND) still holds `STBY` low while the ESP32 boots, so the motors stay off.
@@ -112,7 +121,7 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 
 A LED is **on** when its sensor reads ≤ 100 mm. It is **off** when the reading is above 100 mm, invalid or out of range. The firmware may average readings, but it must not use hysteresis that keeps a LED on above 100 mm.
 
-On the board the three LED headers are stacked at the lower-left, top to bottom: FRONT, LEFT, RIGHT. Pin 1 (the **square pad**) is the LED `+` (anode).
+On the board the three LED headers are stacked on the west side, between the MP1584 and the ESP32-S3, top to bottom: FRONT, LEFT, RIGHT. Pin 1 (the **square pad**) is the LED `+` (anode).
 
 ## Manufacturing rules for the home-made board
 
@@ -128,7 +137,7 @@ These rules were requested so the tracks survive etching and the pads keep coppe
 | Via | none are used. The default via is 1.1 mm pad / 0.3 mm hole (same 0.8 mm rule) | `auxi.kicad_pro` |
 | Edge | 0.5 mm of copper clearance to the board edge | DRC |
 
-Result in the final board: 199 tracks, of which **158 are 0.4 mm or wider** and **41 are 0.3 mm** (209 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
+Result in the final board: 197 tracks, of which **136 are 0.4 mm or wider** and **61 are 0.3 mm** (467 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
 
 ### Drill table
 
@@ -155,7 +164,7 @@ Header pins are 0.64 mm square (0.9 mm diagonal), so a 1.0 mm hole is enough. Ch
 4. Page 1 of the PDF shows where every part goes (top view with silkscreen and references).
 5. Solder the 4 pins of the MP1584 **last**, after you set its output (see the warnings below).
 
-The **USB end** of the ESP32-S3 is only about 5 mm from the board edge, so the plug overhangs the edge: keep the area around it free of tall parts. Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF), because it sits next to that area. Note that the `+3V3` track to the TB6612 VCC pin is long: it goes around the north end of the ESP32-S3 and down the east side, away from the motor tracks, because a single layer cannot cross the other nets.
+The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so the plug overhangs the edge: keep the area around it free of tall parts and make sure the chassis lets the cable come out at the rear (the plug and cable need about 15 × 12 mm). Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF). The long `+3V3` and `+VBAT_SW` tracks run along the east side and the bottom strip of the board, away from the I2C and UART tracks.
 
 ## Repository layout
 
@@ -211,5 +220,6 @@ These need the real, purchased parts. See [`CLAUDE.md`](CLAUDE.md) §20 for deta
 5. Measured stall current of the TT motor, to validate the driver, switch and wiring.
 6. Green LED forward voltage, to set the final value of R5.
 7. ESP32-CAM silkscreen, to confirm the pin order, and which end has the header pins.
-8. Does the 150 × 150 mm chassis leave room for a 110 × 140 mm board on the standoffs, and which side runs across the robot?
-9. Height of the capacitors that will be bought (C1, C3 and C11 are the tallest).
+8. The photo of the chassis shows that the **110 mm side is the front** (between the wheels) and the 140 mm side runs front to back. Still to check: does the 140 mm length fit between the front concave area and the caster, and does the USB cable at the rear edge clear the caster and the chassis?
+9. The ESP32-CAM is in the front-left corner of the board. The camera flex must reach the camera at the front of the chassis (10 cm or less is best). If the camera is in the middle of the front, tell me and the CAM can be moved.
+10. Height of the capacitors that will be bought (C1, C3 and C11 are the tallest).
