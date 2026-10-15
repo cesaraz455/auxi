@@ -1,7 +1,7 @@
 {
     "$schema": "https://schemas.kicad.org/drc.v1.json",
     "coordinate_units": "mm",
-    "date": "2026-10-15T11:37:06",
+    "date": "2026-10-15T14:17:04",
     "ignored_checks": [
         {
             "description": "Footprint has no courtyard defined",
@@ -37,8 +37,8 @@
                 {
                     "description": "Footprint C1",
                     "pos": {
-                        "x": 194.0,
-                        "y": 121.0
+                        "x": 198.0,
+                        "y": 104.0
                     },
                     "uuid": "6c93aff1-190f-4370-a599-105bc4ff6aaf"
                 }
@@ -52,8 +52,8 @@
                 {
                     "description": "Footprint C2",
                     "pos": {
-                        "x": 192.5,
-                        "y": 95.0
+                        "x": 194.0,
+                        "y": 87.5
                     },
                     "uuid": "7177c5c8-ae85-4e35-8779-b8ef27ed171f"
                 }
@@ -67,8 +67,8 @@
                 {
                     "description": "Footprint C3",
                     "pos": {
-                        "x": 194.0,
-                        "y": 108.0
+                        "x": 195.5,
+                        "y": 112.0
                     },
                     "uuid": "d45cfd32-694e-4d64-b421-1024b61b8509"
                 }
@@ -97,8 +97,8 @@
                 {
                     "description": "Footprint C5",
                     "pos": {
-                        "x": 194.0,
-                        "y": 101.0
+                        "x": 195.5,
+                        "y": 93.5
                     },
                     "uuid": "79fb7fa3-fc2f-495d-be27-82965ed9673f"
                 }
@@ -112,8 +112,8 @@
                 {
                     "description": "Footprint C6",
                     "pos": {
-                        "x": 201.0,
-                        "y": 102.0
+                        "x": 194.5,
+                        "y": 118.0
                     },
                     "uuid": "a10d0c84-12eb-45c1-8bf6-a7e914c4f968"
                 }
@@ -127,8 +127,8 @@
                 {
                     "description": "Footprint C7",
                     "pos": {
-                        "x": 118.0,
-                        "y": 145.5
+                        "x": 130.0,
+                        "y": 148.0
                     },
                     "uuid": "0eece295-10f5-4779-9d1b-35e4821adac8"
                 }
@@ -142,8 +142,8 @@
                 {
                     "description": "Footprint C8",
                     "pos": {
-                        "x": 111.5,
-                        "y": 146.5
+                        "x": 122.0,
+                        "y": 145.5
                     },
                     "uuid": "f1c27af1-b612-46d1-8b75-25bb92fa41bd"
                 }
@@ -187,8 +187,8 @@
                 {
                     "description": "Footprint C11",
                     "pos": {
-                        "x": 113.0,
-                        "y": 93.0
+                        "x": 119.5,
+                        "y": 95.5
                     },
                     "uuid": "7f714d82-7369-43db-970d-6c844fb84917"
                 }
@@ -202,8 +202,8 @@
                 {
                     "description": "Footprint C12",
                     "pos": {
-                        "x": 110.0,
-                        "y": 103.0
+                        "x": 121.0,
+                        "y": 103.5
                     },
                     "uuid": "80d5de98-58b0-4663-bd51-13c5d0ccbb58"
                 }
@@ -217,8 +217,8 @@
                 {
                     "description": "Footprint C13",
                     "pos": {
-                        "x": 114.5,
-                        "y": 102.5
+                        "x": 120.5,
+                        "y": 107.5
                     },
                     "uuid": "1fbef40b-2c7d-4f7f-a925-6ad75aaef092"
                 }
@@ -232,7 +232,7 @@
                 {
                     "description": "Footprint C14",
                     "pos": {
-                        "x": 191.5,
+                        "x": 186.5,
                         "y": 143.0
                     },
                     "uuid": "dc225eb1-630e-45c1-ab1b-f1ed6cacd190"
@@ -247,8 +247,8 @@
                 {
                     "description": "Footprint C15",
                     "pos": {
-                        "x": 178.0,
-                        "y": 58.0
+                        "x": 185.0,
+                        "y": 75.5
                     },
                     "uuid": "30e9cf40-10f5-499f-a920-7e8167659faa"
                 }
@@ -262,8 +262,8 @@
                 {
                     "description": "Footprint C16",
                     "pos": {
-                        "x": 178.0,
-                        "y": 62.5
+                        "x": 175.0,
+                        "y": 75.5
                     },
                     "uuid": "8e90ec85-c73e-48b5-bac7-add8c4d95190"
                 }
@@ -277,8 +277,8 @@
                 {
                     "description": "Footprint C17",
                     "pos": {
-                        "x": 178.0,
-                        "y": 67.0
+                        "x": 170.5,
+                        "y": 75.5
                     },
                     "uuid": "cadce68d-c808-403b-8514-bf2a7e9276e3"
                 }
@@ -292,8 +292,8 @@
                 {
                     "description": "Footprint C18",
                     "pos": {
-                        "x": 178.0,
-                        "y": 71.5
+                        "x": 165.0,
+                        "y": 75.5
                     },
                     "uuid": "489f8147-78bb-4de6-b63d-1a9f11586c10"
                 }
@@ -307,8 +307,8 @@
                 {
                     "description": "Footprint C19",
                     "pos": {
-                        "x": 178.0,
-                        "y": 76.0
+                        "x": 179.5,
+                        "y": 75.5
                     },
                     "uuid": "6490271c-1394-48de-9052-0b1ff67aab36"
                 }
@@ -322,8 +322,8 @@
                 {
                     "description": "Footprint C20",
                     "pos": {
-                        "x": 179.0,
-                        "y": 79.5
+                        "x": 184.5,
+                        "y": 83.5
                     },
                     "uuid": "b356eac4-7510-4a0b-bfa1-01eabe35f852"
                 }
@@ -337,8 +337,8 @@
                 {
                     "description": "Footprint C21",
                     "pos": {
-                        "x": 183.5,
-                        "y": 79.5
+                        "x": 180.0,
+                        "y": 83.5
                     },
                     "uuid": "335df999-9c39-48ff-b67e-120cd6dfd5d0"
                 }
@@ -457,8 +457,8 @@
                 {
                     "description": "Footprint J_LED_POWER1",
                     "pos": {
-                        "x": 196.0,
-                        "y": 78.0
+                        "x": 204.0,
+                        "y": 53.0
                     },
                     "uuid": "ce257d89-0014-4f80-a300-2b8b6e9b3fe1"
                 }
@@ -472,8 +472,8 @@
                 {
                     "description": "PTH pad 1 [LED_POWER_A] of J_LED_POWER1",
                     "pos": {
-                        "x": 196.0,
-                        "y": 78.0
+                        "x": 204.0,
+                        "y": 53.0
                     },
                     "uuid": "ea29d1b2-d1b7-4d98-b94a-77403f27d4cb"
                 }
@@ -607,7 +607,7 @@
                 {
                     "description": "Footprint J_SENSOR_FRONT1",
                     "pos": {
-                        "x": 161.0,
+                        "x": 175.0,
                         "y": 53.0
                     },
                     "uuid": "91ddd94b-edd4-4855-bd83-53d0e3022377"
@@ -622,7 +622,7 @@
                 {
                     "description": "PTH pad 3 [SDA] of J_SENSOR_FRONT1",
                     "pos": {
-                        "x": 161.0,
+                        "x": 175.0,
                         "y": 58.0
                     },
                     "uuid": "d2fd6099-2f98-4a1f-8438-6d14f64705be"
@@ -637,7 +637,7 @@
                 {
                     "description": "PTH pad 4 [SCL] of J_SENSOR_FRONT1",
                     "pos": {
-                        "x": 161.0,
+                        "x": 175.0,
                         "y": 60.5
                     },
                     "uuid": "57700904-49e7-4d5c-adcf-92769bce9793"
@@ -652,7 +652,7 @@
                 {
                     "description": "PTH pad 5 [XSHUT_FRONT] of J_SENSOR_FRONT1",
                     "pos": {
-                        "x": 161.0,
+                        "x": 175.0,
                         "y": 63.0
                     },
                     "uuid": "cf645617-8e53-4f88-83e5-7e147b469b4b"
@@ -667,7 +667,7 @@
                 {
                     "description": "Footprint J_SENSOR_LEFT1",
                     "pos": {
-                        "x": 151.0,
+                        "x": 165.0,
                         "y": 53.0
                     },
                     "uuid": "66805153-6d94-476a-9e4f-47dabe40f023"
@@ -682,7 +682,7 @@
                 {
                     "description": "PTH pad 3 [SDA] of J_SENSOR_LEFT1",
                     "pos": {
-                        "x": 151.0,
+                        "x": 165.0,
                         "y": 58.0
                     },
                     "uuid": "578e43f8-e1f8-494b-9126-4865493cd921"
@@ -697,7 +697,7 @@
                 {
                     "description": "PTH pad 4 [SCL] of J_SENSOR_LEFT1",
                     "pos": {
-                        "x": 151.0,
+                        "x": 165.0,
                         "y": 60.5
                     },
                     "uuid": "c9ac0a56-3934-4c73-941f-804100a39b40"
@@ -712,7 +712,7 @@
                 {
                     "description": "PTH pad 5 [XSHUT_LEFT] of J_SENSOR_LEFT1",
                     "pos": {
-                        "x": 151.0,
+                        "x": 165.0,
                         "y": 63.0
                     },
                     "uuid": "d8eb651f-09c3-4309-b724-42fefbf82460"
@@ -727,7 +727,7 @@
                 {
                     "description": "Footprint J_SENSOR_RIGHT1",
                     "pos": {
-                        "x": 171.0,
+                        "x": 185.0,
                         "y": 53.0
                     },
                     "uuid": "fa7cd336-f064-419e-8c1c-11ba3e5ca2d8"
@@ -742,7 +742,7 @@
                 {
                     "description": "PTH pad 3 [SDA] of J_SENSOR_RIGHT1",
                     "pos": {
-                        "x": 171.0,
+                        "x": 185.0,
                         "y": 58.0
                     },
                     "uuid": "c766d4a7-5be0-42fb-9bc0-b82c9523d38e"
@@ -757,7 +757,7 @@
                 {
                     "description": "PTH pad 4 [SCL] of J_SENSOR_RIGHT1",
                     "pos": {
-                        "x": 171.0,
+                        "x": 185.0,
                         "y": 60.5
                     },
                     "uuid": "3a5e7732-c07c-4237-9aca-2c54ce5b675e"
@@ -772,7 +772,7 @@
                 {
                     "description": "PTH pad 5 [XSHUT_RIGHT] of J_SENSOR_RIGHT1",
                     "pos": {
-                        "x": 171.0,
+                        "x": 185.0,
                         "y": 63.0
                     },
                     "uuid": "ccfcb766-9087-45d4-8815-b480b890c17a"
@@ -817,8 +817,8 @@
                 {
                     "description": "Footprint R1",
                     "pos": {
-                        "x": 200.0,
-                        "y": 86.0
+                        "x": 208.0,
+                        "y": 62.0
                     },
                     "uuid": "7cfab97d-568a-4b54-955f-2ff79750269d"
                 }
@@ -832,8 +832,8 @@
                 {
                     "description": "PTH pad 2 [LED_POWER_A] of R1",
                     "pos": {
-                        "x": 200.0,
-                        "y": 78.38
+                        "x": 200.38,
+                        "y": 62.0
                     },
                     "uuid": "9efdb5d3-a2d1-4d9f-b232-e9ab2aac6f6d"
                 }
@@ -847,8 +847,8 @@
                 {
                     "description": "Footprint R2",
                     "pos": {
-                        "x": 183.0,
-                        "y": 141.0
+                        "x": 178.5,
+                        "y": 127.0
                     },
                     "uuid": "811a49af-3d0e-43da-853a-08a072f9f96e"
                 }
@@ -862,8 +862,8 @@
                 {
                     "description": "PTH pad 1 [STBY] of R2",
                     "pos": {
-                        "x": 183.0,
-                        "y": 141.0
+                        "x": 178.5,
+                        "y": 127.0
                     },
                     "uuid": "d7cb2734-fabd-4efe-9fd4-3052775392d7"
                 }
@@ -1012,7 +1012,7 @@
                 {
                     "description": "Footprint U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 86.3
                     },
                     "uuid": "ec1c4ef3-dc1e-4900-a607-69edbab5af93"
@@ -1027,7 +1027,7 @@
                 {
                     "description": "PTH pad 3 [<no net>] of U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 81.22
                     },
                     "uuid": "42525a2c-d6b0-47c7-9eb4-2da7d2e80fee"
@@ -1042,7 +1042,7 @@
                 {
                     "description": "PTH pad 4 [UART_ESP_TO_CAM] of U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 78.68
                     },
                     "uuid": "eeb22884-a07e-4be7-9587-4969f39b7cf9"
@@ -1057,7 +1057,7 @@
                 {
                     "description": "PTH pad 5 [<no net>] of U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 76.14
                     },
                     "uuid": "19c4de4d-a8ed-47b9-bdb6-208a268efdb1"
@@ -1072,7 +1072,7 @@
                 {
                     "description": "PTH pad 6 [UART_CAM_TO_ESP] of U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 73.6
                     },
                     "uuid": "156d77a3-d6ea-4678-9e74-357852401007"
@@ -1087,7 +1087,7 @@
                 {
                     "description": "PTH pad 7 [<no net>] of U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 71.06
                     },
                     "uuid": "30be5c74-ca31-4a2f-b403-f8516c7a3021"
@@ -1102,7 +1102,7 @@
                 {
                     "description": "PTH pad 8 [<no net>] of U_CAM1",
                     "pos": {
-                        "x": 109.57,
+                        "x": 135.07,
                         "y": 68.52
                     },
                     "uuid": "7206384e-681e-43af-a03c-07a33f536cf0"
@@ -1117,7 +1117,7 @@
                 {
                     "description": "Footprint U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 86.3
                     },
                     "uuid": "02e7f367-1cf2-447b-b6a2-48bbe5ade7d3"
@@ -1132,7 +1132,7 @@
                 {
                     "description": "PTH pad 1 [<no net>] of U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 86.3
                     },
                     "uuid": "e4f8378e-9467-408c-90ea-6d22f936e98e"
@@ -1147,7 +1147,7 @@
                 {
                     "description": "PTH pad 2 [<no net>] of U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 83.76
                     },
                     "uuid": "3c4b7c7a-07f9-4606-8b9c-0f42f0488a29"
@@ -1162,7 +1162,7 @@
                 {
                     "description": "PTH pad 3 [<no net>] of U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 81.22
                     },
                     "uuid": "b03f6e06-56cf-496d-b7fd-710379e1f6b9"
@@ -1177,7 +1177,7 @@
                 {
                     "description": "PTH pad 5 [<no net>] of U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 76.14
                     },
                     "uuid": "1212e1c0-4fb9-4e9b-b3d0-8fd6eef21ee0"
@@ -1192,7 +1192,7 @@
                 {
                     "description": "PTH pad 6 [<no net>] of U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 73.6
                     },
                     "uuid": "6c617798-a2a9-49bb-a385-507d82c6be97"
@@ -1207,7 +1207,7 @@
                 {
                     "description": "PTH pad 7 [<no net>] of U_CAM2",
                     "pos": {
-                        "x": 132.43,
+                        "x": 157.93,
                         "y": 71.06
                     },
                     "uuid": "75c1a7a3-73ef-42d5-bde1-7d51515ef8e8"

@@ -36,7 +36,7 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 - **One copper layer: `B.Cu` (the bottom face).** Every track is on the bottom. The rest of the bottom face is a **GND pour** (copper plane) that replaces the ground tracks.
 - **All parts are through-hole (THT).** They go on the **top face** (the face without copper). Their legs go through the holes and are **soldered from below**, on the copper side. No hole needs plating, because there is nothing to connect on the top face.
-- **No vias and no jumper wires.** The 197 tracks are all on `B.Cu`, and no track crosses another one.
+- **No vias and no jumper wires.** The 167 tracks are all on `B.Cu`, and no track crosses another one.
 - **Size: 110 × 140 mm**, 4 × M3 holes 5 mm from each corner, 2 mm rounded corners.
 - **Orientation (given by the user, see the photo of the chassis):** the **110 mm side is the FRONT of the robot** (it sits between the two wheels) and the 140 mm side runs front to back. In KiCad the **top edge is the robot FRONT**, the bottom edge is the REAR, the left edge is the robot LEFT side and the right edge is the RIGHT side. The ESP32-CAM is at the front (camera looking forward) and the ESP32-S3 is at the rear.
 - The `F.Cu` layer has no copper at all. A keepout covers the whole top face so no track or pour can appear there by mistake. Only the pads show on top.
@@ -49,10 +49,10 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 Seen in KiCad (front of the robot = top edge):
 
-- **Front (top):** the **ESP32-CAM** is in the front-left corner, with its antenna and flex connector at the top edge, so the camera looks forward. The three **sensor connectors** are side by side along the top edge, to the right of the camera (LEFT, FRONT, RIGHT from left to right).
+- **Front (top):** the **ESP32-CAM** is at the front, almost centered (its centre is 14.5 mm to the left of the board centre), with its antenna and flex connector at the top edge, so the camera looks forward. The three **sensor connectors** are side by side along the top edge, to the right of the camera (LEFT, FRONT, RIGHT from left to right). A perfectly centered camera is not possible on one copper layer, because the 5 V and UART tracks of the camera would have to cross the sensor tracks.
 - **Rear (bottom):** the **ESP32-S3** sits in the middle of the rear edge with its **USB end only 1 mm from the bottom edge** (user request: at most 2 mm). The USB-C plug overhangs the edge, so the cable plugs in without any obstacle.
 - **East side:** the TB6612FNG is right next to the ESP32-S3 header row `J3` (short control signals), with the motor terminals on the right edge and the big capacitors, the power LED header and the battery/switch connectors on the east side and the bottom-right corner.
-- **West side:** the MP1584, the 3 proximity LED headers and the capacitors of the camera.
+- **West side:** the MP1584, the 3 proximity LED headers and the big capacitor of the camera.
 - The free areas between the groups are GND plane.
 
 ## Why the pins moved
@@ -137,7 +137,7 @@ These rules were requested so the tracks survive etching and the pads keep coppe
 | Via | none are used. The default via is 1.1 mm pad / 0.3 mm hole (same 0.8 mm rule) | `auxi.kicad_pro` |
 | Edge | 0.5 mm of copper clearance to the board edge | DRC |
 
-Result in the final board: 197 tracks, of which **136 are 0.4 mm or wider** and **61 are 0.3 mm** (467 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
+Result in the final board: 167 tracks, of which **162 are 0.4 mm or wider** and **5 are 0.3 mm** (37 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
 
 ### Drill table
 
@@ -221,5 +221,5 @@ These need the real, purchased parts. See [`CLAUDE.md`](CLAUDE.md) §20 for deta
 6. Green LED forward voltage, to set the final value of R5.
 7. ESP32-CAM silkscreen, to confirm the pin order, and which end has the header pins.
 8. The photo of the chassis shows that the **110 mm side is the front** (between the wheels) and the 140 mm side runs front to back. Still to check: does the 140 mm length fit between the front concave area and the caster, and does the USB cable at the rear edge clear the caster and the chassis?
-9. The ESP32-CAM is in the front-left corner of the board. The camera flex must reach the camera at the front of the chassis (10 cm or less is best). If the camera is in the middle of the front, tell me and the CAM can be moved.
+9. The ESP32-CAM is at the front of the board, 14.5 mm to the left of the centre. The camera flex must reach the camera at the front of the chassis (10 cm or less is best); 15 mm sideways is no problem for that.
 10. Height of the capacitors that will be bought (C1, C3 and C11 are the tallest).

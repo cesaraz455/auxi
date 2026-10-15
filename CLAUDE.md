@@ -323,7 +323,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 - **External camera:**
   - The stock OV2640 is replaced by one with a long flex cable (24 pins, 0.5 mm pitch), fixed at the front of the chassis.
   - Use the shortest flex that reaches, ideally 10 cm or less. Long cables can corrupt the image; if that happens, lower XCLK in firmware (for example from 20 to 10 MHz). Document this.
-  - Place the ESP32-CAM with its FPC connector facing the front of the robot. It is in the **front-left corner** of the PCB (camera looking forward); check that the flex (10 cm or less) reaches the camera mount, which is probably in the middle of the front of the chassis.
+  - Place the ESP32-CAM with its FPC connector facing the front of the robot. It is at the **front of the PCB, almost centered** (14.5 mm left of the centre, camera looking forward); check that the flex (10 cm or less) reaches the camera mount.
   - Keep the flex path clear, with room to lift the connector latch by hand.
   - Route the flex away from the TB6612, the motor traces and the motor wires.
   - Explain how to fix the flex to the chassis with strain relief (printed holder or tape) and how the enclosure must keep the field of view clear.
@@ -350,7 +350,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 - **Power:** **3.3 V**, so the module's I2C pull-ups can never put 5 V on the ESP32.
 - **Connectors:** one 5-pin JST-XH per sensor: `SENSOR_FRONT`, `SENSOR_LEFT`, `SENSOR_RIGHT`.
   - Same order on all three: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.
-  - On the PCB all three sit **side by side along the front (top) edge**, LEFT (west), FRONT, RIGHT (east), 10 mm apart, with the pins running away from the edge (pin 1 = 3V3 nearest the edge). The 3V3, SDA and SCL buses are then three straight horizontal tracks that pass through the same-numbered pad of each connector, so they cannot cross. Each XSHUT track arrives at pin 5 from below.
+  - On the PCB all three sit **side by side along the front (top) edge, to the right of the camera**, LEFT (west), FRONT, RIGHT (east), 10 mm apart, with the pins running away from the edge (pin 1 = 3V3 nearest the edge). The 3V3, SDA and SCL buses are then three straight horizontal tracks that pass through the same-numbered pad of each connector, so they cannot cross. Each XSHUT track arrives at pin 5 from below.
 - **I2C bus:** one shared bus (SDA on GPIO15, SCL on GPIO7, see §6.1), 100 kHz recommended, cables of 25 cm or less.
 - **XSHUT:** RIGHT on GPIO4, FRONT on GPIO5, LEFT on GPIO6.
 - **Pull-ups:**
@@ -587,36 +587,37 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 **Board orientation (given by the user, photo of the chassis):**
 - Board outline: **x 106.07–216.07 mm, y 47.5–187.5 mm** in KiCad coordinates (110 × 140 mm, 2 mm corner radius).
 - The **110 mm side is the robot FRONT** (it sits between the wheels) and the 140 mm side runs front to back. In KiCad: **top edge (y = 47.5) = FRONT**, **bottom edge (y = 187.5) = REAR**, left edge (x = 106.07) = robot LEFT side, right edge (x = 216.07) = robot RIGHT side.
-- The ESP32-CAM is at the front with the camera looking forward; the ESP32-S3 is at the rear with its USB port at the rear edge (user request: at most 2 mm from the edge).
+- The ESP32-CAM is at the front with the camera looking forward (almost centered, see below); the ESP32-S3 is at the rear with its USB port at the rear edge (user request: at most 2 mm from the edge).
 
-**History.** (1) 90 × 100 mm, 2 layers, 75 vias. (2) 110 × 140 mm single layer with the 110 mm side assumed to run front to back, the ESP32-S3 26 mm inside the edge. (3) After the user's photo and the "USB at the edge" request, the board was **re-placed and re-routed from scratch** in the final orientation (this layout). Earlier versions are in the Git history.
+**History.** (1) 90 × 100 mm, 2 layers, 75 vias. (2) 110 × 140 mm single layer with the 110 mm side assumed to run front to back, the ESP32-S3 26 mm inside the edge. (3) After the user's photo and the "USB at the edge" request, the board was **re-placed and re-routed from scratch** in the final orientation, with the camera in the front-left corner and the sensors in the middle of the front edge. (4) At the user's request the camera and the sensors were swapped: the camera is now **almost centered** at the front and the sensors are to its right (this layout). Earlier versions are in the Git history.
 
 **Placement (x, y of pin 1 in mm):**
 
 | Part | Position | Notes |
 |---|---|---|
 | ESP32-S3 | `U_ESP_J1` (149.64, 125.90), `U_ESP_J3` (172.50, 125.90) | Pins run toward the rear edge. **The module end (USB side) is 1.0 mm from the rear edge** (module end at y ≈ 186.5, edge at 187.5), so the USB-C plug overhangs the board. Antenna keepout `ANT_ESP32` x 148.1–174.1, y 116.2–125.2 |
-| ESP32-CAM | `U_CAM1` (109.57, 86.30), `U_CAM2` (132.43, 86.30), rotated 180° | Front-left corner. Pins at the rear end of the module, antenna and flex at the front edge. Keepout `ANT_CAM` x 107–135, y 48–60.5. Pin 1 (+5V) is the south-most pin of the west row; the UART pins are pins 4 and 6 of the same row |
+| ESP32-CAM | `U_CAM1` (135.07, 86.30), `U_CAM2` (157.93, 86.30), rotated 180° | At the front, centre at x = 146.5 (14.5 mm left of the board centre, 161.07). Pins at the rear end of the module, antenna and flex at the front edge. Keepout `ANT_CAM` x 132.5–160.5, y 48–60.5. Pin 1 (+5V) is the south-most pin of the west row; the UART pins are pins 4 and 6 of the same row |
 | TB6612FNG | `U_TB1` (178.64, 148.76), `U_TB2` (196.42, 148.76), rotated 180° | Right next to `J3`. Control row toward the ESP32, power row toward the east edge |
 | MP1584 | centre (118.0, 160.0), rotated 90° | West side. OUT+ toward the camera (north), IN+ toward the rear (south) |
-| Sensors | `J_SENSOR_LEFT1` (151.0, 53.0), `FRONT1` (161.0, 53.0), `RIGHT1` (171.0, 53.0), rotated 270° | Along the front edge, pins running south |
+| Sensors | `J_SENSOR_LEFT1` (165.0, 53.0), `FRONT1` (175.0, 53.0), `RIGHT1` (185.0, 53.0), rotated 270° | Along the front edge, to the right of the camera, pins running south |
 | Proximity LEDs | headers at x = 133.5, y = 154.0 / 159.5 / 165.0 (FRONT, LEFT, RIGHT), resistors R3–R5 at x = 138–146 | West side, between the MP1584 and the ESP32-S3 |
 | Motors | `J_MOTOR_RIGHT1` (209.5, 115.76), `J_MOTOR_LEFT1` (209.5, 159.76) | East edge, wire entry toward the edge |
-| Power | `J_SWITCH1` (209.5, 176.0), `J_BAT1` (185.64, 182.5), `J_LED_POWER1` (196.0, 78.0) | `J_LED_POWER1` is not on a corner on purpose (see below) |
+| Power | `J_SWITCH1` (209.5, 176.0), `J_BAT1` (185.64, 182.5), `J_LED_POWER1` (204.0, 53.0) | The big VBAT capacitors C1, C3, C5 and the small ones form a compact cluster at x ≈ 192–204, y ≈ 80–135 (not a long column: see below) |
 | M3 holes | 5 mm from each corner | |
 
 - **Why this arrangement (single-layer planarity).** Every signal must reach its destination without crossing another one, so the ESP32 header pins are in the same order as the destinations around the module:
-  - **West column `J1`, top to bottom:** 3V3, the 3 XSHUT, SCL, SDA (north-going, to the sensors along the front edge), the 2 UART lines (north-west, to the camera), the 3 LED lines (south-west, to the LED headers) and the 5V pin (south).
+  - **West column `J1`, top to bottom:** 3V3, the 3 XSHUT, SCL, SDA (north-going, 1 mm apart, **between the camera and the ESP32**, then east above the camera to the sensors along the front edge), the 2 UART lines (north, inside the camera columns), the 3 LED lines (south-west, to the LED headers) and the 5V pin (south).
   - **East column `J3`:** the 7 TB6612 signals, straight horizontal tracks to the driver.
-  - The camera 5V track runs from the MP1584 north along the west side, **outside** (west of) the UART lanes, and enters the camera from its inside; the UART lanes enter from the south.
-  - The 3V3 for the TB6612 VCC pin crosses the ESP32 socket **under the module** and passes between pads 9 and 10 of `J3` at 0.3 mm; the same net then runs north along the east side of the TB6612 and west along the top to the sensor connectors. This is why the big capacitors (C1, C2, C3, C5, C6) and `J_LED_POWER1` are kept in a compact cluster at x ≥ 191 and not along a long column: a long +VBAT_SW column on the east side would wall in the VCC pin.
+  - The camera 5V track runs from the MP1584 north along the west side to y = 140, then east to x = 138 and north into the camera, **outside** (west of) the two UART lanes (x = 140.5 and 142.5). Both enter the camera from its inside; the UART lanes turn west to pins 4 and 6, and the 5V lane to pin 1.
+  - The 3V3 for the TB6612 VCC pin crosses the ESP32 socket **under the module** and passes between pads 9 and 10 of `J3` at 0.3 mm; the same net then runs north at x = 190.5 and west along the top edge to pin 1 of the sensor connectors. This is why the big capacitors and `J_LED_POWER1` are kept in a compact cluster at x ≥ 192 and not along a long column: a long +VBAT_SW column on the east side would wall in the VCC pin.
   - The bottom strip under the ESP32 (about 7 mm) carries the +VBAT_SW track (1.2 mm) from the XT30 to the MP1584; D1, C9 and C10 sit west of `J1` next to the 5V pin.
+  - **Why the camera is not exactly centered:** a camera at the very center needs its 5V and UART tracks to reach it from the south, and the sensor tracks (that run north between the camera and the ESP32) would have to cross them. On one layer that is impossible without a jumper. The camera is therefore moved 14.5 mm to the left of the centre, which leaves the space between the camera and the ESP32 free for the sensor tracks.
 - C11 (camera 470 µF) sits west of the camera lanes, in the corridor below the camera.
 - Silkscreen: module outlines for the ESP32-S3 (antenna end line), ESP32-CAM and MP1584 (its own footprint), TB6612 outline on `F.Fab`, and the labels of §15 (`^ FRONT` at the top, `REAR (USB)` at the bottom). Reference designators stay on `F.Fab`.
 
 **Routing method.** The MCP KiCad tools were not available, so the work was done with scripts (KiCad 10 Python API) and **Freerouting 2.1.0**:
 1. The placement was generated by a script (fixed module positions plus a greedy search for the passive parts).
-2. The camera UART lanes, the camera 5V lane and the long 3V3 path were laid out **by hand** (fixed wires) because the autorouter could not find them on its own; Freerouting routed everything else **on one layer only**, with GND routed as a normal net, 0.2 mm clearance and 0.3 mm base track width.
+2. The camera UART lanes, the camera 5V lane, the five sensor lines, the sensor buses and the long 3V3 path were laid out **by hand** (fixed wires) because the autorouter could not find them on its own; Freerouting routed everything else **on one layer only**, with GND routed as a normal net, 0.2 mm clearance and 0.3 mm base track width.
 3. The GND tracks that were not needed were removed one by one, as long as the pour still reached every GND pad (down to 4 short GND segments).
 4. Every track that could be widened to 0.4 mm without breaking the 0.2 mm clearance was widened.
 - The scripts are not part of the repository. Re-running the layout means repeating this procedure in KiCad (or with Freerouting).
@@ -625,8 +626,8 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 
 | Item | Value |
 |---|---|
-| Tracks | 197, all on `B.Cu`, 0 vias, 0 jumper wires |
-| Widths | 0.3 mm × 61 (467 mm), 0.4 mm × 49, 0.6 mm × 45, 0.8 mm × 4 (GND), 1.2 mm × 38 |
+| Tracks | 167, all on `B.Cu`, 0 vias, 0 jumper wires |
+| Widths | 0.3 mm × 5 (37 mm), 0.4 mm × 64, 0.6 mm × 44, 0.8 mm × 4 (GND), 1.2 mm × 50 |
 | Net classes | `PWR_BAT` 1.2 mm (`+VBAT_SW`, `SW_BAT`, `M_*`), `PWR_LOW` 0.6 mm (`+5V`, `+5V_ESP`), `GND` 0.8 mm, `Default` 0.4 mm |
 | Pour | `GND_PLANE` on `B.Cu`, one zone, thermal reliefs, no isolated islands |
 | Drills | 0.8, 0.95, 1.0, 1.1, 1.3, 1.8 mm (pad holes) and 4 × 3.2 mm (M3) |
@@ -709,7 +710,7 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 **Needed for the PCB (later stages):**
 
 7. Does the 150 × 150 mm chassis include the wheels?
-8. ~~Orientation of the 110 × 140 mm PCB~~ **Resolved by the user's photo:** the 110 mm side is the front (between the wheels). Still to check: that the 140 mm length clears the front concave area and the rear caster, that the USB cable at the rear edge has a way out, and that the ESP32-CAM in the front-left corner is not too far from the camera mount.
+8. ~~Orientation of the 110 × 140 mm PCB~~ **Resolved by the user's photo:** the 110 mm side is the front (between the wheels). Still to check: that the 140 mm length clears the front concave area and the rear caster, that the USB cable at the rear edge has a way out, and that the ESP32-CAM (front, 14.5 mm left of the centre) is not too far from the camera mount.
 9. Real measurements of the TT motor, battery holder and 50 mm wheels, and the height available on the bottom level.
 10. Location of the proximity LEDs on the enclosure, per the rules.
 11. Camera flex length, based on the final ESP32-CAM position.
