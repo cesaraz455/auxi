@@ -1,0 +1,17 @@
+(version 1)
+
+# auxi - hand-made single-layer board (copper on B.Cu only, all through-hole)
+# Every plated hole must keep at least 0.4 mm of copper all around, i.e. pad >= drill + 0.8 mm,
+# so there is still copper left on the pad after the drill wanders a little.
+(rule "pad_ring_0.4mm"
+	(constraint annular_width (min 0.4mm))
+	(condition "A.Type == 'Pad'"))
+
+# Minimum hole size for hand drilling
+(rule "min_hole_0.3mm"
+	(constraint hole_size (min 0.3mm)))
+
+# Tracks must be 0.4 mm or wider. The only allowed exception is a 0.3 mm neck-down
+# where the track passes between two pads.
+(rule "track_min_0.3mm"
+	(constraint track_width (min 0.3mm)))
