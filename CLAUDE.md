@@ -134,7 +134,7 @@ This check is mandatory before PCB design. It does not block the schematic.
 - **Size: 110 × 140 mm, set by the user.**
   - The layout assumes the 110 mm side runs along the robot (front to back) and the 140 mm side across it. Confirm this with the user. The 140 mm side leaves only 5 mm per side inside the 150 mm chassis outline, so check the wheels and the standoff positions.
   - Check that all modules, connectors, M3 holes and antenna keepouts fit that outline, with room to route and to plug cables in by hand.
-  - The ESP32-S3-DevKitC-1 is about 63–68 mm long. Its USB end is about 26 mm inside the bottom edge, so keep the space above the USB end free of tall parts (the plug needs about 15 × 12 mm there).
+  - The ESP32-S3-DevKitC-1 is about 63–68 mm long. Its USB end is about 5 mm inside the bottom edge, so a plug reaches it from the side and overhangs the board edge. Keep the space around the USB end free of tall parts (the plug needs about 15 × 12 mm there).
   - If something does not fit, **do not enlarge the board**. Explain the problem and propose alternatives before continuing.
 - Present a 2D check (top and side views) with real measurements and **wait for approval**.
 - Evaluate the weight distribution: the drive wheels must keep traction. Report if relevant.
@@ -477,7 +477,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 - **Decision (user, latest):** **one copper layer.** The copper is `B.Cu` (the bottom face). `F.Cu` has **no copper**: a keepout rule area (`NO_COPPER_TOP`) covers the whole top face, so only the through-hole pads show on top. Reason: most local fabs do not plate the holes, and the user does not want to plate vias by hand. A single layer needs no plated holes at all.
   - This replaces the earlier 2-layer decisions ("no plane, tracks only", then "GND plane on B.Cu and signals on F.Cu").
   - The KiCad file still declares two copper layers, because KiCad cannot keep only `B.Cu`. Plot or print **only `B.Cu`** for etching.
-- **GND is a pour on the same layer (`B.Cu`).** It fills every free area. Pads connect to it through thermal reliefs (gap 0.3 mm, spokes 0.6 mm), so they can still be hand-soldered. Where a track would cut a GND pad off from the pour, a short GND track connects that pad (26 short GND segments in the final board).
+- **GND is a pour on the same layer (`B.Cu`).** It fills every free area. Pads connect to it through thermal reliefs (gap 0.3 mm, spokes 0.6 mm), so they can still be hand-soldered. Where a track would cut a GND pad off from the pour, a short GND track connects that pad (10 short GND segments in the final board).
 - **Decision (user, confirmed):** **all components are through-hole (THT)** so they can be soldered easily by hand. No SMD parts. Components go on the **top face**; their legs are **soldered from below**, on the copper side.
 - **No vias and no jumper wires.** The pin mapping (§6.1) and the placement were chosen so that no two tracks cross.
 - 1.6 mm FR4, 1 oz copper, **home-made board rules (user):**
@@ -594,23 +594,24 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 
 | Part | Position | Notes |
 |---|---|---|
-| ESP32-S3 | `U_ESP_J1` (156.0, 101.17), `U_ESP_J3` (178.86, 101.17) | Pins run toward the bottom edge. USB end about 26 mm inside the bottom edge. Antenna keepout `ANT_ESP32` x 154.5–180.5, y 91.5–100.5 |
-| ESP32-CAM | `U_CAM1` (150.0, 145.43), `U_CAM2` (150.0, 122.57) | Pins at the rear end of the module, antenna and flex toward the front. Keepout `ANT_CAM` x 106.6–119.1, y 120–148 |
-| TB6612FNG | `U_TB1` (185.0, 124.03), `U_TB2` (202.78, 124.03), rotated 180° | Right behind the ESP32-S3 J3 row. Control row toward the ESP32, power row toward the rear |
-| MP1584 | centre (192.5, 140.5), rotated 270° | Below the TB6612. IN+ toward the TB6612, OUT+ toward the bottom edge |
-| Sensors | `J_SENSOR_RIGHT1` (110.5, 73.0), `FRONT1` (110.5, 87.0), `LEFT1` (110.5, 101.0) | On the front edge, pins running along +x |
-| Proximity LEDs | headers at x = 127, y = 168 / 175 / 182 (FRONT, LEFT, RIGHT), resistors R3–R5 at x = 116 | Lower-left corner |
-| Motors | `J_MOTOR_RIGHT1` (209.5, 90.0), `J_MOTOR_LEFT1` (209.5, 134.0) | Rear edge, wire entry toward the edge |
-| Power | `J_SWITCH1` (209.5, 174.0), `J_BAT1` (192.0, 181.0), `J_LED_POWER1` (209.5, 62.0) | |
+| ESP32-S3 | `U_ESP_J1` (156.0, 122.17), `U_ESP_J3` (178.86, 122.17) | Pins run toward the bottom edge. **USB end about 5 mm from the bottom edge** (module end at y ≈ 182.8, board edge at 187.5), so the USB-C plug is reachable and overhangs the edge. Antenna keepout `ANT_ESP32` x 154.5–180.5, y 112.5–121.5 |
+| ESP32-CAM | `U_CAM1` (150.0, 166.43), `U_CAM2` (150.0, 143.57) | Pins at the rear end of the module, antenna and flex toward the front. Keepout `ANT_CAM` x 106.6–119.1, y 141–169 |
+| TB6612FNG | `U_TB1` (185.0, 145.03), `U_TB2` (202.78, 145.03), rotated 180° | Right behind the ESP32-S3 J3 row. Control row toward the ESP32, power row toward the rear |
+| MP1584 | centre (192.5, 161.5), rotated 270° | Below the TB6612. IN+ toward the TB6612, OUT+ toward the bottom edge |
+| Sensors | `J_SENSOR_RIGHT1` (110.5, 95.0), `FRONT1` (110.5, 109.0), `LEFT1` (110.5, 123.0) | On the front edge, pins running along +x |
+| Proximity LEDs | headers at x = 127, y = 174.5 / 179.5 / 184.5 (FRONT, LEFT, RIGHT), resistors R3–R5 at x = 116 | Lower-left corner |
+| Motors | `J_MOTOR_RIGHT1` (209.5, 112.0), `J_MOTOR_LEFT1` (209.5, 156.0) | Rear edge, wire entry toward the edge |
+| Power | `J_SWITCH1` (209.5, 176.0), `J_BAT1` (192.0, 182.5), `J_LED_POWER1` (198.0, 62.0) | `J_LED_POWER1` is not on the corner on purpose: the +VBAT_SW copper that feeds it must not close a loop with the board edge, or the `+3V3` track to the TB6612 VCC pin would have no way through on a single layer |
 | M3 holes | 5 mm from each corner | |
 
-- Small capacitors sit in the TB6612 channel and in the free strip under the ESP32 USB end. Big capacitors sit in free areas: C1, C3, C5 in the upper-right corner, C9 and C11 in the lower-left. The parts are spread over the whole board on purpose (sensors and power capacitors in the upper half, modules in the middle, LED headers, diode, battery and switch along the bottom).
+- **Why the ESP32 is where it is (user request).** The ESP32-S3 USB end is at the board edge (≈ 5 mm) so the cable can be plugged in. The strip between the module end and the edge (≈ 5 mm) carries the `+5V` track, D1 and a few small parts, which sit under the overhanging module (they are short). C9 is the low-profile capacitor next to that area.
+- Big capacitors C1, C2, C3, C5, C6 sit in a column at x ≈ 188 north of the TB6612 (next to the +VBAT_SW track); C11 is in the lower-left. The sensors are spread along the front edge (14 mm pitch) and the LED headers are in the lower-left corner.
 - Silkscreen: module outlines for the ESP32-S3 (end lines), ESP32-CAM and MP1584 (its own footprint), TB6612 outline on `F.Fab`, and the labels of §15. Reference designators stay on `F.Fab`.
 
 **Routing method.** The MCP KiCad tools were not available, so the work was done with scripts (KiCad 10 Python API) and **Freerouting 2.1.0**:
 1. The placement was generated by a script (fixed module positions plus a greedy search for the passive parts).
 2. Freerouting routed the board **on one layer only**, with GND routed as a normal net, 0.2 mm clearance and 0.3 mm base track width.
-3. The GND tracks that were not needed were removed one by one, as long as the pour still reached every GND pad (123 → 26 short GND segments). 
+3. The GND tracks that were not needed were removed one by one, as long as the pour still reached every GND pad (about 120 → 10 short GND segments). 
 4. Every track that could be widened to 0.4 mm without breaking the 0.2 mm clearance was widened.
 - The scripts are not part of the repository. Re-running the layout means repeating this procedure in KiCad (or with Freerouting).
 
@@ -618,8 +619,8 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 
 | Item | Value |
 |---|---|
-| Tracks | 224, all on `B.Cu`, 0 vias, 0 jumper wires |
-| Widths | 0.3 mm × 55 (377 mm), 0.4 mm × 40, 0.6 mm × 67, 0.8 mm × 26 (GND), 1.2 mm × 36 |
+| Tracks | 199, all on `B.Cu`, 0 vias, 0 jumper wires |
+| Widths | 0.3 mm × 41 (209 mm), 0.4 mm × 47, 0.6 mm × 69, 0.8 mm × 10 (GND), 1.2 mm × 32 |
 | Net classes | `PWR_BAT` 1.2 mm (`+VBAT_SW`, `SW_BAT`, `M_*`), `PWR_LOW` 0.6 mm (`+5V`, `+5V_ESP`), `GND` 0.8 mm, `Default` 0.4 mm |
 | Pour | `GND_PLANE` on `B.Cu`, one zone, thermal reliefs, no isolated islands |
 | Drills | 0.8, 0.95, 1.0, 1.1, 1.3, 1.8 mm (pad holes) and 4 × 3.2 mm (M3) |
@@ -628,9 +629,10 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 | Schematic parity | Same result as before this change (net-name prefix and field warnings only; the PCB nets match the schematic pin by pin) |
 
 **Things to review by eye before etching (DRC cannot judge them):**
+- The `+3V3` track to the TB6612 VCC pin is long (0.6 mm wide): it goes along the board's upper area and the east side because a single layer cannot cross the +VBAT_SW and signal tracks. Check it for shorts or breaks when etching.
 - The 0.3 mm tracks (I2C, UART, LED signals) run in tight bundles with 0.2 mm gaps. They are the most likely to break or short when etching. Print the copper page, look at it under light, and consider a slightly longer exposure.
 - I2C/UART tracks versus the motor tracks and the antenna keepouts (§14). The motor tracks are all in the rear part of the board.
-- Two tracks (LED_FRONT and UART_ESP_TO_CAM) pass **between the pads of the ESP32-S3 `U_ESP_J1` header** at 0.3 mm. The pads are 1.8 mm wide on a 2.54 mm pitch, so each gap is 0.74 mm and a 0.3 mm track keeps 0.22 mm of clearance on each side.
+- Any 0.3 mm track that passes **between header pads** (the pads are 1.8 mm wide on a 2.54 mm pitch, so each gap is 0.74 mm and a 0.3 mm track keeps 0.22 mm of clearance on each side). Look at the ESP32-S3 and TB6612 header rows.
 - Capacitor heights (§14) and the free space above the ESP32 USB end.
 
 **Pending:** the 2D mechanical check with real measurements (§4.3/§17), and the open items in §20.

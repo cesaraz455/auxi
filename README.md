@@ -36,7 +36,7 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 - **One copper layer: `B.Cu` (the bottom face).** Every track is on the bottom. The rest of the bottom face is a **GND pour** (copper plane) that replaces the ground tracks.
 - **All parts are through-hole (THT).** They go on the **top face** (the face without copper). Their legs go through the holes and are **soldered from below**, on the copper side. No hole needs plating, because there is nothing to connect on the top face.
-- **No vias and no jumper wires.** The 224 tracks are all on `B.Cu`, and no track crosses another one.
+- **No vias and no jumper wires.** The 199 tracks are all on `B.Cu`, and no track crosses another one.
 - **Size: 110 × 140 mm**, 4 × M3 holes 5 mm from each corner, 2 mm rounded corners.
 - **Orientation (assumed, confirm it against the chassis):** the 110 mm side runs front to back and the 140 mm side runs across the robot. In KiCad the **left edge is the robot FRONT**, the top edge is the robot RIGHT side, the bottom edge is the LEFT side and the right edge is the REAR.
 - The `F.Cu` layer has no copper at all. A keepout covers the whole top face so no track or pour can appear there by mistake. Only the pads show on top.
@@ -47,7 +47,7 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 ### Layout in one paragraph
 
-Seen in KiCad (front of the robot = left edge), the three sensor connectors are on the front edge, stacked from RIGHT (top) to LEFT (bottom). The ESP32-CAM is below them, with its antenna and flex connector toward the front. The ESP32-S3 is in the middle, with its USB end toward the bottom edge (the robot's left side). The parts are spread over the whole board: sensors and power capacitors in the upper half, modules in the middle, and the LED headers, big capacitors, diode, battery and switch connectors along the bottom. The TB6612FNG is right behind the ESP32-S3 (toward the rear), so its control signals are short. The battery, switch, MP1584 and motor terminals are at the rear and in the rear-left corner of the robot. The free areas between the groups are GND plane.
+Seen in KiCad (front of the robot = left edge), the three sensor connectors are on the front edge, stacked from RIGHT (top) to LEFT (bottom). The ESP32-CAM is below them, with its antenna and flex connector toward the front. The ESP32-S3 is in the middle, with its **USB end about 5 mm from the bottom edge** (the robot's left side), so the USB-C plug can be connected from the side. The parts are spread over the whole board: sensors and big power capacitors in the upper half, modules in the middle, and the LED headers, diode, battery and switch connectors along the bottom. The TB6612FNG is right behind the ESP32-S3 (toward the rear), so its control signals are short. The battery, switch, MP1584 and motor terminals are at the rear and in the rear-left corner of the robot. The free areas between the groups are GND plane.
 
 ## Why the pins moved
 
@@ -128,7 +128,7 @@ These rules were requested so the tracks survive etching and the pads keep coppe
 | Via | none are used. The default via is 1.1 mm pad / 0.3 mm hole (same 0.8 mm rule) | `auxi.kicad_pro` |
 | Edge | 0.5 mm of copper clearance to the board edge | DRC |
 
-Result in the final board: 224 tracks, of which **169 are 0.4 mm or wider** and **55 are 0.3 mm** (377 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
+Result in the final board: 199 tracks, of which **158 are 0.4 mm or wider** and **41 are 0.3 mm** (209 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
 
 ### Drill table
 
@@ -155,7 +155,7 @@ Header pins are 0.64 mm square (0.9 mm diagonal), so a 1.0 mm hole is enough. Ch
 4. Page 1 of the PDF shows where every part goes (top view with silkscreen and references).
 5. Solder the 4 pins of the MP1584 **last**, after you set its output (see the warnings below).
 
-Keep the area below the **USB end** of the ESP32-S3 (about 25 mm of board) free of tall parts, so the USB plug fits. Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF), because it sits next to that area.
+The **USB end** of the ESP32-S3 is only about 5 mm from the board edge, so the plug overhangs the edge: keep the area around it free of tall parts. Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF), because it sits next to that area. Note that the `+3V3` track to the TB6612 VCC pin is long: it goes around the north end of the ESP32-S3 and down the east side, away from the motor tracks, because a single layer cannot cross the other nets.
 
 ## Repository layout
 
