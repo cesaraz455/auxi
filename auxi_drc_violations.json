@@ -1,12 +1,2078 @@
 {
-  "board": "C:\\Projects\\CUN\\auxi\\auxi.kicad_pcb",
-  "timestamp": "2026-10-07T14:34:23",
-  "total_violations": 0,
-  "violation_counts": {},
-  "severity_counts": {
-    "error": 0,
-    "warning": 0,
-    "info": 0
-  },
-  "violations": []
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-14T23:58:22",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.7",
+    "schematic_parity": [
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Polarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C1",
+                    "pos": {
+                        "x": 193.0,
+                        "y": 108.0
+                    },
+                    "uuid": "6c93aff1-190f-4370-a599-105bc4ff6aaf"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C2",
+                    "pos": {
+                        "x": 190.0,
+                        "y": 116.0
+                    },
+                    "uuid": "7177c5c8-ae85-4e35-8779-b8ef27ed171f"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Polarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C3",
+                    "pos": {
+                        "x": 200.0,
+                        "y": 99.5
+                    },
+                    "uuid": "d45cfd32-694e-4d64-b421-1024b61b8509"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C4",
+                    "pos": {
+                        "x": 196.0,
+                        "y": 138.0
+                    },
+                    "uuid": "95aadf4c-b554-4404-bd18-cfcf071f1b1d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Polarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C5",
+                    "pos": {
+                        "x": 190.0,
+                        "y": 96.0
+                    },
+                    "uuid": "79fb7fa3-fc2f-495d-be27-82965ed9673f"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C6",
+                    "pos": {
+                        "x": 188.0,
+                        "y": 112.0
+                    },
+                    "uuid": "a10d0c84-12eb-45c1-8bf6-a7e914c4f968"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Polarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C7",
+                    "pos": {
+                        "x": 183.5,
+                        "y": 176.0
+                    },
+                    "uuid": "0eece295-10f5-4779-9d1b-35e4821adac8"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C8",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 184.0
+                    },
+                    "uuid": "f1c27af1-b612-46d1-8b75-25bb92fa41bd"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Polarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C9",
+                    "pos": {
+                        "x": 158.0,
+                        "y": 183.8
+                    },
+                    "uuid": "d18cbcfd-79d7-4605-b2ab-b980c3b89741"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C10",
+                    "pos": {
+                        "x": 165.5,
+                        "y": 183.0
+                    },
+                    "uuid": "a966fdaa-0c2d-48bd-9718-5a743af5457a"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Polarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C11",
+                    "pos": {
+                        "x": 143.0,
+                        "y": 179.5
+                    },
+                    "uuid": "7f714d82-7369-43db-970d-6c844fb84917"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C12",
+                    "pos": {
+                        "x": 150.0,
+                        "y": 164.0
+                    },
+                    "uuid": "80d5de98-58b0-4663-bd51-13c5d0ccbb58"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C13",
+                    "pos": {
+                        "x": 145.5,
+                        "y": 164.0
+                    },
+                    "uuid": "1fbef40b-2c7d-4f7f-a925-6ad75aaef092"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C14",
+                    "pos": {
+                        "x": 193.0,
+                        "y": 127.0
+                    },
+                    "uuid": "dc225eb1-630e-45c1-ab1b-f1ed6cacd190"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C15",
+                    "pos": {
+                        "x": 198.0,
+                        "y": 127.0
+                    },
+                    "uuid": "30e9cf40-10f5-499f-a920-7e8167659faa"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C16",
+                    "pos": {
+                        "x": 125.5,
+                        "y": 104.0
+                    },
+                    "uuid": "8e90ec85-c73e-48b5-bac7-add8c4d95190"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C17",
+                    "pos": {
+                        "x": 125.5,
+                        "y": 99.5
+                    },
+                    "uuid": "cadce68d-c808-403b-8514-bf2a7e9276e3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C18",
+                    "pos": {
+                        "x": 110.5,
+                        "y": 121.0
+                    },
+                    "uuid": "489f8147-78bb-4de6-b63d-1a9f11586c10"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C19",
+                    "pos": {
+                        "x": 115.0,
+                        "y": 121.0
+                    },
+                    "uuid": "6490271c-1394-48de-9052-0b1ff67aab36"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C20",
+                    "pos": {
+                        "x": 110.5,
+                        "y": 88.0
+                    },
+                    "uuid": "b356eac4-7510-4a0b-bfa1-01eabe35f852"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Unpolarized capacitor')",
+            "items": [
+                {
+                    "description": "Footprint C21",
+                    "pos": {
+                        "x": 115.0,
+                        "y": 88.0
+                    },
+                    "uuid": "335df999-9c39-48ff-b67e-120cd6dfd5d0"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Schottky diode')",
+            "items": [
+                {
+                    "description": "Footprint D1",
+                    "pos": {
+                        "x": 165.5,
+                        "y": 179.0
+                    },
+                    "uuid": "1952780e-3aa2-423a-b850-5617a8256e5e"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)')",
+            "items": [
+                {
+                    "description": "Footprint J_BAT1",
+                    "pos": {
+                        "x": 192.0,
+                        "y": 182.5
+                    },
+                    "uuid": "85089ff5-9622-4bc4-8ded-2d1e98e84920"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (SW_BAT) doesn't match net given by schematic (/SW_BAT)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [SW_BAT] of J_BAT1",
+                    "pos": {
+                        "x": 197.0,
+                        "y": 182.5
+                    },
+                    "uuid": "d82fe5be-842a-412e-a05f-a472aa2d207d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND).')",
+            "items": [
+                {
+                    "description": "Footprint J_LED_FRONT1",
+                    "pos": {
+                        "x": 127.0,
+                        "y": 174.0
+                    },
+                    "uuid": "fa6a6f31-8565-41a3-93d2-34b9734d0c32"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_FRONT_A) doesn't match net given by schematic (/LED_FRONT_A)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_FRONT_A] of J_LED_FRONT1",
+                    "pos": {
+                        "x": 127.0,
+                        "y": 174.0
+                    },
+                    "uuid": "594b6c80-994d-4199-ac26-4a17d48e9b89"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND).')",
+            "items": [
+                {
+                    "description": "Footprint J_LED_LEFT1",
+                    "pos": {
+                        "x": 127.0,
+                        "y": 179.0
+                    },
+                    "uuid": "f88f1c7c-50fc-423d-83e5-4cf8f8d73aae"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_LEFT_A) doesn't match net given by schematic (/LED_LEFT_A)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_LEFT_A] of J_LED_LEFT1",
+                    "pos": {
+                        "x": 127.0,
+                        "y": 179.0
+                    },
+                    "uuid": "d40fa30b-b34a-440c-986c-6e99ac02cf36"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND).')",
+            "items": [
+                {
+                    "description": "Footprint J_LED_POWER1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 88.0
+                    },
+                    "uuid": "ce257d89-0014-4f80-a300-2b8b6e9b3fe1"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_POWER_A) doesn't match net given by schematic (/LED_POWER_A)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_POWER_A] of J_LED_POWER1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 88.0
+                    },
+                    "uuid": "ea29d1b2-d1b7-4d98-b94a-77403f27d4cb"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND).')",
+            "items": [
+                {
+                    "description": "Footprint J_LED_RIGHT1",
+                    "pos": {
+                        "x": 127.0,
+                        "y": 184.0
+                    },
+                    "uuid": "d353ca25-d597-4390-89e0-1748166744d1"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_RIGHT_A) doesn't match net given by schematic (/LED_RIGHT_A)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_RIGHT_A] of J_LED_RIGHT1",
+                    "pos": {
+                        "x": 127.0,
+                        "y": 184.0
+                    },
+                    "uuid": "f13259a6-fb34-41aa-9dce-91e9e2d74d47"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)')",
+            "items": [
+                {
+                    "description": "Footprint J_MOTOR_LEFT1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 148.0
+                    },
+                    "uuid": "13285a1f-3fe7-4cc0-9546-004526c98ec7"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (M_L1) doesn't match net given by schematic (/M_L1)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [M_L1] of J_MOTOR_LEFT1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 148.0
+                    },
+                    "uuid": "a4c31d7c-1d64-44d3-97b6-ef368ade1390"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (M_L2) doesn't match net given by schematic (/M_L2)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [M_L2] of J_MOTOR_LEFT1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 142.92
+                    },
+                    "uuid": "6c1309af-c6ac-4e57-a2bb-c2fe38fbb5e8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)')",
+            "items": [
+                {
+                    "description": "Footprint J_MOTOR_RIGHT1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 114.0
+                    },
+                    "uuid": "5379b5c5-9b9d-4bc9-b9af-a235f97636e8"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (M_R2) doesn't match net given by schematic (/M_R2)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [M_R2] of J_MOTOR_RIGHT1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 114.0
+                    },
+                    "uuid": "b208dfcb-a893-48a5-8b0a-c627b2210c81"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (M_R1) doesn't match net given by schematic (/M_R1)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [M_R1] of J_MOTOR_RIGHT1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 108.92
+                    },
+                    "uuid": "de5a06c2-3dc6-4caf-8c07-e03b4637d943"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.')",
+            "items": [
+                {
+                    "description": "Footprint J_SENSOR_FRONT1",
+                    "pos": {
+                        "x": 110.5,
+                        "y": 104.0
+                    },
+                    "uuid": "91ddd94b-edd4-4855-bd83-53d0e3022377"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (SDA) doesn't match net given by schematic (/SDA)",
+            "items": [
+                {
+                    "description": "PTH pad 3 [SDA] of J_SENSOR_FRONT1",
+                    "pos": {
+                        "x": 115.5,
+                        "y": 104.0
+                    },
+                    "uuid": "d2fd6099-2f98-4a1f-8438-6d14f64705be"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SCL) doesn't match net given by schematic (/SCL)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [SCL] of J_SENSOR_FRONT1",
+                    "pos": {
+                        "x": 118.0,
+                        "y": 104.0
+                    },
+                    "uuid": "57700904-49e7-4d5c-adcf-92769bce9793"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (XSHUT_FRONT) doesn't match net given by schematic (/XSHUT_FRONT)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [XSHUT_FRONT] of J_SENSOR_FRONT1",
+                    "pos": {
+                        "x": 120.5,
+                        "y": 104.0
+                    },
+                    "uuid": "cf645617-8e53-4f88-83e5-7e147b469b4b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.')",
+            "items": [
+                {
+                    "description": "Footprint J_SENSOR_LEFT1",
+                    "pos": {
+                        "x": 110.5,
+                        "y": 115.0
+                    },
+                    "uuid": "66805153-6d94-476a-9e4f-47dabe40f023"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (SDA) doesn't match net given by schematic (/SDA)",
+            "items": [
+                {
+                    "description": "PTH pad 3 [SDA] of J_SENSOR_LEFT1",
+                    "pos": {
+                        "x": 115.5,
+                        "y": 115.0
+                    },
+                    "uuid": "578e43f8-e1f8-494b-9126-4865493cd921"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SCL) doesn't match net given by schematic (/SCL)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [SCL] of J_SENSOR_LEFT1",
+                    "pos": {
+                        "x": 118.0,
+                        "y": 115.0
+                    },
+                    "uuid": "c9ac0a56-3934-4c73-941f-804100a39b40"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (XSHUT_LEFT) doesn't match net given by schematic (/XSHUT_LEFT)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [XSHUT_LEFT] of J_SENSOR_LEFT1",
+                    "pos": {
+                        "x": 120.5,
+                        "y": 115.0
+                    },
+                    "uuid": "d8eb651f-09c3-4309-b724-42fefbf82460"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.')",
+            "items": [
+                {
+                    "description": "Footprint J_SENSOR_RIGHT1",
+                    "pos": {
+                        "x": 110.5,
+                        "y": 93.0
+                    },
+                    "uuid": "fa7cd336-f064-419e-8c1c-11ba3e5ca2d8"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (SDA) doesn't match net given by schematic (/SDA)",
+            "items": [
+                {
+                    "description": "PTH pad 3 [SDA] of J_SENSOR_RIGHT1",
+                    "pos": {
+                        "x": 115.5,
+                        "y": 93.0
+                    },
+                    "uuid": "c766d4a7-5be0-42fb-9bc0-b82c9523d38e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SCL) doesn't match net given by schematic (/SCL)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [SCL] of J_SENSOR_RIGHT1",
+                    "pos": {
+                        "x": 118.0,
+                        "y": 93.0
+                    },
+                    "uuid": "3a5e7732-c07c-4237-9aca-2c54ce5b675e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (XSHUT_RIGHT) doesn't match net given by schematic (/XSHUT_RIGHT)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [XSHUT_RIGHT] of J_SENSOR_RIGHT1",
+                    "pos": {
+                        "x": 120.5,
+                        "y": 93.0
+                    },
+                    "uuid": "ccfcb766-9087-45d4-8815-b480b890c17a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)')",
+            "items": [
+                {
+                    "description": "Footprint J_SWITCH1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 176.0
+                    },
+                    "uuid": "76aa5064-284d-472a-897b-c028c77bfa22"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (SW_BAT) doesn't match net given by schematic (/SW_BAT)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [SW_BAT] of J_SWITCH1",
+                    "pos": {
+                        "x": 209.5,
+                        "y": 176.0
+                    },
+                    "uuid": "d75cc67a-f825-4320-966b-61f34b521e7e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Resistor')",
+            "items": [
+                {
+                    "description": "Footprint R1",
+                    "pos": {
+                        "x": 205.0,
+                        "y": 90.0
+                    },
+                    "uuid": "7cfab97d-568a-4b54-955f-2ff79750269d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_POWER_A) doesn't match net given by schematic (/LED_POWER_A)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [LED_POWER_A] of R1",
+                    "pos": {
+                        "x": 205.0,
+                        "y": 82.38
+                    },
+                    "uuid": "9efdb5d3-a2d1-4d9f-b232-e9ab2aac6f6d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Resistor')",
+            "items": [
+                {
+                    "description": "Footprint R2",
+                    "pos": {
+                        "x": 189.0,
+                        "y": 130.5
+                    },
+                    "uuid": "811a49af-3d0e-43da-853a-08a072f9f96e"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (STBY) doesn't match net given by schematic (/STBY)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [STBY] of R2",
+                    "pos": {
+                        "x": 189.0,
+                        "y": 130.5
+                    },
+                    "uuid": "d7cb2734-fabd-4efe-9fd4-3052775392d7"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Resistor')",
+            "items": [
+                {
+                    "description": "Footprint R3",
+                    "pos": {
+                        "x": 116.0,
+                        "y": 174.0
+                    },
+                    "uuid": "4c6c0c2b-a72e-46ce-864c-c6dd053a7688"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_FRONT) doesn't match net given by schematic (/LED_FRONT)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_FRONT] of R3",
+                    "pos": {
+                        "x": 116.0,
+                        "y": 174.0
+                    },
+                    "uuid": "022924e4-6a1c-4c8f-8fce-5aaa2e068c32"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (LED_FRONT_A) doesn't match net given by schematic (/LED_FRONT_A)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [LED_FRONT_A] of R3",
+                    "pos": {
+                        "x": 123.62,
+                        "y": 174.0
+                    },
+                    "uuid": "9afab04a-1514-44c2-bbe4-01814a5c7417"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Resistor')",
+            "items": [
+                {
+                    "description": "Footprint R4",
+                    "pos": {
+                        "x": 116.0,
+                        "y": 179.0
+                    },
+                    "uuid": "50fa2b02-1412-4da7-8020-831814851b3d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_LEFT) doesn't match net given by schematic (/LED_LEFT)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_LEFT] of R4",
+                    "pos": {
+                        "x": 116.0,
+                        "y": 179.0
+                    },
+                    "uuid": "cbc31f70-90fc-403e-bcfa-2671b65a0b43"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (LED_LEFT_A) doesn't match net given by schematic (/LED_LEFT_A)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [LED_LEFT_A] of R4",
+                    "pos": {
+                        "x": 123.62,
+                        "y": 179.0
+                    },
+                    "uuid": "4998437e-5ba8-47ab-a718-e8382ac60024"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: '', Schematic: 'Resistor')",
+            "items": [
+                {
+                    "description": "Footprint R5",
+                    "pos": {
+                        "x": 116.0,
+                        "y": 184.0
+                    },
+                    "uuid": "b20991d5-46d2-448c-a4dd-505850be8af6"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (LED_RIGHT) doesn't match net given by schematic (/LED_RIGHT)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [LED_RIGHT] of R5",
+                    "pos": {
+                        "x": 116.0,
+                        "y": 184.0
+                    },
+                    "uuid": "91695a9c-7c42-45ee-801b-b5a37808f064"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (LED_RIGHT_A) doesn't match net given by schematic (/LED_RIGHT_A)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [LED_RIGHT_A] of R5",
+                    "pos": {
+                        "x": 123.62,
+                        "y": 184.0
+                    },
+                    "uuid": "3a5a0c0d-2895-4d1d-b4d4-2e5d437f7df5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://docs.ai-thinker.com/en/esp32-cam')",
+            "items": [
+                {
+                    "description": "Footprint U_CAM1",
+                    "pos": {
+                        "x": 150.0,
+                        "y": 159.43
+                    },
+                    "uuid": "ec1c4ef3-dc1e-4900-a607-69edbab5af93"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM1-IO12-Pad3))",
+            "items": [
+                {
+                    "description": "PTH pad 3 [<no net>] of U_CAM1",
+                    "pos": {
+                        "x": 144.92,
+                        "y": 159.43
+                    },
+                    "uuid": "42525a2c-d6b0-47c7-9eb4-2da7d2e80fee"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (UART_ESP_TO_CAM) doesn't match net given by schematic (/UART_ESP_TO_CAM)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [UART_ESP_TO_CAM] of U_CAM1",
+                    "pos": {
+                        "x": 142.38,
+                        "y": 159.43
+                    },
+                    "uuid": "eeb22884-a07e-4be7-9587-4969f39b7cf9"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM1-IO15-Pad5))",
+            "items": [
+                {
+                    "description": "PTH pad 5 [<no net>] of U_CAM1",
+                    "pos": {
+                        "x": 139.84,
+                        "y": 159.43
+                    },
+                    "uuid": "19c4de4d-a8ed-47b9-bdb6-208a268efdb1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (UART_CAM_TO_ESP) doesn't match net given by schematic (/UART_CAM_TO_ESP)",
+            "items": [
+                {
+                    "description": "PTH pad 6 [UART_CAM_TO_ESP] of U_CAM1",
+                    "pos": {
+                        "x": 137.3,
+                        "y": 159.43
+                    },
+                    "uuid": "156d77a3-d6ea-4678-9e74-357852401007"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM1-IO2-Pad7))",
+            "items": [
+                {
+                    "description": "PTH pad 7 [<no net>] of U_CAM1",
+                    "pos": {
+                        "x": 134.76,
+                        "y": 159.43
+                    },
+                    "uuid": "30be5c74-ca31-4a2f-b403-f8516c7a3021"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM1-IO4-Pad8))",
+            "items": [
+                {
+                    "description": "PTH pad 8 [<no net>] of U_CAM1",
+                    "pos": {
+                        "x": 132.22,
+                        "y": 159.43
+                    },
+                    "uuid": "7206384e-681e-43af-a03c-07a33f536cf0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://docs.ai-thinker.com/en/esp32-cam')",
+            "items": [
+                {
+                    "description": "Footprint U_CAM2",
+                    "pos": {
+                        "x": 150.0,
+                        "y": 136.57
+                    },
+                    "uuid": "02e7f367-1cf2-447b-b6a2-48bbe5ade7d3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM2-3V3-Pad1))",
+            "items": [
+                {
+                    "description": "PTH pad 1 [<no net>] of U_CAM2",
+                    "pos": {
+                        "x": 150.0,
+                        "y": 136.57
+                    },
+                    "uuid": "e4f8378e-9467-408c-90ea-6d22f936e98e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM2-IO16-Pad2))",
+            "items": [
+                {
+                    "description": "PTH pad 2 [<no net>] of U_CAM2",
+                    "pos": {
+                        "x": 147.46,
+                        "y": 136.57
+                    },
+                    "uuid": "3c4b7c7a-07f9-4606-8b9c-0f42f0488a29"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM2-IO0-Pad3))",
+            "items": [
+                {
+                    "description": "PTH pad 3 [<no net>] of U_CAM2",
+                    "pos": {
+                        "x": 144.92,
+                        "y": 136.57
+                    },
+                    "uuid": "b03f6e06-56cf-496d-b7fd-710379e1f6b9"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM2-VCC_OUT-Pad5))",
+            "items": [
+                {
+                    "description": "PTH pad 5 [<no net>] of U_CAM2",
+                    "pos": {
+                        "x": 139.84,
+                        "y": 136.57
+                    },
+                    "uuid": "1212e1c0-4fb9-4e9b-b3d0-8fd6eef21ee0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM2-U0R_IO3-Pad6))",
+            "items": [
+                {
+                    "description": "PTH pad 6 [<no net>] of U_CAM2",
+                    "pos": {
+                        "x": 137.3,
+                        "y": 136.57
+                    },
+                    "uuid": "6c617798-a2a9-49bb-a385-507d82c6be97"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_CAM2-U0T_IO1-Pad7))",
+            "items": [
+                {
+                    "description": "PTH pad 7 [<no net>] of U_CAM2",
+                    "pos": {
+                        "x": 134.76,
+                        "y": 136.57
+                    },
+                    "uuid": "75c1a7a3-73ef-42d5-bde1-7d51515ef8e8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html')",
+            "items": [
+                {
+                    "description": "Footprint U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 115.17
+                    },
+                    "uuid": "fd56dd48-f369-41cc-ab8f-d6fbe7053c25"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-RST-Pad3))",
+            "items": [
+                {
+                    "description": "PTH pad 3 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 120.25
+                    },
+                    "uuid": "88e1d2ed-17b5-4ca4-b055-fc2b2d292407"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SDA) doesn't match net given by schematic (/SDA)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [SDA] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 122.79
+                    },
+                    "uuid": "28aa7e49-8048-4879-9e57-9c90b3a7d063"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SCL) doesn't match net given by schematic (/SCL)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [SCL] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 125.33
+                    },
+                    "uuid": "a4122618-106d-444a-be89-b9b8ee3abce4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (XSHUT_RIGHT) doesn't match net given by schematic (/XSHUT_RIGHT)",
+            "items": [
+                {
+                    "description": "PTH pad 6 [XSHUT_RIGHT] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 127.87
+                    },
+                    "uuid": "baa1c54e-6d3e-4a04-a0ea-6f132c73f112"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (XSHUT_FRONT) doesn't match net given by schematic (/XSHUT_FRONT)",
+            "items": [
+                {
+                    "description": "PTH pad 7 [XSHUT_FRONT] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 130.41
+                    },
+                    "uuid": "d787c1f5-9b28-4d23-9a11-3d6e08b0b42f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (XSHUT_LEFT) doesn't match net given by schematic (/XSHUT_LEFT)",
+            "items": [
+                {
+                    "description": "PTH pad 8 [XSHUT_LEFT] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 132.95
+                    },
+                    "uuid": "cc425fb9-991c-42c8-b773-765040a15db1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO16-Pad9))",
+            "items": [
+                {
+                    "description": "PTH pad 9 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 135.49
+                    },
+                    "uuid": "5749cc50-612d-4a8a-8c9e-c205c86c6921"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (UART_ESP_TO_CAM) doesn't match net given by schematic (/UART_ESP_TO_CAM)",
+            "items": [
+                {
+                    "description": "PTH pad 10 [UART_ESP_TO_CAM] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 138.03
+                    },
+                    "uuid": "68ed7db3-cdb9-492d-bffa-ea9ebe315c52"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (UART_CAM_TO_ESP) doesn't match net given by schematic (/UART_CAM_TO_ESP)",
+            "items": [
+                {
+                    "description": "PTH pad 11 [UART_CAM_TO_ESP] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 140.57
+                    },
+                    "uuid": "2d3ef5f9-ec96-44fa-b142-2ba00dc96087"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (LED_FRONT) doesn't match net given by schematic (/LED_FRONT)",
+            "items": [
+                {
+                    "description": "PTH pad 12 [LED_FRONT] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 143.11
+                    },
+                    "uuid": "2955a849-a7f5-45a2-a797-a8f8113ff385"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO3-Pad13))",
+            "items": [
+                {
+                    "description": "PTH pad 13 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 145.65
+                    },
+                    "uuid": "7414f723-4cc1-4e5c-8c15-1d15413c042d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO46-Pad14))",
+            "items": [
+                {
+                    "description": "PTH pad 14 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 148.19
+                    },
+                    "uuid": "b19fea92-c025-458d-ba69-45ca9804bbe3"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (LED_LEFT) doesn't match net given by schematic (/LED_LEFT)",
+            "items": [
+                {
+                    "description": "PTH pad 15 [LED_LEFT] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 150.73
+                    },
+                    "uuid": "7368f76d-c26a-4f26-aa99-dc1a962dac60"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (LED_RIGHT) doesn't match net given by schematic (/LED_RIGHT)",
+            "items": [
+                {
+                    "description": "PTH pad 16 [LED_RIGHT] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 153.27
+                    },
+                    "uuid": "5385e0b4-da2e-408f-bae8-37c123ffb85c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO11-Pad17))",
+            "items": [
+                {
+                    "description": "PTH pad 17 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 155.81
+                    },
+                    "uuid": "ad9ea942-ac67-4f36-b334-14cf4425d7bc"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO12-Pad18))",
+            "items": [
+                {
+                    "description": "PTH pad 18 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 158.35
+                    },
+                    "uuid": "319433b6-1834-435f-a189-e2efec549f3f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO13-Pad19))",
+            "items": [
+                {
+                    "description": "PTH pad 19 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 160.89
+                    },
+                    "uuid": "96ccc55d-5870-49c0-86a4-a1a1d1883f12"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J1-GPIO14-Pad20))",
+            "items": [
+                {
+                    "description": "PTH pad 20 [<no net>] of U_ESP_J1",
+                    "pos": {
+                        "x": 156.0,
+                        "y": 163.43
+                    },
+                    "uuid": "03137c72-b9ad-4820-a276-6d2f41ee7389"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html')",
+            "items": [
+                {
+                    "description": "Footprint U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 115.17
+                    },
+                    "uuid": "551158cf-73b7-46a8-806f-cecf1475337c"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-TX_GPIO43-Pad2))",
+            "items": [
+                {
+                    "description": "PTH pad 2 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 117.71
+                    },
+                    "uuid": "799c1a11-7193-480e-a06f-9987a000b39e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-RX_GPIO44-Pad3))",
+            "items": [
+                {
+                    "description": "PTH pad 3 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 120.25
+                    },
+                    "uuid": "998422be-3d13-4fac-b78b-056772af2da2"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (PWMB) doesn't match net given by schematic (/PWMB)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [PWMB] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 122.79
+                    },
+                    "uuid": "d3f6fb26-9df1-424b-b310-890cd5543660"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (BIN2) doesn't match net given by schematic (/BIN2)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [BIN2] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 125.33
+                    },
+                    "uuid": "0d6185cc-5e05-463d-9c9c-bf18a4efeb01"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (BIN1) doesn't match net given by schematic (/BIN1)",
+            "items": [
+                {
+                    "description": "PTH pad 6 [BIN1] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 127.87
+                    },
+                    "uuid": "c46346c3-f903-46c7-8757-6e513a2e6e4f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (STBY) doesn't match net given by schematic (/STBY)",
+            "items": [
+                {
+                    "description": "PTH pad 7 [STBY] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 130.41
+                    },
+                    "uuid": "ab0c21c0-1a00-4f82-a948-a67bb61d5e71"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN1) doesn't match net given by schematic (/AIN1)",
+            "items": [
+                {
+                    "description": "PTH pad 8 [AIN1] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 132.95
+                    },
+                    "uuid": "2216d1b7-cee2-48bc-83ad-374b0c349fde"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN2) doesn't match net given by schematic (/AIN2)",
+            "items": [
+                {
+                    "description": "PTH pad 9 [AIN2] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 135.49
+                    },
+                    "uuid": "fef35f53-229f-4bcc-8c2c-6fcd7701962d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO38-Pad10))",
+            "items": [
+                {
+                    "description": "PTH pad 10 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 138.03
+                    },
+                    "uuid": "f59bb80b-85e2-4446-901e-7e88d9ef18a2"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO37-Pad11))",
+            "items": [
+                {
+                    "description": "PTH pad 11 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 140.57
+                    },
+                    "uuid": "f40c2e00-0be5-441d-b57e-9a29a541f956"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO36-Pad12))",
+            "items": [
+                {
+                    "description": "PTH pad 12 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 143.11
+                    },
+                    "uuid": "fed1436f-c51b-415a-9849-242856ebbbc1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO35-Pad13))",
+            "items": [
+                {
+                    "description": "PTH pad 13 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 145.65
+                    },
+                    "uuid": "6ecf05cb-0667-479d-8054-5a9d78d8b151"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO0-Pad14))",
+            "items": [
+                {
+                    "description": "PTH pad 14 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 148.19
+                    },
+                    "uuid": "3e1945d4-8191-4322-9e12-3f225c225537"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO45-Pad15))",
+            "items": [
+                {
+                    "description": "PTH pad 15 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 150.73
+                    },
+                    "uuid": "680ad4e2-bdcc-4c17-aa02-3a66fd16eca4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO48-Pad16))",
+            "items": [
+                {
+                    "description": "PTH pad 16 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 153.27
+                    },
+                    "uuid": "39c45f18-7ad5-4d80-a847-4e5b3e7b875f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO47-Pad17))",
+            "items": [
+                {
+                    "description": "PTH pad 17 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 155.81
+                    },
+                    "uuid": "c9e08cd3-51ff-4d97-85e8-d7113b53cf47"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (PWMA) doesn't match net given by schematic (/PWMA)",
+            "items": [
+                {
+                    "description": "PTH pad 18 [PWMA] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 158.35
+                    },
+                    "uuid": "a03cb949-b426-44a7-9dea-a9f009ae7dbb"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO20_USB_D+-Pad19))",
+            "items": [
+                {
+                    "description": "PTH pad 19 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 160.89
+                    },
+                    "uuid": "2fbeeeee-607d-4a14-9b94-f7797a7fabfe"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(U_ESP_J3-GPIO19_USB_D--Pad20))",
+            "items": [
+                {
+                    "description": "PTH pad 20 [<no net>] of U_ESP_J3",
+                    "pos": {
+                        "x": 178.86,
+                        "y": 163.43
+                    },
+                    "uuid": "5c1505c3-517d-4fb2-846a-07bb0f75a6a5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://www.monolithicpower.com/en/mp1584.html')",
+            "items": [
+                {
+                    "description": "Footprint U_MP1584",
+                    "pos": {
+                        "x": 192.5,
+                        "y": 154.5
+                    },
+                    "uuid": "6bfbec89-c5c4-47bf-962f-8ad338774e43"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://www.sparkfun.com/products/14450')",
+            "items": [
+                {
+                    "description": "Footprint U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 138.03
+                    },
+                    "uuid": "01e11803-b695-4f8e-9442-6939f5e284cd"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (PWMA) doesn't match net given by schematic (/PWMA)",
+            "items": [
+                {
+                    "description": "PTH pad 1 [PWMA] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 138.03
+                    },
+                    "uuid": "256f4b00-8157-453e-8f69-ec4790bc7524"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN2) doesn't match net given by schematic (/AIN2)",
+            "items": [
+                {
+                    "description": "PTH pad 2 [AIN2] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 135.49
+                    },
+                    "uuid": "8a435872-f6ca-4588-869e-7f641b27b189"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN1) doesn't match net given by schematic (/AIN1)",
+            "items": [
+                {
+                    "description": "PTH pad 3 [AIN1] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 132.95
+                    },
+                    "uuid": "fd87626e-5a0a-4b2f-ba0e-95078bfd9149"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (STBY) doesn't match net given by schematic (/STBY)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [STBY] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 130.41
+                    },
+                    "uuid": "cc14c865-5b75-4d18-8ea1-422f33c7006e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (BIN1) doesn't match net given by schematic (/BIN1)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [BIN1] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 127.87
+                    },
+                    "uuid": "f561c966-fadb-4dd6-8d87-a3701fc7ba84"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (BIN2) doesn't match net given by schematic (/BIN2)",
+            "items": [
+                {
+                    "description": "PTH pad 6 [BIN2] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 125.33
+                    },
+                    "uuid": "8f8cfc65-8a4e-46ab-a39b-dab8dc02c42f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (PWMB) doesn't match net given by schematic (/PWMB)",
+            "items": [
+                {
+                    "description": "PTH pad 7 [PWMB] of U_TB1",
+                    "pos": {
+                        "x": 185.0,
+                        "y": 122.79
+                    },
+                    "uuid": "5134c566-a8f1-498a-8261-f2637ae5ea9c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'https://www.sparkfun.com/products/14450')",
+            "items": [
+                {
+                    "description": "Footprint U_TB2",
+                    "pos": {
+                        "x": 202.78,
+                        "y": 138.03
+                    },
+                    "uuid": "af449c8a-0032-48b9-8109-cd37ed7998af"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (M_L1) doesn't match net given by schematic (/M_L1)",
+            "items": [
+                {
+                    "description": "PTH pad 4 [M_L1] of U_TB2",
+                    "pos": {
+                        "x": 202.78,
+                        "y": 130.41
+                    },
+                    "uuid": "26cf4a7d-5371-458a-90f5-5b2cbb1e10ac"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (M_L2) doesn't match net given by schematic (/M_L2)",
+            "items": [
+                {
+                    "description": "PTH pad 5 [M_L2] of U_TB2",
+                    "pos": {
+                        "x": 202.78,
+                        "y": 127.87
+                    },
+                    "uuid": "e94879db-e967-400a-bac1-dcb353da9799"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (M_R2) doesn't match net given by schematic (/M_R2)",
+            "items": [
+                {
+                    "description": "PTH pad 6 [M_R2] of U_TB2",
+                    "pos": {
+                        "x": 202.78,
+                        "y": 125.33
+                    },
+                    "uuid": "73fce848-acc6-4550-9f8a-c2a52c8405d9"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (M_R1) doesn't match net given by schematic (/M_R1)",
+            "items": [
+                {
+                    "description": "PTH pad 7 [M_R1] of U_TB2",
+                    "pos": {
+                        "x": 202.78,
+                        "y": 122.79
+                    },
+                    "uuid": "fcf6edf8-9232-4af4-aadc-a33af99face1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Extra footprint",
+            "items": [
+                {
+                    "description": "Footprint H2",
+                    "pos": {
+                        "x": 211.07,
+                        "y": 52.5
+                    },
+                    "uuid": "3cab9e5d-f0c3-40db-8883-1ab7cd9daec7"
+                }
+            ],
+            "severity": "warning",
+            "type": "extra_footprint"
+        },
+        {
+            "description": "Extra footprint",
+            "items": [
+                {
+                    "description": "Footprint H4",
+                    "pos": {
+                        "x": 211.07,
+                        "y": 182.5
+                    },
+                    "uuid": "8b936bef-6a03-4852-8686-aa6979f4d47d"
+                }
+            ],
+            "severity": "warning",
+            "type": "extra_footprint"
+        },
+        {
+            "description": "Extra footprint",
+            "items": [
+                {
+                    "description": "Footprint H1",
+                    "pos": {
+                        "x": 111.07,
+                        "y": 52.5
+                    },
+                    "uuid": "f7541a3a-e09d-4fe3-a616-3bb57a1b745c"
+                }
+            ],
+            "severity": "warning",
+            "type": "extra_footprint"
+        },
+        {
+            "description": "Extra footprint",
+            "items": [
+                {
+                    "description": "Footprint H3",
+                    "pos": {
+                        "x": 111.07,
+                        "y": 182.5
+                    },
+                    "uuid": "f9350117-3417-45cd-a93c-35630167704d"
+                }
+            ],
+            "severity": "warning",
+            "type": "extra_footprint"
+        }
+    ],
+    "source": "auxi.kicad_pcb",
+    "unconnected_items": [],
+    "violations": []
 }

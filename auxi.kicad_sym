@@ -18,7 +18,7 @@
         (font (size 1.27 1.27))
       )
     )
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x22_P2.54mm_Vertical"
+    (property "Footprint" "auxi:PinSocket_1x22_P2.54mm_Vertical"
       (at 0 -5.08 0)
       (effects
         (font (size 1.27 1.27))
@@ -293,7 +293,7 @@
         (font (size 1.27 1.27))
       )
     )
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x22_P2.54mm_Vertical"
+    (property "Footprint" "auxi:PinSocket_1x22_P2.54mm_Vertical"
       (at 0 -5.08 0)
       (effects
         (font (size 1.27 1.27))
@@ -557,7 +557,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "U" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Value" "ESP32-CAM_Row_5V" (at 0 0 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "auxi:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "https://docs.ai-thinker.com/en/esp32-cam" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Description" "ESP32-CAM AI Thinker, fila con pin 5V (header hembra 1x8). Numero de pin = posicion fisica (1 = 5V). Orden estandar AI Thinker; VERIFICAR con la serigrafia del modulo." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "ki_keywords" "ESP32-CAM AI-Thinker" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
@@ -580,7 +580,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "U" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Value" "ESP32-CAM_Row_3V3" (at 0 0 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "auxi:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "https://docs.ai-thinker.com/en/esp32-cam" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Description" "ESP32-CAM AI Thinker, fila con pin 3V3 (header hembra 1x8). Numero de pin = posicion fisica (1 = 3V3). 3V3 y VCC son SALIDAS del modulo: no conectar. VERIFICAR con la serigrafia." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "ki_keywords" "ESP32-CAM AI-Thinker" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
@@ -603,7 +603,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "U" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Value" "TB6612_Module_Logic" (at 0 0 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "auxi:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "https://www.sparkfun.com/products/14450" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Description" "Breakout TB6612FNG (tipo SparkFun ROB-14450), fila de logica (header hembra 1x8). Numero de pin = posicion fisica: 1 PWMA, 2 AIN2, 3 AIN1, 4 STBY, 5 BIN1, 6 BIN2, 7 PWMB, 8 GND. VERIFICAR con el modulo comprado." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "ki_keywords" "TB6612FNG motor driver module" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
@@ -626,7 +626,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "U" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Value" "TB6612_Module_Power" (at 0 0 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "auxi:PinSocket_1x08_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "https://www.sparkfun.com/products/14450" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Description" "Breakout TB6612FNG (tipo SparkFun ROB-14450), fila de potencia (header hembra 1x8). Numero de pin = posicion fisica: 1 VM, 2 VCC, 3 GND, 4 AO1, 5 AO2, 6 BO2, 7 BO1, 8 GND. VERIFICAR con el modulo comprado." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "ki_keywords" "TB6612FNG motor driver module" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
@@ -744,7 +744,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "J" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Value" "Conn_VL53L0X" (at 0 0 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_JST:JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "auxi:JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "ki_keywords" "JST XH VL53L0X sensor connector" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
@@ -764,7 +764,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "J" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Value" "Conn_LED" (at 0 0 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "auxi:PinHeader_1x02_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "ki_keywords" "LED header connector" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
