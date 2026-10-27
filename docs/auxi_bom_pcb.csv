@@ -1,7 +1,7 @@
 "Referencias","Valor","Footprint","Cantidad","DNP"
 "C1,C11","470uF 25V","Capacitor_THT:CP_Radial_D10.0mm_P5.00mm","2",""
 "C2,C4,C6,C10,C13,C15,C17,C19,C21","100nF 50V X7R","Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm","9",""
-"C3","220uF 25V","Capacitor_THT:CP_Radial_D8.0mm_P3.50mm","1",""
+"C3","220uF 16V","Capacitor_THT:CP_Radial_D8.0mm_P3.50mm","1",""
 "C5","22uF 25V","Capacitor_THT:CP_Radial_D5.0mm_P2.00mm","1",""
 "C7,C9","100uF 16V","Capacitor_THT:CP_Radial_D6.3mm_P2.50mm","2",""
 "C8,C12,C14,C16,C18,C20","10uF 25V X7R","Capacitor_THT:C_Rect_L7.0mm_W3.5mm_P5.00mm","6",""

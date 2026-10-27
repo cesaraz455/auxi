@@ -16509,7 +16509,7 @@
 				)
 			)
 		)
-		(property "Value" "220uF 25V"
+		(property "Value" "220uF 16V"
 			(at 1.75 5.25 0)
 			(layer "F.Fab")
 			(uuid "889c082f-00f8-4aec-9727-8a18f8e57f47")
