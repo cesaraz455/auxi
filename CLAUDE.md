@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guía para Claude Code al trabajar en este repositorio. Este archivo es la **especificación completa de diseño** del proyecto y su **única documentación**: no hay `README.md` ni hace falta ningún documento externo.
+Guía para Claude Code al trabajar en este repositorio. Este archivo es la **especificación completa de diseño** del proyecto y su **única documentación**: el `README.md` solo apunta a este archivo y no hace falta ningún documento externo.
 
 ---
 
