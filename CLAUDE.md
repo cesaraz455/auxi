@@ -4,12 +4,44 @@ Guidance for Claude Code when working in this repository. This file is the **com
 
 ---
 
-## 1. Project overview
+Contents (every cross-reference in this file says "Section N"):
+
+| Section | Title |
+|---|---|
+| 1 | Project overview |
+| 2 | How to work |
+| 3 | Confirmed decisions (single source of truth) |
+| 4 | Mechanical architecture (4.1 chassis, 4.2 two levels, 4.3 mounting, 4.4 dimensions) |
+| 5 | Power (5.1 architecture … 5.5 battery) |
+| 6 | Main ESP32 and pin mapping |
+| 7 | ESP32-CAM and camera |
+| 8 | UART between the two ESP32 |
+| 9 | VL53L0X sensors |
+| 10 | Proximity LEDs and power LED |
+| 11 | TB6612FNG and motors |
+| 12 | External connection summary |
+| 13 | Capacitors |
+| 14 | PCB design rules |
+| 15 | Silkscreen |
+| 16 | ERC and DRC |
+| 17 | Final mechanical verification |
+| 18 | Stages and execution order |
+| 19 | Deliverables and documentation |
+| 20 | Open items |
+| 21 | Repository files |
+
+---
+
+## Section 1. Project overview
 
 **auxi** is a small soccer robot, a first-semester university project. This repo holds the KiCad design for its **single custom PCB**.
 
+**What the robot is for.** auxi plays soccer in a university robot competition. A person drives it with an Xbox controller over Bluetooth Low Energy; its front piece guides a ball while it pushes it. The competition rules shape the design: the robot must stay within 150 mm and 850 g, it must show with three colored LEDs when something is closer than 10 cm to each of its three distance sensors, and it must not interfere with other teams (for example with its Wi-Fi video). It is also a learning project: the team is in its first semester, so simple, robust and easy-to-assemble solutions are preferred over clever ones.
+
+**What this repository holds.** The electronics: one custom PCB that carries the controller modules, the motor driver, the power regulator, all connectors and the 4 LEDs. The chassis is printed separately (Section 4.1), and the firmware does not exist yet.
+
 - **Drive:** 2 driven wheels (yellow TT gear motors) plus 1 rear caster wheel.
-- **Chassis:** 3D-printed, **v8** (see §4). About 144 mm long (limit 150 mm). The front is a **printed V (07) or curved (08) piece that guides the ball**; it is a swappable part bolted to the base.
+- **Chassis:** 3D-printed (see Section 4). About 144 mm long (limit 150 mm). The front is a **printed V (07) or curved (08) piece that guides the ball**; it is a swappable part bolted to the base.
 - **Two-level architecture:**
   - **Bottom level (chassis):** base, tray, motors, caster, battery (at the rear, behind a door), ballast and wiring.
   - **Top level:** a **single PCB** on 4 printed columns (M3 × 25 screws), 10 mm above the tray and above the batteries and motors.
@@ -18,7 +50,7 @@ Guidance for Claude Code when working in this repository. This file is the **com
   - The MP1584 regulator.
   - The passive components.
   - **All connectors.**
-  - **The 4 LEDs, soldered directly on the PCB**: the 3 proximity LEDs and the green power LED (see §10).
+  - **The 4 LEDs, soldered directly on the PCB**: the 3 proximity LEDs and the green power LED (see Section 10).
 - **Everything else is off-board** and connects to the PCB through connectors:
   - The 3 VL53L0X sensors.
   - The switch (screw terminal, in the switch tower).
@@ -32,17 +64,17 @@ Guidance for Claude Code when working in this repository. This file is the **com
 - **ESP32-CAM AI Thinker:**
   - Streams live video over Wi-Fi to a phone.
   - Shows the distances it receives from the main ESP32 over UART.
-  - Its OV2640 camera sits in a printed cradle on the camera arch, at the front of the chassis (see §7).
+  - Its OV2640 camera sits in a printed cradle on the camera arch, at the front of the chassis (see Section 7).
 - **Sensors:** 3, mounted on printed supports (04) at the front: FRONT (0°), LEFT (+45°), RIGHT (−45°).
-- **Proximity LEDs:** 3, soldered on the PCB. Their behavior depends on the sensors and follows the university rules (§10).
+- **Proximity LEDs:** 3, soldered on the PCB. Their behavior depends on the sensors and follows the university rules (Section 10).
 
 ---
 
-## 2. How to work
+## Section 2. How to work
 
 - **Use the KiCad MCP tools** (`mcp__kicad__*`) to create, edit, verify and organize the real project files. Do not hand-edit `.kicad_sch` or `.kicad_pcb` S-expressions unless the MCP cannot do the job.
 - Treat this as a real electronics engineering project. **Never invent** pinouts, dimensions, footprints or electrical specs. If a fact is not in this file or in verifiable component documentation, **stop and ask** (for example, ask for photos or caliper measurements of the purchased module).
-- **§3 is the single source of truth.** If you find a contradiction, **do not resolve it silently**: explain it and propose a fix.
+- **Section 3 is the single source of truth.** If you find a contradiction, **do not resolve it silently**: explain it and propose a fix.
 - **The user is a beginner.** Explain each decision in plain language, prefer simple, robust and easy-to-assemble solutions, and **do not add features that were not requested**.
 - **Language:** the user writes in Spanish, so answer in Spanish. Repository documentation (`README.md` and this file) is in English.
 - **KiCad lock files:** `~*.lck` files mean KiCad has the project open in the GUI. Warn the user before writing to files they may be editing.
@@ -50,7 +82,7 @@ Guidance for Claude Code when working in this repository. This file is the **com
 
 ---
 
-## 3. Confirmed decisions (single source of truth)
+## Section 3. Confirmed decisions (single source of truth)
 
 | Topic | Decision |
 |---|---|
@@ -75,20 +107,20 @@ Guidance for Claude Code when working in this repository. This file is the **com
 | Proximity LEDs | **5 mm LEDs soldered directly on the PCB** (user decision), in the pairs of holes `J_LED_*`. Colors and threshold follow the university rules: FRONT red (top), LEFT yellow (middle), RIGHT green (bottom); on at ≤ 10 cm. |
 | Power LED | **Green** 5 mm LED **soldered directly on the PCB** in `J_LED_POWER1` (user decision, replaces the off-board header + Dupont idea), with R1 = 1.5 kΩ. Not controlled by any GPIO. |
 | ESP32-CAM | AI Thinker, no microSD, **removable** (programmed by removing it and using the user's ESP32-CAM-MB base), no programming header. |
-| Camera | Standard OV2640 module (24-pin, 0.5 mm pitch, ~2 cm flex) in a printed cradle (16) on the camera arch (13), lens looking forward and tilted 25° down. See §7. |
+| Camera | Standard OV2640 module (24-pin, 0.5 mm pitch, ~2 cm flex) in a printed cradle (16) on the camera arch (13), lens looking forward and tilted 25° down. See Section 7. |
 | ESP32 ↔ ESP32-CAM UART | Direct traces on the PCB; no connector. |
-| Home-made PCB rules | Tracks ≥ 0.4 mm (0.3 mm allowed where a track passes between pads). Holes ≥ 0.3 mm. **Pad diameter = drill diameter + 0.8 mm** on every pad hole, so copper is left on the pad after hand drilling. See §14. |
+| Home-made PCB rules | Tracks ≥ 0.4 mm (0.3 mm allowed where a track passes between pads). Holes ≥ 0.3 mm. **Pad diameter = drill diameter + 0.8 mm** on every pad hole, so copper is left on the pad after hand drilling. See Section 14. |
 | Do NOT include | Battery monitoring, programming header, MOSFET protection, any other unrequested feature. |
 
 ---
 
-## 4. Mechanical architecture
+## Section 4. Mechanical architecture
 
 > For the schematic stage, use this section only to choose footprints and connectors that fit the final assembly.
 
-### 4.1 Chassis (v8, from the user's visual guide `Guía visual Auxi v8`)
+### Section 4.1 Chassis (as printed)
 
-The chassis was printed in 3D after the first concept sketch. Facts taken from the guide (the user's own document; the printed parts live in the user's chassis project, not in this repository):
+The chassis is 3D-printed. These are its facts. The files of the printed parts live in the chassis project, not in this repository; the part numbers below (01, 02, …) are the numbers used in that project.
 
 - **Size:** the robot is **144.1 mm long** (limit 150 mm). The lens of the camera sticks out only 0.15 mm beyond the front.
 - **Weight:** estimated **762.5 g** with 3 ballast plates and the standard tray; target 800 g; **regulation limit 850 g**. Weigh the finished robot before adding more plates.
@@ -102,11 +134,11 @@ The chassis was printed in 3D after the first concept sketch. Facts taken from t
 - **Sensors:** three supports (04) at the front, FRONT / LEFT / RIGHT. Each GY-530 is bolted with 2 × M3 × 10 (nut behind). **Its wires are soldered to the module from behind (no connector at the sensor)**, leave through the window of the support wall and run backwards to the JST-XH connectors on the PCB. They never pass in front of the sensor or the camera.
 - **Camera arch (13):** rests on the **two front corners of the PCB** and carries the camera cradle (16) and the team ID plate. Each leg takes an M3 × 25 from the top bar through the arch, the PCB and the spacer into the nut of column 03.
 - **Switch tower (12):** hollow tower screwed to the base with 2 × M3, on the side of the robot. The M6 toggle switch sits inside with the lever up. The wires leave through a window on the inner side and enter `J_SWITCH1` directly (about 4 mm of bare wire).
-- **PCB:** 110 × 140 mm, in its real KiCad position. The guide's 3D model is built from the heights of this `auxi.kicad_pcb`, so the 3D models of the parts must stay correct (see §21).
+- **PCB:** 110 × 140 mm, in its real KiCad position. The chassis design takes the heights of the parts from `auxi.kicad_pcb`, so the 3D models of the parts must stay correct (see Section 21).
 
-Coordinates for the PCB: origin at the center of the board, X to the right, Y forward (the guide uses the same convention).
+Coordinates for the PCB: origin at the center of the board, X to the right, Y forward (the chassis design uses the same convention).
 
-**Cable routes (proposal in the guide).** The cables from the bottom level go up through the openings of the tray into the 10 mm gap, cross the PCB through pass-through holes, and reach their connector on top.
+**Cable routes (planned).** The cables from the bottom level go up through the openings of the tray into the 10 mm gap, cross the PCB through pass-through holes, and reach their connector on top.
 
 | Cable | From → to | Type |
 |---|---|---|
@@ -118,9 +150,9 @@ Coordinates for the PCB: origin at the center of the board, X to the right, Y fo
 
 Forbidden: cables hanging over the wheels, and cables in front of the front sensor or the camera. Tie them with cable ties every 3–4 cm.
 
-The guide also proposes three pass-through holes in the PCB (mm from the center of the board, X right, Y forward): sensors (X 38, Y 45, Ø 8 mm, 4.3 mm of free copper around), power for battery and motors (X 28, Y −48, Ø 10 mm, 5.0 mm free) and LEDs (X −41, Y −13, Ø 8 mm). **None of them was added: the PCB did not change (the board was already made).** The LED hole is not needed any more, because the 4 LEDs are soldered on the board. The other two are listed in §20.
+The chassis design also proposes three pass-through holes in the PCB (mm from the center of the board, X right, Y forward): sensors (X 38, Y 45, Ø 8 mm, 4.3 mm of free copper around), power for battery and motors (X 28, Y −48, Ø 10 mm, 5.0 mm free) and LEDs (X −41, Y −13, Ø 8 mm). **None of them was added: the PCB did not change (the board was already made).** The LED hole is not needed any more, because the 4 LEDs are soldered on the board. The other two are listed in Section 20.
 
-### 4.2 Two levels (side view)
+### Section 4.2 Two levels (side view)
 
 ```
    camera arch (13)  ┌── single PCB (top level), 4 printed columns ──┐
@@ -137,18 +169,18 @@ The guide also proposes three pass-through holes in the PCB (mm from the center 
 - Cables run up short distances to their connectors.
 - The USB ports, the ESP32-CAM and the connectors are reachable from above.
 
-### 4.3 Mounting, height and space check
+### Section 4.3 Mounting, height and space check
 
 This check is mandatory before PCB design. It does not block the schematic.
 
 - **Mounting holes:** the PCB has 4 M3 holes, one near each corner.
   - Each hole is 3.2 mm, with a keepout of about 6.5 mm diameter (no copper or parts), at least 4 mm from the edge.
-  - The two front holes also carry the camera arch (13). **Chassis v8:** each hole takes one **M3 × 25** screw that goes through the arch (front) or the bar, the PCB and a printed spacer (15) into the nut of a column (03).
+  - The two front holes also carry the camera arch (13). Each hole takes one **M3 × 25** screw that goes through the arch (front) or the bar, the PCB and a printed spacer (15) into the nut of a column (03).
 - **Height:** the PCB is **10 mm above the tray** (printed spacers), which keeps it above the motors, the battery holder and the cables.
-  - In the v8 design the printed tray (plastic) sits between the solder joints of the PCB and the metal contacts of the battery holder, which is at the rear under the tray. Confirm the 5 mm clearance to metal on the real robot; if it is not met, add an insulating sheet.
-- **Wheels:** the wheels are **63 mm** in diameter and sit outside the 110 mm PCB, at its sides (the guide shows no contact). Still check the real chassis.
-- **Front and camera:** the PCB must not block the ball entry or the camera view. In v8 the camera arch rests on the two front corners of the PCB and the camera looks forward over the front edge.
-- **Cable path:** see §4.1. The cables run up through the tray openings into the 10 mm gap and reach their connector (there is no enclosure). The pass-through holes proposed in the guide are **not** in the printed PCB (§20).
+  - In this design the printed tray (plastic) sits between the solder joints of the PCB and the metal contacts of the battery holder, which is at the rear under the tray. Confirm the 5 mm clearance to metal on the real robot; if it is not met, add an insulating sheet.
+- **Wheels:** the wheels are **63 mm** in diameter and sit outside the 110 mm PCB, at its sides (no contact is expected). Still check the real chassis.
+- **Front and camera:** the PCB must not block the ball entry or the camera view. The camera arch rests on the two front corners of the PCB and the camera looks forward over the front edge.
+- **Cable path:** see Section 4.1. The cables run up through the tray openings into the 10 mm gap and reach their connector (there is no enclosure). The pass-through holes proposed in the chassis design are **not** in the printed PCB (Section 20).
 - **Size: 110 × 140 mm, set by the user.**
   - **Confirmed orientation (user photo):** the 110 mm side is the front of the robot and sits between the two wheels; the 140 mm side runs front to back. The robot is 144.1 mm long, so the 140 mm PCB almost spans the whole length. Check it against the front piece and the rear caster on the real chassis.
   - Check that all modules, connectors, M3 holes and antenna keepouts fit that outline, with room to route and to plug cables in by hand.
@@ -157,7 +189,7 @@ This check is mandatory before PCB design. It does not block the schematic.
 - Present a 2D check (top and side views) with real measurements and **wait for approval**.
 - Evaluate the weight distribution: the drive wheels must keep traction. Report if relevant.
 
-### 4.4 Reference dimensions (verify with calipers)
+### Section 4.4 Reference dimensions (verify with calipers)
 
 These are reference values for the physical layout. Clones vary: confirm them with the user before fixing positions.
 
@@ -181,9 +213,9 @@ Modules plugged into female headers sit about 1 cm above the PCB. There is no en
 
 ---
 
-## 5. Power
+## Section 5. Power
 
-### 5.1 Architecture
+### Section 5.1 Architecture
 
 ```
 BAT 2S ─ J_BAT (screw terminal) ─ J_SWITCH ═(wires)═ external switch ═(wires)═ J_SWITCH ─ +VBAT_SW
@@ -199,14 +231,14 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
 
 **Rule:** nothing connects to the battery before the switch. With the switch off, the regulator, the motor driver and all LEDs are unpowered.
 
-### 5.2 Motors and PWM
+### Section 5.2 Motors and PWM
 
 - TT motors are typically rated 3–6 V. **Verify this in the seller's datasheet.**
 - VM is fed from `+VBAT_SW`. The firmware limits PWM to a maximum of 70 % (0.7 × 8.4 V ≈ 5.9 V average). Document this as a mandatory firmware rule.
 - **Do not raise the battery voltage.**
 - **Stall current:** get the real motor's stall current, or ask the user to measure it. Compare it with the TB6612FNG limits in Toshiba's datasheet. The usual figures are 1.2 A continuous and 3.2 A peak per channel; verify them. If the driver is not enough, report it before continuing.
 
-### 5.3 Regulators
+### Section 5.3 Regulators
 
 - **MP1584:**
   - Verify the pinout and dimensions of the real module; clones differ.
@@ -232,10 +264,10 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
 - The MP1584 has plenty of margin at ~1 A (the module is rated up to 3 A).
 - From the battery, the electronics draw ~0.75 A at 7.4 V, plus the motors.
 
-### 5.4 External switch and power LED
+### Section 5.4 External switch and power LED
 
 - **Location:** the switch is **off the PCB, in the switch tower (12) on the side of the base**, with the lever up so it works without lifting the robot.
-- **Electrical position:** it sits **between the battery and the regulator**. Per the rule in §5.1, it also cuts VM and all LEDs.
+- **Electrical position:** it sits **between the battery and the regulator**. Per the rule in Section 5.1, it also cuts VM and all LEDs.
 - **J_SWITCH on the PCB:** 2 terminals, `SW_BAT` (from the battery) and `SW_OUT` (to `+VBAT_SW`).
   - **All** of the robot's current flows through here, including motor start-up peaks.
   - Use a connector with a verified rating of ≥ 3 A. **Implemented:** a 2-pin, 5.08 mm pitch screw terminal (the same type as the motors and the battery), which needs no crimping.
@@ -243,21 +275,21 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
 - **Switch part:**
   - Continuous rating ≥ 3 A DC and ≥ 12 V DC, **verified in the datasheet**.
   - Estimate the system peak current and justify the choice.
-  - **Chassis v8:** M6 threaded toggle switch (6.2 mm hole in the tower), 20 AWG wire. A slide switch or a mini rocker would not fit that hole.
+  - **Printed chassis:** M6 threaded toggle switch (6.2 mm hole in the tower), 20 AWG wire. A slide switch or a mini rocker would not fit that hole.
   - State the minimum wire gauge.
 - **J_LED_POWER on the PCB:** the 2-hole pad pair (`LED+` / `LED−`) where the **green** 5 mm LED is **soldered directly** (user decision: no header, no Dupont jumpers, no off-board LED). `LED+` is the right, square pad (long leg); `LED−` is the left pad (short leg, flat side). It is at the front right of the board, next to R1.
   - The current-limiting resistor is on the PCB. Size it for the whole 6.0–8.4 V range at about 2–5 mA.
   - **Implemented:** R1 = 1.5 kΩ. With a classic green LED (Vf ≈ 2.1 V) it gives about 2.6 mA at 6.0 V and 4.2 mA at 8.4 V; with a bright green (Vf ≈ 3 V) about 2.0 and 3.6 mA. Both are safe. (It was sized first for a blue LED.)
 - **Silkscreen:** `SWITCH` / `ON-OFF` on J_SWITCH; `POWER LED` and polarity on J_LED_POWER. (Already printed on the board: it did not change.)
 
-### 5.5 Battery
+### Section 5.5 Battery
 
 - No MOSFET protection is added. **The battery used to be a keyed XT30 plug; it is now a screw terminal, so nothing stops a reversed connection except the `BAT+` / `BAT−` silkscreen and the wire colors (red +, black −).** Check polarity with a multimeter before closing the switch. A reversed battery would feed the TB6612FNG and the MP1584 the wrong way round.
 - BMS and cell charging are out of scope for the PCB. In the documentation, warn that the cells must be protected, or charged outside the robot with a balancing 2S charger.
 
 ---
 
-## 6. Main ESP32: ESP32-S3-DevKitC-1 N16R8
+## Section 6. Main ESP32: ESP32-S3-DevKitC-1 N16R8
 
 - **Confirmed board:** ESP32-S3-DevKitC-1 N16R8 (ESP32-S3-WROOM-1 module, 16 MB flash, 8 MB octal PSRAM), 44 pins in 2 rows of 22.
 - **It may be a commercial clone.** Before drawing the footprint:
@@ -286,9 +318,9 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
   - I2C and XSHUT toward the sensor connectors.
   - LED signals toward their connectors.
 - **Bluetooth:** the ESP32-S3 has only Bluetooth Low Energy (BLE 5), no Classic Bluetooth. Note it for the firmware: the Xbox controller must connect over BLE. No extra hardware is needed.
-- **Power:** through its 5V pin, via the Schottky diode (§5.3).
+- **Power:** through its 5V pin, via the Schottky diode (Section 5.3).
 
-### 6.1 Pin mapping (revised for the single-layer PCB, implemented in the schematic)
+### Section 6.1 Pin mapping (revised for the single-layer PCB, implemented in the schematic)
 
 On a single copper layer two tracks cannot cross. The pins were **reassigned** so that the signals leave the ESP32 headers in the same order as their destinations. The firmware does not exist yet, so the change costs nothing. This **replaces** the earlier mapping (SDA GPIO8, SCL GPIO9, XSHUT 4/5/6, LEDs 10/11/12, motors on 1/2/42/41/40/39/21).
 
@@ -324,7 +356,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 
 ---
 
-## 7. ESP32-CAM and external camera
+## Section 7. ESP32-CAM and external camera
 
 - **Module:** AI Thinker ESP32-CAM (about 27 × 40.5 mm; verify), on the same PCB.
 - **Mounting:** 2 × 1×8 female headers, so it can be removed easily and programmed on the ESP32-CAM-MB base.
@@ -337,8 +369,8 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 - **Unconnected pins:**
   - All other pins stay unconnected.
   - The module's 3V3 and VCC pins are **outputs** and are not connected.
-- **Power:** through the 5V pin, with local capacitors (§13).
-- **Camera (chassis v8):**
+- **Power:** through the 5V pin, with local capacitors (Section 13).
+- **Camera (printed chassis):**
   - The camera is a **standard OV2640 or OV3660 module** (24 pins, 0.5 mm pitch) with its normal **~2 cm flex**. The long flex of the first plan is **not needed any more**.
   - It sits in the printed cradle (16) under the camera arch (13): 9.2 mm pocket, lens through a 7.6 mm hole, tilted 25° down (15° and 35° cradles are optional). Fix it with a drop of hot glue or tape.
   - The ESP32-CAM is at the **front of the PCB, almost centered** (14.5 mm left of the centre, camera looking forward), with its FPC connector at the front end, under the cradle. The flex rises in a gentle curve.
@@ -346,13 +378,12 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - **To program the ESP32-CAM:** remove the two M3 × 25 screws of the arch legs and lift the arch (only ~3 mm are left above the front end of the module), then open the latch of the flex and take the module out.
   - Keep the field of view clear: no cable may pass in front of the camera.
   - If the video ever gets noise, lower XCLK in firmware (for example from 20 to 10 MHz).
-  - **Matches / differs:** the guide says the ESP32-CAM is "at the front left". That is the same position (the board centre is 14.5 mm to the right of the ESP32-CAM centre).
   - During matches, the firmware should be able to switch the Wi-Fi video off: it can cut the Bluetooth link of the controller, and the rules forbid interfering with other teams.
 - **Antennas:** copper-free area under the ESP32-CAM antenna. Put the ESP32-S3 and ESP32-CAM antennas on different PCB edges, as far apart as possible, because both use 2.4 GHz.
 
 ---
 
-## 8. UART between ESP32 and ESP32-CAM
+## Section 8. UART between ESP32 and ESP32-CAM
 
 - Direct traces on the PCB, no connector.
 - Net names follow the signal direction:
@@ -363,7 +394,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 
 ---
 
-## 9. VL53L0X sensors (off-board)
+## Section 9. VL53L0X sensors (off-board)
 
 - **Modules:** 3 GY-530 modules, bolted to the printed supports (04) at the front of the chassis (2 × M3 × 10, nut behind). **Their cables are soldered to the module from behind, with no connector at the sensor.** A connector on the sensor face would enter its field of view.
   - Verify the pins of the real module (typically VIN, GND, SCL, SDA, GPIO1, XSHUT).
@@ -372,7 +403,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 - **Connectors:** one 5-pin JST-XH per sensor: `SENSOR_FRONT`, `SENSOR_LEFT`, `SENSOR_RIGHT`.
   - Same order on all three: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.
   - On the PCB all three sit **side by side along the front (top) edge, to the right of the camera**, LEFT (west), FRONT, RIGHT (east), 10 mm apart, with the pins running away from the edge (pin 1 = 3V3 nearest the edge). The 3V3, SDA and SCL buses are then three straight horizontal tracks that pass through the same-numbered pad of each connector, so they cannot cross. Each XSHUT track arrives at pin 5 from below.
-- **I2C bus:** one shared bus (SDA on GPIO15, SCL on GPIO7, see §6.1), 100 kHz recommended, cables of 25 cm or less.
+- **I2C bus:** one shared bus (SDA on GPIO15, SCL on GPIO7, see Section 6.1), 100 kHz recommended, cables of 25 cm or less.
 - **XSHUT:** RIGHT on GPIO4, FRONT on GPIO5, LEFT on GPIO6.
 - **Pull-ups:**
   - Check the ones on the modules (three in parallel).
@@ -388,7 +419,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 
 ---
 
-## 10. Proximity LEDs (soldered on the PCB, university rules)
+## Section 10. Proximity LEDs (soldered on the PCB, university rules)
 
 - The 3 proximity LEDs are driven **only by the proximity sensors**. Each LED shows the detection of its own sensor.
 - **The university rules set the colors, and they cannot be changed:**
@@ -411,12 +442,12 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - The current value is 470 Ω, which gives about 2.5–3 mA.
   - **R5 (green) is provisional:** it suits a classic green (Vf ≈ 2.1 V). A bright green (Vf ≈ 3 V) needs a recalculation.
 - **Documentation note:** a LED soldered backwards simply does not light and is not damaged. Desolder it and flip it.
-- **Power LED:** this is a different LED from these three. It is **green** (user), **soldered directly on the PCB** in `J_LED_POWER1`, at the front right of the board next to R1 (§5.4). It used to be an off-board LED next to the switch (a blue one in the first chassis guide): that is no longer true. Because the RIGHT proximity LED is also green, check that the two cannot be confused (they are on opposite sides of the board, and the power LED has the label `POWER LED`); if the rules require the indicator LEDs to be distinguishable, change the color of the power LED.
-- **3D models:** the 4 LEDs have colored 5 mm models in `auxi.3dshapes/` (red, yellow, green; 8.6 mm high) so the 3D view and the chassis guide see the real height. The footprint is unchanged.
+- **Power LED:** this is a different LED from these three. It is **green** (user), **soldered directly on the PCB** in `J_LED_POWER1`, at the front right of the board next to R1 (Section 5.4). It was first planned as an off-board LED next to the switch: that is no longer true. Because the RIGHT proximity LED is also green, check that the two cannot be confused (they are on opposite sides of the board, and the power LED has the label `POWER LED`); if the rules require the indicator LEDs to be distinguishable, change the color of the power LED.
+- **3D models:** the 4 LEDs have colored 5 mm models in `auxi.3dshapes/` (red, yellow, green; 8.6 mm high) so the 3D view and the chassis design see the real height. The footprint is unchanged.
 
 ---
 
-## 11. TB6612FNG and motors
+## Section 11. TB6612FNG and motors
 
 - **Module:** commercial TB6612FNG breakout (SparkFun "Dual TB6612FNG 1A" type or a clone), **plugged into the PCB** through female headers.
   - All of its connections go through the PCB: power, signals and motor outputs.
@@ -428,14 +459,14 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - All module GND pins to GND.
   - AIN1, AIN2, PWMA, BIN1, BIN2, PWMB, STBY ← ESP32.
   - Channel A outputs → MOTOR_LEFT; channel B outputs → MOTOR_RIGHT.
-- **Motor connectors:** `MOTOR_LEFT` and `MOTOR_RIGHT` are 2-pin screw terminals (5.08 mm pitch) on the right (east) edge of the board. The cables come up from the motors through the tray and the 10 mm gap (§4.1).
+- **Motor connectors:** `MOTOR_LEFT` and `MOTOR_RIGHT` are 2-pin screw terminals (5.08 mm pitch) on the right (east) edge of the board. The cables come up from the motors through the tray and the 10 mm gap (Section 4.1).
   - Document that if a motor spins backwards, swap its wires or invert it in firmware.
 - **Motor capacitor:** a 100 nF ceramic soldered across each motor's terminals, on the motor itself, not on the PCB.
-- **Wheels:** the wheels are **63 mm** (they come with the TT motors in the v8 chassis). The motors are bolted to aluminium brackets and the brackets to the cradles 05.
+- **Wheels:** the wheels are **63 mm** (they come with the TT motors). The motors are bolted to aluminium brackets and the brackets to the cradles 05.
 
 ---
 
-## 12. External connection summary
+## Section 12. External connection summary
 
 Every off-board component connects to the PCB through a labeled connector. Nothing is soldered directly to the modules. **The only exception is the 4 LEDs (3 proximity + power), which are soldered directly into the `J_LED_*` and `J_LED_POWER1` holes (user decision).** The robot has **4 screw terminals** in total: 2 motors, the switch and the battery.
 
@@ -446,7 +477,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 | J_BAT1 | 2S batteries | **2P screw terminal, 5.08 mm** (same as the motors), soldered into the pads of the XT30UPB-M footprint (5.0 mm pitch) | 1 BAT− (left pad, `-` mark), 2 BAT+ (right pad, `+` mark), matching the KiCad footprint's `−`/`+` marks | Rear edge, wire entry toward the rear (battery cables come from behind) |
 | J_SWITCH1 | Switch | 2P screw terminal, 5.08 mm, ≥3 A | SW_BAT, SW_OUT | Near J_BAT1 |
 | J_LED_POWER1 | Green power LED (5 mm, **soldered here**) | 2 holes, 2.54 mm | LED+ (right hole, square pad), LED− | Front right of the board, next to R1 |
-| J_MOTOR_LEFT1 | Left motor | 2P screw terminal, 5.08 mm | M_L1, M_L2 | Right (east) edge of the board, next to the TB6612 (see §18: both motor terminals are on the same edge so the outputs of the driver do not have to cross the ESP32). The left motor cable is simply longer |
+| J_MOTOR_LEFT1 | Left motor | 2P screw terminal, 5.08 mm | M_L1, M_L2 | Right (east) edge of the board, next to the TB6612 (see Section 18: both motor terminals are on the same edge so the outputs of the driver do not have to cross the ESP32). The left motor cable is simply longer |
 | J_MOTOR_RIGHT1 | Right motor | 2P screw terminal, 5.08 mm | M_R1, M_R2 | Right (east) edge |
 | J_SENSOR_FRONT1 | Front sensor | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_FRONT | Front (top) edge, middle |
 | J_SENSOR_LEFT1 | Left sensor | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_LEFT | Front (top) edge, west |
@@ -474,7 +505,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 
 ---
 
-## 13. Capacitors
+## Section 13. Capacitors
 
 | Location | Value | Minimum voltage |
 |---|---|---|
@@ -494,14 +525,14 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 
 ---
 
-## 14. PCB design rules
+## Section 14. PCB design rules
 
 - **Decision (user, latest):** **one copper layer.** The copper is `B.Cu` (the bottom face). `F.Cu` has **no copper**: a keepout rule area (`NO_COPPER_TOP`) covers the whole top face, so only the through-hole pads show on top. Reason: most local fabs do not plate the holes, and the user does not want to plate vias by hand. A single layer needs no plated holes at all.
   - This replaces the earlier 2-layer decisions ("no plane, tracks only", then "GND plane on B.Cu and signals on F.Cu").
   - The KiCad file still declares two copper layers, because KiCad cannot keep only `B.Cu`. Plot or print **only `B.Cu`** for etching.
 - **GND is a pour on the same layer (`B.Cu`).** It fills every free area. Pads connect to it through thermal reliefs (gap 0.3 mm, spokes 0.6 mm), so they can still be hand-soldered. Where a track would cut a GND pad off from the pour, a short GND track connects that pad (10 short GND segments in the final board).
 - **Decision (user, confirmed):** **all components are through-hole (THT)** so they can be soldered easily by hand. No SMD parts. Components go on the **top face**; their legs are **soldered from below**, on the copper side.
-- **No vias and no jumper wires.** The pin mapping (§6.1) and the placement were chosen so that no two tracks cross.
+- **No vias and no jumper wires.** The pin mapping (Section 6.1) and the placement were chosen so that no two tracks cross.
 - 1.6 mm FR4, 1 oz copper, **home-made board rules (user):**
   - Tracks **≥ 0.4 mm**. Tracks that pass **between pads** may be **0.3 mm**. KiCad refuses anything under 0.3 mm (`auxi.kicad_pro`).
   - Clearance 0.2 mm between copper objects, and 0.5 mm from copper to the board edge.
@@ -520,11 +551,11 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
   - Tracks may pass between the 2.54 mm pads (the gap is 0.74 mm), but only at 0.3 mm width.
   - Small parts (capacitors, R2) sit under the TB6612 module and the ESP32 USB end, where there is room. **Electrolytic capacitors must not go under a module** (they are taller than the 8.5 mm of free height).
 - Keepouts at the M3 holes and under both antennas (`ANT_ESP32`, `ANT_CAM`): no tracks, vias or pour.
-- **Bottom side:** it is now the copper side. It has no components. Only through-hole solder joints, with the §4.3 clearance to the batteries.
+- **Bottom side:** it is now the copper side. It has no components. Only through-hole solder joints, with the Section 4.3 clearance to the batteries.
 
 ---
 
-## 15. Silkscreen
+## Section 15. Silkscreen
 
 > **Later stage (PCB).** Do not execute now; keep it in mind when choosing footprints.
 
@@ -545,7 +576,7 @@ Do not place text on pads or in areas covered by the modules once mounted.
 
 ---
 
-## 16. ERC and DRC
+## Section 16. ERC and DRC
 
 - **ERC:**
   - Fix real errors. Never ignore or suppress errors to get a clean-looking result.
@@ -556,11 +587,11 @@ Do not place text on pads or in areas covered by the modules once mounted.
 
 ---
 
-## 17. Final mechanical verification
+## Section 17. Final mechanical verification
 
 > **Later stage (PCB).** Do not execute now; keep it in mind when choosing footprints.
 
-- The PCB is 110 × 140 mm with the 110 mm side at the front, between the wheels (user photo); it still has to be confirmed with the real chassis (see §20).
+- The PCB is 110 × 140 mm with the 110 mm side at the front, between the wheels (user photo); it still has to be confirmed with the real chassis (see Section 20).
 - The PCB sits 10 mm above the tray (printed spacers, M3 × 25 screws), above batteries, motors and cables, with the minimum clearance to metal contacts.
 - The PCB does not hit the wheels or block the front piece or the camera.
 - 4 M3 holes with keepouts.
@@ -568,16 +599,16 @@ Do not place text on pads or in areas covered by the modules once mounted.
 - ESP32-CAM is removable, with access to the FPC connector latch.
 - The camera flex (~2 cm) path is clear and away from the power zone, and the arch can be lifted to take the ESP32-CAM out.
 - All off-board connectors are reachable and face where their cables come up: battery, switch, power LED, motors, sensors and LEDs.
-- The chassis has a planned cable path (§4.1). The pass-through holes of the guide are still undecided (§20).
+- The chassis has a planned cable path (Section 4.1). The pass-through holes of the chassis design are still undecided (Section 20).
 - No collisions between components, modules, cables and the chassis.
 
 ---
 
-## 18. Stages and execution order
+## Section 18. Stages and execution order
 
 ### Stage 1: schematic (DONE, pending verification)
 
-1. Review this specification and resolve with the user the open items marked **needed for the schematic** (§20).
+1. Review this specification and resolve with the user the open items marked **needed for the schematic** (Section 20).
 2. Present the full ESP32-S3 and ESP32-CAM pin mapping, the current budget, and the switch and wire selection. **Wait for approval.**
 3. Create the KiCad project `auxi` through the MCP.
 4. Create the schematic, organized in clearly titled blocks:
@@ -598,13 +629,13 @@ Do not place text on pads or in areas covered by the modules once mounted.
 
 - The schematic is complete, and ERC passes with 0 errors and 0 warnings.
 - The pin mapping is approved.
-- The design is **preliminary** until the §20 items are closed against the real modules.
+- The design is **preliminary** until the Section 20 items are closed against the real modules.
 
 ### Stage 2: PCB (DONE as a single-layer 110 × 140 mm board, pending the real-part checks)
 
-The user had no calipers, so they approved using common web dimensions (§4.4). Every module position is **provisional** until checked against the real part.
+The user had no calipers, so they approved using common web dimensions (Section 4.4). Every module position is **provisional** until checked against the real part.
 
-**History.** The first PCB was 90 × 100 mm with a GND plane on `B.Cu` and signals on `F.Cu` (2 layers, 75 vias). Because local fabs do not plate holes, the user asked for a **single-layer board with a GND pour**, soldered from below, **110 × 140 mm**, with the track and hole rules of §14. The board was re-placed and re-routed from scratch. The old 2-layer version is in the Git history (before this change).
+**History.** The first PCB was 90 × 100 mm with a GND plane on `B.Cu` and signals on `F.Cu` (2 layers, 75 vias). Because local fabs do not plate holes, the user asked for a **single-layer board with a GND pour**, soldered from below, **110 × 140 mm**, with the track and hole rules of Section 14. The board was re-placed and re-routed from scratch. The old 2-layer version is in the Git history (before this change).
 
 **Board orientation (given by the user, photo of the chassis):**
 - Board outline: **x 106.07–216.07 mm, y 47.5–187.5 mm** in KiCad coordinates (110 × 140 mm, 2 mm corner radius).
@@ -635,7 +666,7 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
   - The bottom strip under the ESP32 (about 7 mm) carries the +VBAT_SW track (1.2 mm) from the battery terminal to the MP1584; D1, C9 and C10 sit west of `J1` next to the 5V pin.
   - **Why the camera is not exactly centered:** a camera at the very center needs its 5V and UART tracks to reach it from the south, and the sensor tracks (that run north between the camera and the ESP32) would have to cross them. On one layer that is impossible without a jumper. The camera is therefore moved 14.5 mm to the left of the centre, which leaves the space between the camera and the ESP32 free for the sensor tracks.
 - C11 (camera 470 µF) sits west of the camera lanes, in the corridor below the camera.
-- Silkscreen: module outlines for the ESP32-S3 (antenna end line), ESP32-CAM and MP1584 (its own footprint), TB6612 outline on `F.Fab`, and the labels of §15 (`^ FRONT` at the top, `REAR (USB)` at the bottom). Reference designators stay on `F.Fab`.
+- Silkscreen: module outlines for the ESP32-S3 (antenna end line), ESP32-CAM and MP1584 (its own footprint), TB6612 outline on `F.Fab`, and the labels of Section 15 (`^ FRONT` at the top, `REAR (USB)` at the bottom). Reference designators stay on `F.Fab`.
 
 **Routing method.** The MCP KiCad tools were not available, so the work was done with scripts (KiCad 10 Python API) and **Freerouting 2.1.0**:
 1. The placement was generated by a script (fixed module positions plus a greedy search for the passive parts).
@@ -660,19 +691,19 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 **Things to review by eye before etching (DRC cannot judge them):**
 - The `+3V3` track to the TB6612 VCC pin passes **between two pads of the ESP32 header `J3`** at 0.3 mm (and runs under the module): check it for breaks when etching. The +VBAT_SW track (1.2 mm) runs along the rear strip, close to the board edge (0.5 mm clearance).
 - The 0.3 mm tracks (I2C, UART, LED signals) run in tight bundles with 0.2 mm gaps. They are the most likely to break or short when etching. Print the copper page, look at it under light, and consider a slightly longer exposure.
-- I2C/UART tracks versus the motor tracks and the antenna keepouts (§14). The motor tracks are all on the east side of the board.
+- I2C/UART tracks versus the motor tracks and the antenna keepouts (Section 14). The motor tracks are all on the east side of the board.
 - Any 0.3 mm track that passes **between header pads** (the pads are 1.8 mm wide on a 2.54 mm pitch, so each gap is 0.74 mm and a 0.3 mm track keeps 0.22 mm of clearance on each side). Look at the ESP32-S3 and TB6612 header rows.
-- Capacitor heights (§14), the free space around the ESP32 USB end, and that the chassis lets the USB cable come out at the rear edge.
+- Capacitor heights (Section 14), the free space around the ESP32 USB end, and that the chassis lets the USB cable come out at the rear edge.
 
-**Pending:** the 2D mechanical check with real measurements (§4.3/§17), and the open items in §20.
+**Pending:** the 2D mechanical check with real measurements (Section 4.3/Section 17), and the open items in Section 20.
 
-### Stage 3: chassis v8 and wiring update (files updated; the PCB itself did NOT change)
+### Stage 3: printed chassis and wiring update (files updated; the PCB itself did NOT change)
 
-The chassis was printed in 3D (guide `Guía visual Auxi v8`, see §4.1) and three things changed in how the PCB is used. **The board that was etched is the same one: copper, footprints, positions and tracks are untouched.** Only the 3D models, the part descriptions and the documents changed.
+The chassis was printed in 3D (see Section 4.1) and three things changed in how the PCB is used. **The board that was etched is the same one: copper, footprints, positions and tracks are untouched.** Only the 3D models, the part descriptions and the documents changed.
 
 1. **All 4 LEDs are soldered directly on the PCB**: the 3 proximity LEDs (already so) and now also the **green power LED** (`J_LED_POWER1`, R1 = 1.5 kΩ). There is no header and no Dupont jumper for any LED.
 2. **The same 5.08 mm screw terminal is used for the switch and for the battery**, so the robot has **4 screw terminals** (motor left, motor right, switch, battery). The battery terminal is soldered into the pads of `J_BAT1`, which keep the XT30UPB-M footprint (5.0 mm pitch, 1.8 mm holes, 3.0 mm pads): the 5.08 mm terminal pins fit in the 1.8 mm holes with 0.08 mm of difference.
-3. **Chassis v8** (§4): 144.1 mm long, 63 mm wheels, W420 caster, battery at the rear, ballast box, switch tower, camera arch with a standard ~2 cm camera flex, PCB 10 mm above the tray on printed columns with M3 × 25 screws.
+3. **Printed chassis** (Section 4): 144.1 mm long, 63 mm wheels, W420 caster, battery at the rear, ballast box, switch tower, camera arch with a standard ~2 cm camera flex, PCB 10 mm above the tray on printed columns with M3 × 25 screws.
 
 What was changed in the KiCad files:
 
@@ -696,11 +727,11 @@ What was changed in the KiCad files:
 
 ### Later stages
 
-- Mechanical verification (§17) once the real parts are measured.
+- Mechanical verification (Section 17) once the real parts are measured.
 
 ---
 
-## 19. Deliverables and documentation
+## Section 19. Deliverables and documentation
 
 **Stage 1 deliverables:**
 
@@ -717,7 +748,7 @@ What was changed in the KiCad files:
 |---|---|
 | 1 | Switch ≥ 5 A DC and ≥ 12 V DC, **verified in its datasheet** (**M6 threaded toggle switch**, 6.2 mm hole in the switch tower). Confirm it against the measured stall current. |
 | 1 | 5 mm **green** LED (power, **soldered on the PCB** at `J_LED_POWER1`, with R1 = 1.5 kΩ) |
-| 1 + 1 + 1 | 5 mm LEDs: red, yellow and green (proximity), **soldered directly on the PCB** (see the R5 note in §10) |
+| 1 + 1 + 1 | 5 mm LEDs: red, yellow and green (proximity), **soldered directly on the PCB** (see the R5 note in Section 10) |
 | 3 | VL53L0X GY-530 modules |
 | 3 | 5-pin JST-XH cables, ≤ 25 cm (with XHP-5 female housing) |
 | 1 | Standard OV2640 or OV3660 camera module (24 pins, 0.5 mm pitch, ~2 cm flex), glued in the cradle (16) |
@@ -725,7 +756,7 @@ What was changed in the KiCad files:
 | 2 | 100 nF 50 V ceramic capacitors for the motor terminals |
 | 1 | 2×18650 battery holder (with bare wire leads, 18–20 AWG, to the screw terminal) + 2 protected 18650 cells. No XT30 plug is needed |
 | — | 20 AWG wire (battery and switch) and 22 AWG wire (motors) |
-| 4 | M3 × 25 screws for the columns (printed columns 03 and spacers 15 replace the standoffs). The full list of printed parts, screws and nuts is in the chassis guide v8 |
+| 4 | M3 × 25 screws for the columns (printed columns 03 and spacers 15 replace the standoffs). The printed parts also need their own screws and nuts (see Section 4.1). |
 
 **Plain-language documentation (`README.md` and this file):**
 
@@ -744,7 +775,7 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 
 ---
 
-## 20. Open items (stop and ask if unresolved)
+## Section 20. Open items (stop and ask if unresolved)
 
 **Needed to finalize the schematic:**
 
@@ -758,21 +789,20 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 
 **Needed for the PCB (later stages):**
 
-7. ~~Does the 150 × 150 mm chassis include the wheels?~~ **Resolved by the v8 guide:** the robot is 144.1 mm long (limit 150 mm) with 63 mm wheels at the sides of the 110 mm board. The width is not stated in the guide: still to confirm against the real robot and the rules.
+7. ~~Does the 150 × 150 mm chassis include the wheels?~~ **Resolved:** the robot is 144.1 mm long (limit 150 mm) with 63 mm wheels at the sides of the 110 mm board. The width is not known: still to confirm against the real robot and the rules.
 8. ~~Orientation of the 110 × 140 mm PCB~~ **Resolved by the user's photo:** the 110 mm side is the front (between the wheels). The robot is 144.1 mm long, so the 140 mm board nearly spans it: still to check on the real chassis that it clears the front piece and the rear caster, that the USB cable at the rear edge has a way out, and that the arch sits on the two front corners as drawn.
-9. Real measurements of the TT motor and the battery holder, and the height available on the bottom level. (Wheels: 63 mm, from the v8 guide.)
+9. Real measurements of the TT motor and the battery holder, and the height available on the bottom level. (Wheels: 63 mm.)
 10. ~~Location of the proximity LEDs~~ **Decided by the user:** soldered directly on the PCB (west side). There is no enclosure, so the LEDs are visible. The **power LED is now also soldered on the PCB**, at the front right: still to check only that the green power LED is not confused with the green proximity LED.
-11. ~~Camera flex length~~ **Resolved by the v8 guide:** a standard module with its ~2 cm flex, in the cradle on the arch.
+11. ~~Camera flex length~~ **Resolved:** a standard module with its ~2 cm flex, in the cradle on the arch.
 12. Height of the electrolytic capacitors that will be bought (C1, C3, C11), and a low-profile 6.3 × 7 mm part for C9 (it sits next to the ESP32 USB plug area).
-13. **Pass-through holes in the PCB** (guide proposal, §4.1): sensors (X 38, Y 45, Ø 8 mm) and power (X 28, Y −48, Ø 10 mm). They are **not** in the printed board. Decide whether the cables go around the board edge or whether those two holes are drilled by hand (and added to KiCad, then DRC). The LED hole of the guide is no longer needed.
+13. **Pass-through holes in the PCB** (chassis design proposal, Section 4.1): sensors (X 38, Y 45, Ø 8 mm) and power (X 28, Y −48, Ø 10 mm). They are **not** in the printed board. Decide whether the cables go around the board edge or whether those two holes are drilled by hand (and added to KiCad, then DRC). The LED hole of that proposal is no longer needed.
 14. **Reverse battery connection:** the battery is now a screw terminal, so it has no mechanical keying. Confirm the polarity marking on the real board (`-` on the left pad, `+` on the right pad) and mark the wires.
 15. **Terminal pitch:** the battery terminal has 5.08 mm pins in 5.0 mm pads. Confirm it fits without forcing it (the 1.8 mm holes should absorb the 0.08 mm). Also confirm which side its wire entry faces (the 3D model assumes the rear edge).
 16. **Weight:** 762.5 g estimated, 850 g is the limit. Weigh the real robot.
-17. The v8 guide still shows the **old wiring** for the LEDs (Dupont cables to LEDs on the supports and a blue power LED in the tower) and for the battery (XT30). It needs to be regenerated with the changes of Stage 3.
 
 ---
 
-## 21. Repository files
+## Section 21. Repository files
 
 | Path | Notes |
 |---|---|

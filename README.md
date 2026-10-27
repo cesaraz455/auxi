@@ -2,14 +2,43 @@
 
 **auxi** is a small soccer robot: a first-semester university project. This repository holds the KiCad design for its single custom PCB.
 
-> **Status: Stage 3 — chassis v8 and wiring update.** The board itself is the same single-layer layout that was etched (it did **not** change). What changed is how it is used: the 4 LEDs are soldered on the board, the battery and the switch use the same screw terminal as the motors, and the chassis was 3D-printed (see [Chassis v8](#chassis-v8)). The schematic passes ERC with no errors or warnings, and the PCB passes DRC with **0 violations and 0 unconnected items**. The design is still **preliminary** until the purchased modules are measured (see [Open items](#open-items)).
+> **Status: Stage 3 — printed chassis and wiring update.** The board itself is the same single-layer layout that was etched (it did **not** change). What changed is how it is used: the 4 LEDs are soldered on the board, the battery and the switch use the same screw terminal as the motors, and the chassis was 3D-printed (see [Section 5](#5-the-printed-chassis)). The schematic passes ERC with no errors or warnings, and the PCB passes DRC with **0 violations and 0 unconnected items**. The design is still **preliminary** until the purchased modules are measured (see [Section 16](#16-open-items)).
 
 ---
 
-## The robot
+## 1. What auxi is for
+
+**auxi** plays soccer in a university robot competition. A person drives it with an Xbox controller over Bluetooth Low Energy, and its front piece guides a ball while it pushes it. The competition rules shape the design: the robot must stay within 150 mm and 850 g, three colored LEDs must light when something is closer than 10 cm to each of its three distance sensors, and it must not interfere with other teams (for example with its Wi-Fi video).
+
+It is also a learning project of a first-semester team, so simple, robust and easy-to-assemble solutions are preferred. This repository holds the electronics: **one custom PCB** that carries the controller modules, the motor driver, the power regulator, all connectors and the 4 LEDs. The chassis is printed separately (Section 5) and the firmware does not exist yet.
+
+**Contents**
+
+| Section | Title |
+|---|---|
+| 1 | What auxi is for |
+| 2 | The robot |
+| 3 | What is on the PCB |
+| 4 | The board: one copper layer, soldered from below |
+| 5 | The printed chassis |
+| 6 | Why the pins moved |
+| 7 | Power architecture |
+| 8 | Pin map (GPIO) |
+| 9 | LEDs (university rules and power LED) |
+| 10 | Manufacturing rules for the home-made board |
+| 11 | Building the board |
+| 12 | Repository layout |
+| 13 | Opening the project |
+| 14 | Assembly warnings |
+| 15 | Roadmap |
+| 16 | Open items |
+
+---
+
+## 2. The robot
 
 - **Drive:** 2 yellow TT gear motors plus 1 rear caster wheel.
-- **Chassis:** 3D-printed (**v8**), 144.1 mm long (limit 150 mm). The front is a printed **V or curved piece that guides the ball**. See [Chassis v8](#chassis-v8).
+- **Chassis:** 3D-printed, 144.1 mm long (limit 150 mm). The front is a printed **V or curved piece that guides the ball**. See [Section 5](#5-the-printed-chassis).
 - **Two-level layout:**
   - **Bottom level (chassis):** base, motors with 63 mm wheels, caster, battery (at the rear, behind a door), ballast and wiring.
   - **Top level:** one **110 × 140 mm PCB** on four printed columns (M3 × 25 screws), 10 mm above the tray, above the batteries and motors.
@@ -18,7 +47,7 @@
 - **Sensors:** 3 × VL53L0X time-of-flight sensors (GY-530 modules) on printed supports at the front: FRONT (0°), LEFT (+45°) and RIGHT (−45°).
 - **Proximity LEDs:** 3 LEDs soldered on the board, whose colors are set by the university rules. Each LED turns on when its sensor reads **≤ 100 mm**.
 
-## What is on the PCB
+## 3. What is on the PCB
 
 | On the PCB (plug-in modules and parts) | Off the PCB (connects through a connector) |
 |---|---|
@@ -30,7 +59,7 @@
 | **4 LEDs (5 mm), soldered directly on the board: 3 proximity + 1 green power** | |
 | All connectors (**4 identical screw terminals**: 2 motors, switch, battery) | |
 
-## The board: one copper layer, soldered from below
+## 4. The board: one copper layer, soldered from below
 
 The board is made for **home etching and hand drilling**, because most local fabs do not plate the holes.
 
@@ -49,7 +78,7 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 ![3D view](docs/auxi_pcb_3d_iso.png)
 
-### Layout in one paragraph
+### 4.1 Layout in one paragraph
 
 Seen in KiCad (front of the robot = top edge):
 
@@ -59,11 +88,11 @@ Seen in KiCad (front of the robot = top edge):
 - **West side:** the MP1584, the 3 proximity LEDs (soldered directly on the board) and the big capacitor of the camera.
 - The free areas between the groups are GND plane.
 
-## Chassis v8
+## 5. The printed chassis
 
-The chassis was 3D-printed after the first concept. Its visual guide (*Guía visual Auxi v8*) lives in the chassis project and is **not** part of this repository. This is what matters for the board:
+The chassis is 3D-printed and its files live in the chassis project, not in this repository. This is what matters for the board:
 
-| Item | Chassis v8 |
+| Item | Printed chassis |
 |---|---|
 | Size and weight | **144.1 mm long** (limit 150 mm). About **762.5 g** estimated with 3 ballast plates and the standard tray; target 800 g, **regulation limit 850 g**. Weigh the real robot |
 | Drive | 2 TT motors in aluminium brackets, **63 mm wheels**, W420 rear caster |
@@ -83,17 +112,17 @@ The chassis was 3D-printed after the first concept. Its visual guide (*Guía vis
 | Switch | `J_SWITCH1` screw terminal | 20 AWG, never Dupont |
 | Sensors | 3 × JST-XH on the front edge | 25 cm or less, I2C at 100 kHz |
 
-**Pass-through holes.** The guide proposes three holes in the board (sensors, power, LEDs). **They were not added: the board that was etched did not change.** The LED hole is not needed any more, because the LEDs are now soldered on the board. See the [open items](#open-items).
+**Pass-through holes.** The chassis design proposes three holes in the board (sensors, power, LEDs). **They were not added: the board that was etched did not change.** The LED hole is not needed any more, because the LEDs are now soldered on the board. See [Section 16](#16-open-items).
 
 **To program the ESP32-CAM:** remove the two M3 × 25 screws of the arch legs and lift the arch (only ~3 mm are left above the front end of the module), open the latch of the flex, and take the module out.
 
-## Why the pins moved
+## 6. Why the pins moved
 
-A single layer cannot cross two tracks. To avoid any crossing (and any jumper wire), the GPIOs were **reassigned** so the signals leave the ESP32 headers in the same order as their destinations. The firmware has not been written yet, so this costs nothing. See the new table in [Pin map](#pin-map-gpio).
+A single layer cannot cross two tracks. To avoid any crossing (and any jumper wire), the GPIOs were **reassigned** so the signals leave the ESP32 headers in the same order as their destinations. The firmware has not been written yet, so this costs nothing. See the new table in [Section 8](#8-pin-map-gpio).
 
 The mapping changed **once more** when the board orientation was fixed (110 mm side = front): the I2C pins and the camera UART pins moved to the order that the new layout needs, and the UART **TX and RX swapped places** (`GPIO18` is now the ESP32 transmit pin). Always check the table below.
 
-## Power architecture
+## 7. Power architecture
 
 ```
 BAT 2S (6.0–8.4 V) ─ screw terminal ─ external switch ─ +VBAT_SW
@@ -108,7 +137,7 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 - D1 keeps the USB port and the robot from powering each other while you program the board.
 - The firmware **must** limit motor PWM to **70 %**, which gives about 5.9 V average at 8.4 V.
 
-## Pin map (GPIO)
+## 8. Pin map (GPIO)
 
 **Left header row (`U_ESP_J1`)**
 
@@ -143,7 +172,7 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 - Still avoided on purpose: strapping pins (0, 3, 45, 46), USB (19, 20), console (43, 44), octal PSRAM (35, 36, 37), RGB LED (38, 48) and 47.
 - R2 (10 kΩ to GND) still holds `STBY` low while the ESP32 boots, so the motors stay off.
 
-## LEDs (university rules and power LED)
+## 9. LEDs (university rules and power LED)
 
 | Sensor | LED color | Position on the board (top view, front at the top) | Pads |
 |---|---|---|---|
@@ -159,7 +188,7 @@ The **power LED** is different. It is a **green** 5 mm LED **soldered directly o
 
 The 3D view of the board shows all four LEDs as colored 5 mm models (8.6 mm high), stored in `auxi.3dshapes/`.
 
-## Manufacturing rules for the home-made board
+## 10. Manufacturing rules for the home-made board
 
 These rules were requested so the tracks survive etching and the pads keep copper after drilling by hand.
 
@@ -175,7 +204,7 @@ These rules were requested so the tracks survive etching and the pads keep coppe
 
 Result in the final board: 167 tracks, of which **162 are 0.4 mm or wider** and **5 are 0.3 mm** (37 mm in total). The 0.3 mm tracks are the ones that squeeze between pad rows or run in tight bundles (I2C, UART and LED signals); the router could not widen them without breaking the 0.2 mm clearance.
 
-### Drill table
+### 10.1 Drill table
 
 | Drill (mm) | Pad (mm) | Holes | Used by |
 |---|---|---|---|
@@ -189,7 +218,7 @@ Result in the final board: 167 tracks, of which **162 are 0.4 mm or wider** and 
 
 Header pins are 0.64 mm square (0.9 mm diagonal), so a 1.0 mm hole is enough. Check the legs of your own parts before drilling: if a part is thicker than the hole, open that hole with the next bit size (the pad still keeps at least 0.3 mm of ring).
 
-## Building the board
+## 11. Building the board
 
 1. Print the **B.Cu page** of [`docs/auxi_pcb_real_scale.pdf`](docs/auxi_pcb_real_scale.pdf) at **100 % scale** (no "fit to page"). The 100 mm ruler under the board must measure 100 mm.
    - **Page 2** is the copper **as seen from above** (not mirrored). For toner transfer, press the printed face against the copper. The result reads correctly from the copper side.
@@ -202,7 +231,7 @@ Header pins are 0.64 mm square (0.9 mm diagonal), so a 1.0 mm hole is enough. Ch
 
 The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so the plug overhangs the edge: keep the area around it free of tall parts and make sure nothing on the chassis blocks the cable at the rear (the plug and cable need about 15 × 12 mm). Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF). The long `+3V3` and `+VBAT_SW` tracks run along the east side and the bottom strip of the board, away from the I2C and UART tracks.
 
-## Repository layout
+## 12. Repository layout
 
 | Path | Contents |
 |---|---|
@@ -223,13 +252,13 @@ The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so th
 
 The full design specification (confirmed decisions, power, pinout, connectors, capacitors, PCB rules and open items) is in [`CLAUDE.md`](CLAUDE.md). It is the source of truth for every design decision.
 
-## Opening the project
+## 13. Opening the project
 
 1. Install **KiCad 10**. The files use the KiCad 10 file format, so older versions cannot open them.
 2. Open `auxi.kicad_pro`. The project libraries (`auxi`) load through the local `sym-lib-table` and `fp-lib-table` using `${KIPRJMOD}`.
 3. The schematic points to the four custom `auxi:` connector footprints (bigger pads), so "Update PCB from Schematic" keeps them. Do not swap them back to the standard KiCad ones.
 
-## Assembly warnings
+## 14. Assembly warnings
 
 1. **Set the MP1584 to 5.0 V with a multimeter BEFORE plugging in any module.**
 2. **Check battery polarity** (`BAT+` / `BAT−`) before connecting it. **The battery is a plain screw terminal now, not a keyed XT30 plug, so nothing prevents a reversed connection.** Mark the wires (red +, black −) and check with a multimeter before closing the switch.
@@ -240,18 +269,18 @@ The full design specification (confirmed decisions, power, pinout, connectors, c
 7. **Check every track under a magnifier** before soldering: with 0.2 mm gaps, a small etching defect can short two tracks. Check the 0.3 mm tracks for breaks as well.
 8. **Solder the 4 LEDs with the right polarity**: the long leg (`+`) goes in the right, square hole of each pair. A LED soldered backwards does not light and is not damaged.
 
-## Roadmap
+## 15. Roadmap
 
 - [x] **Stage 1:** schematic, footprints and ERC
 - [x] **Stage 2:** 110 × 140 mm single-layer PCB layout, DRC 0 violations
-- [x] **Stage 3:** chassis v8, LEDs soldered on the board, 4 screw terminals (3D models, schematic texts and documents updated; the board itself did not change)
+- [x] **Stage 3:** printed chassis, LEDs soldered on the board, 4 screw terminals (3D models, schematic texts and documents updated; the board itself did not change)
 - [ ] Close the open items against the real purchased modules
 - [ ] 2D space check (top and side views) inside the chassis, with real measurements
 - [ ] Firmware (main ESP32-S3 and ESP32-CAM), using the pin map above
 
-## Open items
+## 16. Open items
 
-These need the real, purchased parts. See [`CLAUDE.md`](CLAUDE.md) §20 for details.
+These need the real, purchased parts. See [`CLAUDE.md`](CLAUDE.md) (Section 20) for details.
 
 1. Photos and measurements of the ESP32-S3 board if it is a clone (row spacing, RGB LED revision).
 2. Pin order of the purchased TB6612FNG breakout (the SparkFun order was assumed). The layout depends on it.
@@ -263,7 +292,6 @@ These need the real, purchased parts. See [`CLAUDE.md`](CLAUDE.md) §20 for deta
 8. The photo of the chassis shows that the **110 mm side is the front** (between the wheels) and the 140 mm side runs front to back. The robot is 144.1 mm long, so the 140 mm board nearly spans it. Still to check on the real chassis: does the board clear the front piece and the caster, does the USB cable at the rear edge have a way out, and does the camera arch sit on the two front corners as drawn?
 9. The ESP32-CAM is at the front of the board, 14.5 mm to the left of the centre, and the camera sits in the arch right above its flex connector (standard ~2 cm flex). Confirm on the real robot that the flex reaches the cradle without strain.
 10. Height of the capacitors that will be bought (C1, C3 and C11 are the tallest).
-11. **Pass-through holes in the board** (sensors and power, proposed by the chassis guide): decide whether the cables go around the board edge or whether the holes are drilled by hand (and added to KiCad, then DRC).
+11. **Pass-through holes in the board** (sensors and power, proposed by the chassis design): decide whether the cables go around the board edge or whether the holes are drilled by hand (and added to KiCad, then DRC).
 12. **Battery terminal:** it has 5.08 mm pins in the 5.0 mm pads of the old XT30 footprint. Confirm it fits without forcing it and which side its wire entry faces.
 13. **Weight:** 762.5 g estimated, 850 g is the limit.
-14. The chassis guide still shows the **old wiring** (Dupont LEDs on the supports, a blue power LED in the switch tower and an XT30 battery plug). It has to be updated with the changes of Stage 3.
