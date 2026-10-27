@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guía para Claude Code al trabajar en este repositorio. Este archivo es la **especificación completa de diseño** del proyecto. No hace falta ningún documento externo.
+Guía para Claude Code al trabajar en este repositorio. Este archivo es la **especificación completa de diseño** del proyecto y su **única documentación**: no hay `README.md` ni hace falta ningún documento externo.
 
 ---
 
@@ -29,6 +29,8 @@ Contenido (todas las referencias cruzadas de este archivo dicen "Sección N"):
 | 19 | Entregables y documentación |
 | 20 | Puntos abiertos |
 | 21 | Archivos del repositorio |
+| 22 | Armado de la placa (vistas, brocas y pasos) |
+| 23 | Abrir el proyecto en KiCad |
 
 ---
 
@@ -76,7 +78,7 @@ Contenido (todas las referencias cruzadas de este archivo dicen "Sección N"):
 - Trata esto como un proyecto real de ingeniería electrónica. **Nunca inventes** pines, dimensiones, footprints ni especificaciones eléctricas. Si un dato no está en este archivo ni en la documentación verificable del componente, **detente y pregunta** (por ejemplo, pide fotos o medidas con calibrador del módulo comprado).
 - **La Sección 3 es la fuente única de verdad.** Si encuentras una contradicción, **no la resuelvas en silencio**: explícala y propón una solución.
 - **El usuario es principiante.** Explica cada decisión en lenguaje sencillo, prefiere soluciones simples, robustas y fáciles de armar, y **no agregues funciones que no se pidieron**.
-- **Idioma:** el usuario escribe en español, así que responde en español. La documentación del repositorio (`README.md` y este archivo) también está en español.
+- **Idioma:** el usuario escribe en español, así que responde en español. Este archivo, que es la única documentación del repositorio, también está en español.
 - **Archivos de bloqueo de KiCad:** los archivos `~*.lck` indican que KiCad tiene el proyecto abierto en la interfaz gráfica. Avisa al usuario antes de escribir en archivos que pueda estar editando.
 - **Git:** haz commit solo cuando el usuario lo pida.
 
@@ -725,9 +727,14 @@ Qué se cambió en los archivos de KiCad:
 **Limitación:** la copia en la biblioteca `auxi.pretty/PinHeader_1x02_P2.54mm_Vertical.kicad_mod` sigue apuntando al modelo 3D del header de pines, porque sus pads son los correctos para los LED y no se permitió cambiar el footprint. Los modelos de LED viven en el archivo de la PCB. Si alguien restablece esos 4 footprints desde la biblioteca ("Update footprint from library"), vuelve el modelo del header y hay que asignar de nuevo el modelo del LED.
 
 
-### Etapas posteriores
+### Hoja de ruta
 
-- Verificación mecánica (Sección 17) una vez que se midan las piezas reales.
+- [x] **Etapa 1:** esquemático, footprints y ERC
+- [x] **Etapa 2:** distribución de la PCB de una capa de 110 × 140 mm, DRC con 0 violaciones
+- [x] **Etapa 3:** chasis impreso, LED soldados en la placa, 4 borneras de tornillo (modelos 3D, textos del esquemático y documentos actualizados; la placa en sí no cambió)
+- [x] Firmware (ESP32-S3 principal y ESP32-CAM), con el mapa de pines de la Sección 6.1. Vive en un repositorio de GitHub separado
+- [ ] Cerrar los puntos abiertos de la Sección 20 con los módulos reales comprados
+- [ ] Revisión de espacio en 2D (vistas superior y lateral) dentro del chasis, con medidas reales (Sección 4.3 y Sección 17)
 
 ---
 
@@ -758,18 +765,20 @@ Qué se cambió en los archivos de KiCad:
 | — | Cable de 20 AWG (batería e interruptor) y de 22 AWG (motores) |
 | 4 | Tornillos M3 × 25 para las columnas (las columnas impresas 03 y los separadores 15 reemplazan a los separadores comerciales). Las piezas impresas también necesitan sus propios tornillos y tuercas (ver Sección 4.1). |
 
-**Documentación en lenguaje sencillo (`README.md` y este archivo):**
+**Documentación en lenguaje sencillo (este archivo):**
 
 - Arquitectura, alimentación, pines, conectores externos (qué va dónde), sensores, LED que cumplen el reglamento, motores, TB6612FNG, UART, cámara externa y decisiones clave.
 
-**Advertencias de armado (deben aparecer en `README.md`):**
+**Advertencias de armado (deben aparecer en este archivo):**
 
-1. Ajusta el MP1584 a 5.0 V con un multímetro **antes** de enchufar cualquier módulo.
-2. Revisa la polaridad de la batería.
-3. El camino del interruptor lleva toda la corriente del robot: usa el calibre de cable especificado (20 AWG) y la bornera de tornillo, nunca cables Dupont.
-4. Quita la ESP32-CAM para programarla.
-5. El PWM de los motores nunca debe superar 70 %.
-6. Las celdas 18650 deben estar protegidas, o cargarse con un cargador balanceador 2S.
+1. **Ajusta el MP1584 a 5.0 V con un multímetro ANTES de enchufar cualquier módulo.**
+2. **Revisa la polaridad de la batería** (`BAT+` / `BAT−`) antes de conectarla. La batería es una bornera de tornillo simple, no un enchufe XT30 con guía, así que nada impide conectarla al revés. Marca los cables (rojo +, negro −) y comprueba con un multímetro antes de cerrar el interruptor.
+3. **El camino del interruptor lleva toda la corriente del robot.** Usa cable de 20 AWG y la bornera de tornillo. Nunca uses cables Dupont ahí. Lo mismo vale para la batería y los motores.
+4. **Quita la ESP32-CAM para programarla**, usando la base programadora ESP32-CAM-MB.
+5. **El PWM de los motores nunca debe superar 70 %.**
+6. **Usa celdas 18650 protegidas**, o cárgalas fuera del robot con un cargador balanceador 2S. La PCB no tiene BMS ni circuito de carga.
+7. **Revisa cada pista con una lupa** antes de soldar: con separaciones de 0.2 mm, un pequeño defecto de grabado puede poner dos pistas en corto. Revisa también que las pistas de 0.3 mm no estén cortadas.
+8. **Suelda los 4 LED con la polaridad correcta**: la pata larga (`+`) va en el agujero derecho, cuadrado, de cada par. Un LED soldado al revés no enciende y no se daña.
 
 El proyecto **no** está terminado solo porque exista un archivo `.kicad_sch`: debe pasar el ERC y la revisión eléctrica.
 
@@ -824,3 +833,60 @@ El proyecto **no** está terminado solo porque exista un archivo `.kicad_sch`: d
 - Cada fila de pines de un módulo es su propio símbolo con un footprint estándar de header hembra.
 - No hay una separación oficial publicada entre filas y los clones varían, así que las filas se colocan en la etapa de PCB usando medidas con calibrador.
 - Los **números** de pin coinciden con la posición física en el header, mientras que el dibujo del símbolo agrupa los pines por función.
+
+---
+
+## Sección 22. Armado de la placa
+
+La placa está pensada para **grabado casero y taladrado a mano**, porque la mayoría de los talleres locales no metalizan los agujeros (ver Sección 14).
+
+### Sección 22.1 Vistas de la placa
+
+Vista superior (cobre `B.Cu` visto desde arriba, con la serigrafía):
+
+![Vista superior](docs/auxi_pcb_top.png)
+
+Vista inferior (lado del cobre):
+
+![Vista inferior (lado del cobre)](docs/auxi_pcb_bottom.png)
+
+Vista 3D (los cuatro LED y las cuatro borneras tal como están armados):
+
+![Vista 3D](docs/auxi_pcb_3d_iso.png)
+
+### Sección 22.2 Tabla de brocas
+
+| Broca (mm) | Pad (mm) | Agujeros | Usada por |
+|---|---|---|---|
+| 0.80 | 1.6 | 48 | Resistencias y condensadores de hasta 8 mm |
+| 0.95 | 1.75 × 1.95 | 15 | Conectores JST-XH de los sensores |
+| 1.00 | 1.8 (2.0 para los dos condensadores de 470 µF) | 96 | Headers hembra (ESP32-S3, ESP32-CAM, TB6612FNG), agujeros de los LED (4 pares), pines del MP1584, condensadores de 470 µF |
+| 1.10 | 2.2 | 2 | Diodo 1N5819 |
+| 1.30 | 2.6 | 6 | Borneras de tornillo de 5.08 mm: motores ×2 e interruptor |
+| 1.80 | 3.0 | 2 | Bornera de tornillo de la batería (los pads aún tienen el footprint del XT30, paso de 5.0 mm; los pines de 5.08 mm de la bornera caben en los agujeros de 1.8 mm) |
+| 3.20 | sin pad | 4 | Agujeros de montaje M3 (sin metalizar) |
+
+Los pines de los headers son cuadrados de 0.64 mm (0.9 mm en diagonal), así que un agujero de 1.0 mm basta. Revisa las patas de tus propias piezas antes de taladrar: si una pieza es más gruesa que el agujero, agranda ese agujero con la siguiente broca (el pad aún conserva al menos 0.3 mm de anillo).
+
+Resultado en la placa final: 167 pistas, de las cuales **162 miden 0.4 mm o más** y **5 miden 0.3 mm** (37 mm en total). Las de 0.3 mm son las que se cuelan entre filas de pads o van en haces apretados (señales de I2C, UART y LED); el enrutador no pudo ensancharlas sin romper la separación de 0.2 mm.
+
+### Sección 22.3 Pasos de armado
+
+1. Imprime la **página de B.Cu** de `docs/auxi_pcb_real_scale.pdf` a **escala 100 %** (sin "ajustar a la página"). La regla de 100 mm bajo la placa debe medir 100 mm.
+   - La **página 2** es el cobre **visto desde arriba** (sin espejo). Para transferencia de tóner, apoya la cara impresa contra el cobre. El resultado se lee bien desde el lado del cobre.
+   - La **página 3** es el mismo cobre **en espejo**, para métodos donde la hoja queda con la cara impresa hacia arriba.
+   - El negro es cobre. Los puntitos blancos en los pads son guías de taladrado.
+2. Graba, limpia y taladra (ver la tabla de brocas). Taladra desde el lado del cobre para que los puntos guía centren la broca.
+3. Monta los componentes en la **cara superior** y suéldalos **por abajo**. Orden: primero las piezas bajas (resistencias, diodo, condensadores cerámicos), luego los condensadores electrolíticos, luego los zócalos y conectores.
+4. La página 1 del PDF muestra dónde va cada pieza (vista superior con serigrafía y referencias).
+5. Suelda **al final** los 4 pines del MP1584, después de ajustar su salida a 5.0 V (ver las advertencias de la Sección 19).
+
+El **extremo USB** del ESP32-S3 está a solo **1 mm** del borde trasero de la placa, así que el conector sobresale del borde: mantén libre de piezas altas el área a su alrededor y asegúrate de que nada del chasis bloquee el cable atrás (el conector y el cable necesitan unos 15 × 12 mm). Usa un condensador de perfil bajo de **6.3 × 7 mm** para C9 (100 µF). Las pistas largas de `+3V3` y `+VBAT_SW` van por el lado este y la franja inferior de la placa, lejos de las pistas de I2C y UART.
+
+---
+
+## Sección 23. Abrir el proyecto en KiCad
+
+1. Instala **KiCad 10**. Los archivos usan el formato de archivo de KiCad 10, así que las versiones anteriores no pueden abrirlos.
+2. Abre `auxi.kicad_pro`. Las bibliotecas del proyecto (`auxi`) se cargan con los archivos locales `sym-lib-table` y `fp-lib-table` mediante `${KIPRJMOD}`.
+3. El esquemático apunta a los cuatro footprints de conectores personalizados `auxi:` (pads más grandes), así que "Update PCB from Schematic" los conserva. No los cambies de nuevo por los estándar de KiCad.
