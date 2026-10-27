@@ -5270,7 +5270,7 @@
 		)
 		(uuid "ef6b5827-b48f-4ff1-acea-f679d365ef9a")
 	)
-	(text "J_BAT1 (XT30UPB-M): pin 1 = BAT- (lado biselado), pin 2 = BAT+ (lado plano).\nJ_SWITCH1: interruptor externo. Por aqui pasa TODA la corriente del robot:\nbornera 5.08 mm y cable 20 AWG, nunca Dupont.\nR1 1.5k: LED azul a 2.0 mA (6.0 V) - 3.6 mA (8.4 V).\nCalibrar el MP1584 a 5.0 V con multimetro ANTES de enchufar cualquier modulo.\nD1 (Schottky): evita que el USB del PC alimente el robot y viceversa.\nPWR_FLAG: +VBAT_SW, GND y +5V_ESP solo reciben corriente a traves de\nconectores o del diodo (pines pasivos); las banderas le indican al ERC\nque esas redes SI estan alimentadas."
+	(text "J_BAT1 (XT30UPB-M): pin 1 = BAT- (lado biselado), pin 2 = BAT+ (lado plano).\nJ_SWITCH1: interruptor externo. Por aqui pasa TODA la corriente del robot:\nbornera 5.08 mm y cable 20 AWG, nunca Dupont.\nR1 1.5k: LED verde de funcionamiento, ~2.6 mA (6.0 V) - ~4.2 mA (8.4 V).\nCalibrar el MP1584 a 5.0 V con multimetro ANTES de enchufar cualquier modulo.\nD1 (Schottky): evita que el USB del PC alimente el robot y viceversa.\nPWR_FLAG: +VBAT_SW, GND y +5V_ESP solo reciben corriente a traves de\nconectores o del diodo (pines pasivos); las banderas le indican al ERC\nque esas redes SI estan alimentadas."
 		(exclude_from_sim no)
 		(at 20 320 0)
 		(effects
@@ -5373,7 +5373,7 @@
 		)
 		(uuid "f0b260a6-f37d-497f-bcbe-d37e622f80d6")
 	)
-	(text "6. LEDs DE PROXIMIDAD (reglamento, externos)"
+	(text "6. LEDs DE PROXIMIDAD (reglamento, soldados en la placa)"
 		(exclude_from_sim no)
 		(at 150 203 0)
 		(effects
@@ -5385,7 +5385,7 @@
 		)
 		(uuid "a11f5d46-d7e7-4848-8f7e-aafb08976d3e")
 	)
-	(text "FRONT = ROJO, LEFT = AMARILLO, RIGHT = VERDE. Encendido si distancia <= 100 mm.\nPin 1 = LED+ (anodo), pin 2 = LED- (GND). ~2.5-3 mA a 3.3 V.\nR7 (verde) PROVISIONAL: 470 ohm vale para verde clasico (Vf ~2.1 V);\nhay que recalcularla si el LED es verde brillante (Vf ~3 V)."
+	(text "FRONT = ROJO, LEFT = AMARILLO, RIGHT = VERDE. Encendido si distancia <= 100 mm.\nLos LED de 5 mm se sueldan DIRECTO en los pares de agujeros J_LED_*\n(pata larga = anodo = pad cuadrado, junto a la resistencia).\nPin 1 = LED+ (anodo), pin 2 = LED- (GND). ~2.5-3 mA a 3.3 V.\nR5 (verde) PROVISIONAL: 470 ohm vale para verde clasico (Vf ~2.1 V);\nhay que recalcularla si el LED es verde brillante (Vf ~3 V)."
 		(exclude_from_sim no)
 		(at 150 222 0)
 		(effects
@@ -11728,7 +11728,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "POWER LED (azul)"
+		(property "Value" "POWER LED (verde)"
 			(at 92.71 288.29 0)
 			(effects
 				(font

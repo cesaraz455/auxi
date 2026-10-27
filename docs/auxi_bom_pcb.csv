@@ -9,7 +9,7 @@
 "J_BAT1","XT30 BAT 2S","Connector_AMASS:AMASS_XT30UPB-M_1x02_P5.0mm_Vertical","1",""
 "J_LED_FRONT1","LED_FRONT (ROJO)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
 "J_LED_LEFT1","LED_LEFT (AMARILLO)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
-"J_LED_POWER1","POWER LED (azul)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
+"J_LED_POWER1","POWER LED (verde)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
 "J_LED_RIGHT1","LED_RIGHT (VERDE)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
 "J_MOTOR_LEFT1","MOTOR_LEFT","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal","1",""
 "J_MOTOR_RIGHT1","MOTOR_RIGHT","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal","1",""
