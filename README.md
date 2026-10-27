@@ -122,9 +122,9 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 
 A LED is **on** when its sensor reads ≤ 100 mm. It is **off** when the reading is above 100 mm, invalid or out of range. The firmware may average readings, but it must not use hysteresis that keeps a LED on above 100 mm.
 
-**Decision (user): the three proximity LEDs are 5 mm LEDs soldered directly on the board**, in the pairs of holes marked `J_LED_FRONT1`, `J_LED_LEFT1` and `J_LED_RIGHT1` (no header and no Dupont jumpers). They are stacked on the west side, between the MP1584 and the ESP32-S3, top to bottom: FRONT (red), LEFT (yellow), RIGHT (green). In each pair of holes the **right hole** (the **square pad**, next to the resistor R3, R4 or R5) is the LED `+` (anode, the **long leg**) and the **left hole** is the `−` (cathode, the short leg and the flat side of the LED). A LED soldered backwards does not light and is not damaged. Leave the legs a little long so the LED can be tilted or lifted, because the enclosure must still let the LEDs be seen (university rules).
+**Decision (user): the three proximity LEDs are 5 mm LEDs soldered directly on the board**, in the pairs of holes marked `J_LED_FRONT1`, `J_LED_LEFT1` and `J_LED_RIGHT1` (no header and no Dupont jumpers). They are stacked on the west side, between the MP1584 and the ESP32-S3, top to bottom: FRONT (red), LEFT (yellow), RIGHT (green). In each pair of holes the **right hole** (the **square pad**, next to the resistor R3, R4 or R5) is the LED `+` (anode, the **long leg**) and the **left hole** is the `−` (cathode, the short leg and the flat side of the LED). A LED soldered backwards does not light and is not damaged. The robot has **no enclosure** (user decision): the board stays visible on top of the chassis, so the LEDs are visible as the university rules require and no windows or holes are needed. Solder them at a normal height.
 
-The **power LED** is different: it is a **green** 5 mm LED that stays off the board, connected to the 2-pin header `J_LED_POWER1` (top right) with Dupont jumpers. Resistor `R1` (1.5 kΩ) gives it about 2.6 mA at 6.0 V and 4.2 mA at 8.4 V with a classic green LED (2–3.6 mA with a bright one). Because the RIGHT proximity LED is also green, check that the two cannot be confused in the enclosure.
+The **power LED** is different: it is a **green** 5 mm LED that stays off the board, connected to the 2-pin header `J_LED_POWER1` (top right) with Dupont jumpers. Resistor `R1` (1.5 kΩ) gives it about 2.6 mA at 6.0 V and 4.2 mA at 8.4 V with a classic green LED (2–3.6 mA with a bright one). Because the RIGHT proximity LED is also green, check that the two cannot be confused (they are far apart on the board, but both are green).
 
 ## Manufacturing rules for the home-made board
 
@@ -167,7 +167,7 @@ Header pins are 0.64 mm square (0.9 mm diagonal), so a 1.0 mm hole is enough. Ch
 4. Page 1 of the PDF shows where every part goes (top view with silkscreen and references).
 5. Solder the 4 pins of the MP1584 **last**, after you set its output (see the warnings below).
 
-The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so the plug overhangs the edge: keep the area around it free of tall parts and make sure the chassis lets the cable come out at the rear (the plug and cable need about 15 × 12 mm). Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF). The long `+3V3` and `+VBAT_SW` tracks run along the east side and the bottom strip of the board, away from the I2C and UART tracks.
+The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so the plug overhangs the edge: keep the area around it free of tall parts and make sure nothing on the chassis blocks the cable at the rear (the plug and cable need about 15 × 12 mm). Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF). The long `+3V3` and `+VBAT_SW` tracks run along the east side and the bottom strip of the board, away from the I2C and UART tracks.
 
 ## Repository layout
 

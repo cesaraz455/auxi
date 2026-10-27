@@ -57,6 +57,7 @@ Guidance for Claude Code when working in this repository. This file is the **com
 | Number of PCBs | **Exactly one custom PCB.** Commercial modules do not count as extra PCBs. |
 | PCB layers and parts | **1 copper layer (`B.Cu`, the bottom face) with a GND pour on the same layer.** `F.Cu` has no copper. **All components THT** (no SMD), mounted on the top face and **soldered from below**. No plated holes, no vias and no jumper wires. |
 | PCB location | Top level, on 4 M3 standoffs, above the batteries and motors. |
+| Enclosure | **None** (user decision): the robot has no enclosure; the PCB stays visible on top of the chassis. So the LEDs are visible (university rules) and no windows or enclosure clearances are needed. |
 | PCB size | **110 × 140 mm**, set by the user (it was 90 × 100 mm; the extra room is for the single-layer routing). Do not enlarge it without approval. **The 110 mm side is the FRONT of the robot (between the wheels) and the 140 mm side runs front to back. Confirmed by the user with a photo of the chassis.** |
 | On the PCB | ESP32-S3-DevKitC-1, ESP32-CAM, TB6612FNG module, MP1584 module, capacitors, resistors, diode and connectors. |
 | Off-board (with a connector on the PCB) | 3 VL53L0X sensors, power LED, switch, 2 motors, battery and OV2640 camera. |
@@ -130,7 +131,7 @@ This check is mandatory before PCB design. It does not block the schematic.
   - Use standard M3 lengths and document which one.
 - **Wheels:** if the wheels are inside the 150 × 150 mm outline, the PCB must not hit them. Check the wheel height (50 mm diameter) against the PCB height.
 - **Concave area:** the PCB must not block the ball entry or the camera view, unless the user approves it.
-- **Cable path:** the enclosure and chassis must let the battery, motor, sensor, LED, switch and camera cables run up from the bottom level to their connectors.
+- **Cable path:** the chassis must let the battery, motor, sensor, switch and camera cables run up from the bottom level to their connectors (there is no enclosure).
 - **Size: 110 × 140 mm, set by the user.**
   - **Confirmed orientation (user photo):** the 110 mm side is the front of the robot and sits between the two wheels; the 140 mm side runs front to back. Still check the 140 mm length against the front concave area and the rear caster, and the standoff positions.
   - Check that all modules, connectors, M3 holes and antenna keepouts fit that outline, with room to route and to plug cables in by hand.
@@ -159,7 +160,7 @@ These are reference values for the physical layout. Clones vary: confirm them wi
 | 470 µF electrolytic | ~Ø10 × 13–20 | Height depends on voltage and brand |
 | M3 hole | Ø3.2 with ~Ø6.5 keepout | 4 corners |
 
-Modules plugged into female headers sit about 1 cm above the PCB. Account for this in the enclosure height.
+Modules plugged into female headers sit about 1 cm above the PCB. There is no enclosure, so this only matters for anything mounted above the PCB (check that nothing hits the modules).
 
 ---
 
@@ -326,7 +327,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - Place the ESP32-CAM with its FPC connector facing the front of the robot. It is at the **front of the PCB, almost centered** (14.5 mm left of the centre, camera looking forward); check that the flex (10 cm or less) reaches the camera mount.
   - Keep the flex path clear, with room to lift the connector latch by hand.
   - Route the flex away from the TB6612, the motor traces and the motor wires.
-  - Explain how to fix the flex to the chassis with strain relief (printed holder or tape) and how the enclosure must keep the field of view clear.
+  - Explain how to fix the flex to the chassis with strain relief (printed holder or tape) and keep the field of view clear (there is no enclosure, so just do not put anything in front of the camera).
 - **Antennas:** copper-free area under the ESP32-CAM antenna. Put the ESP32-S3 and ESP32-CAM antennas on different PCB edges, as far apart as possible, because both use 2.4 GHz.
 
 ---
@@ -382,7 +383,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - The LED is on when its sensor reads **≤ 100 mm (10 cm)**.
   - The LED is off when the reading is > 100 mm, invalid or out of range.
   - The firmware may average several readings to avoid flicker. It must not use hysteresis that keeps a LED on above 100 mm, because that would break the rules.
-- **Location (user decision):** the 3 LEDs are **5 mm LEDs soldered directly on the PCB**, on the west side between the MP1584 and the ESP32-S3, top to bottom: FRONT (red), LEFT (yellow), RIGHT (green) (top view, front of the robot at the top). The enclosure must still let them be seen, as the rules require: leave the LED legs a little long so they can be tilted or lifted, and make windows or holes in the enclosure.
+- **Location (user decision):** the 3 LEDs are **5 mm LEDs soldered directly on the PCB**, on the west side between the MP1584 and the ESP32-S3, top to bottom: FRONT (red), LEFT (yellow), RIGHT (green) (top view, front of the robot at the top). The robot has **no enclosure** (user decision), so the LEDs stay visible on the board, as the rules require, and no windows are needed.
 - **Connection:** the footprint is still the 2-pin, 2.54 mm pad pair `J_LED_FRONT1` / `J_LED_LEFT1` / `J_LED_RIGHT1`. The LED legs go straight into those holes (no header, no Dupont jumpers).
   - The **right hole** (square pad, next to the resistor R3, R4 or R5) is the **anode (+, long leg)**. The **left hole** is the cathode (−, short leg, flat side of the LED).
   - Silkscreen with the name, color and polarity (`+` on the anode).
@@ -390,7 +391,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - The current value is 470 Ω, which gives about 2.5–3 mA.
   - **R5 (green) is provisional:** it suits a classic green (Vf ≈ 2.1 V). A bright green (Vf ≈ 3 V) needs a recalculation.
 - **Documentation note:** a LED soldered backwards simply does not light and is not damaged. Desolder it and flip it.
-- **Power LED:** this is a different LED from these three. It is **green** (user), off-board and sits next to the switch (§5.4). Because the RIGHT proximity LED is also green, check that the two cannot be confused (different place or a label); if the rules require the indicator LEDs to be distinguishable, use another color for the power LED.
+- **Power LED:** this is a different LED from these three. It is **green** (user), off-board and sits next to the switch (§5.4). Because the RIGHT proximity LED is also green, check that the two cannot be confused (they are far apart on the board, and the power LED has the label `POWER LED`); if the rules require the indicator LEDs to be distinguishable, use another color for the power LED.
 
 ---
 
@@ -468,7 +469,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 
 - Use X7R or X5R ceramics in 0805 or larger, and account for capacitance loss with DC bias.
 - Place each 100 nF as close as possible to the pin it decouples.
-- Check that the electrolytics' height fits the enclosure.
+- Check that the electrolytics' height does not hit anything mounted above the PCB (there is no enclosure).
 
 ---
 
@@ -546,8 +547,8 @@ Do not place text on pads or in areas covered by the modules once mounted.
 - ESP32-CAM is removable, with access to the FPC connector latch.
 - The camera flex path is clear and away from the power zone.
 - All off-board connectors are reachable and face where their cables come up: battery, switch, power LED, motors, sensors and LEDs.
-- The enclosure and chassis have a planned cable path.
-- No collisions between components, modules, cables and enclosure.
+- The chassis has a planned cable path.
+- No collisions between components, modules, cables and the chassis.
 
 ---
 
@@ -712,7 +713,7 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 7. Does the 150 × 150 mm chassis include the wheels?
 8. ~~Orientation of the 110 × 140 mm PCB~~ **Resolved by the user's photo:** the 110 mm side is the front (between the wheels). Still to check: that the 140 mm length clears the front concave area and the rear caster, that the USB cable at the rear edge has a way out, and that the ESP32-CAM (front, 14.5 mm left of the centre) is not too far from the camera mount.
 9. Real measurements of the TT motor, battery holder and 50 mm wheels, and the height available on the bottom level.
-10. ~~Location of the proximity LEDs~~ **Decided by the user:** soldered directly on the PCB (west side). Still to check: that the enclosure lets them be seen, as the rules require, and that the green power LED is not confused with the green proximity LED.
+10. ~~Location of the proximity LEDs~~ **Decided by the user:** soldered directly on the PCB (west side). There is no enclosure, so the LEDs are visible. Still to check only that the green power LED is not confused with the green proximity LED.
 11. Camera flex length, based on the final ESP32-CAM position.
 12. Height of the electrolytic capacitors that will be bought (C1, C3, C11), and a low-profile 6.3 × 7 mm part for C9 (it sits next to the ESP32 USB plug area).
 
