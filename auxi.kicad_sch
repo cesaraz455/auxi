@@ -1332,7 +1332,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)."
+			(property "Description" "Par de agujeros 1x2 (2.54 mm) para un LED de 5 mm soldado directamente en la placa (sin header ni Dupont). Pin 1 = LED+ (anodo, pata larga, pad cuadrado), pin 2 = LED- (catodo/GND)."
 				(at 0 0 0)
 				(effects
 					(font
@@ -1341,7 +1341,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "LED header connector"
+			(property "ki_keywords" "LED soldered pads"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5270,7 +5270,7 @@
 		)
 		(uuid "ef6b5827-b48f-4ff1-acea-f679d365ef9a")
 	)
-	(text "J_BAT1 (XT30UPB-M): pin 1 = BAT- (lado biselado), pin 2 = BAT+ (lado plano).\nJ_SWITCH1: interruptor externo. Por aqui pasa TODA la corriente del robot:\nbornera 5.08 mm y cable 20 AWG, nunca Dupont.\nR1 1.5k: LED verde de funcionamiento, ~2.6 mA (6.0 V) - ~4.2 mA (8.4 V).\nCalibrar el MP1584 a 5.0 V con multimetro ANTES de enchufar cualquier modulo.\nD1 (Schottky): evita que el USB del PC alimente el robot y viceversa.\nPWR_FLAG: +VBAT_SW, GND y +5V_ESP solo reciben corriente a traves de\nconectores o del diodo (pines pasivos); las banderas le indican al ERC\nque esas redes SI estan alimentadas."
+	(text "J_BAT1 = bornera 5.08 mm en los pads del XT30UPB-M: pin 1 = BAT- ('-'), pin 2 = BAT+ ('+').\nJ_SWITCH1: interruptor externo. Por aqui pasa TODA la corriente del robot:\nbornera 5.08 mm y cable 20 AWG, nunca Dupont (igual que la bateria).\nR1 1.5k: LED verde soldado directo en J_LED_POWER1, ~2.6 mA (6.0 V) - ~4.2 mA (8.4 V).\nCalibrar el MP1584 a 5.0 V con multimetro ANTES de enchufar cualquier modulo.\nD1 (Schottky): evita que el USB del PC alimente el robot y viceversa.\nPWR_FLAG: +VBAT_SW, GND y +5V_ESP solo reciben corriente a traves de\nconectores o del diodo (pines pasivos); las banderas le indican al ERC\nque esas redes SI estan alimentadas."
 		(exclude_from_sim no)
 		(at 20 320 0)
 		(effects
@@ -10513,7 +10513,7 @@
 				)
 			)
 		)
-		(property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)."
+		(property "Description" "Par de agujeros 1x2 (2.54 mm) para un LED de 5 mm soldado directamente en la placa (sin header ni Dupont). Pin 1 = LED+ (anodo, pata larga, pad cuadrado), pin 2 = LED- (catodo/GND)."
 			(at 187.96 154.94 0)
 			(hide yes)
 			(effects
@@ -10720,7 +10720,7 @@
 				)
 			)
 		)
-		(property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)."
+		(property "Description" "Par de agujeros 1x2 (2.54 mm) para un LED de 5 mm soldado directamente en la placa (sin header ni Dupont). Pin 1 = LED+ (anodo, pata larga, pad cuadrado), pin 2 = LED- (catodo/GND)."
 			(at 187.96 170.18 0)
 			(hide yes)
 			(effects
@@ -10927,7 +10927,7 @@
 				)
 			)
 		)
-		(property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)."
+		(property "Description" "Par de agujeros 1x2 (2.54 mm) para un LED de 5 mm soldado directamente en la placa (sin header ni Dupont). Pin 1 = LED+ (anodo, pata larga, pad cuadrado), pin 2 = LED- (catodo/GND)."
 			(at 187.96 185.42 0)
 			(hide yes)
 			(effects
@@ -11038,7 +11038,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "XT30 BAT 2S"
+		(property "Value" "BAT 2S (bornera)"
 			(at 29.21 255.27 0)
 			(effects
 				(font
@@ -11755,7 +11755,7 @@
 				)
 			)
 		)
-		(property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)."
+		(property "Description" "Par de agujeros 1x2 (2.54 mm) para un LED de 5 mm soldado directamente en la placa (sin header ni Dupont). Pin 1 = LED+ (anodo, pata larga, pad cuadrado), pin 2 = LED- (catodo/GND)."
 			(at 106.68 284.48 0)
 			(hide yes)
 			(effects

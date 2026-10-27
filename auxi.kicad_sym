@@ -766,8 +766,8 @@
     (property "Value" "Conn_LED" (at 0 0 0) (effects (font (size 1.27 1.27))))
     (property "Footprint" "auxi:PinHeader_1x02_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
-    (property "Description" "Header macho 1x2 (2.54 mm) para LED externo con jumpers Dupont. Pin 1 = LED+ (anodo), pin 2 = LED- (catodo/GND)." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
-    (property "ki_keywords" "LED header connector" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Description" "Par de agujeros 1x2 (2.54 mm) para un LED de 5 mm soldado directamente en la placa (sin header ni Dupont). Pin 1 = LED+ (anodo, pata larga, pad cuadrado), pin 2 = LED- (catodo/GND)." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "ki_keywords" "LED soldered pads" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (symbol "Conn_LED_0_1"
       (rectangle (start -15.24 2.54) (end 0 -2.54) (stroke (width 0.254) (type default)) (fill (type background)))
     )
