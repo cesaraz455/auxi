@@ -6,7 +6,7 @@
 "C7,C9","100uF 16V","Capacitor_THT:CP_Radial_D6.3mm_P2.50mm","2",""
 "C8,C12,C14,C16,C18,C20","10uF 25V X7R","Capacitor_THT:C_Rect_L7.0mm_W3.5mm_P5.00mm","6",""
 "D1","1N5819","Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal","1",""
-"J_BAT1","XT30 BAT 2S","Connector_AMASS:AMASS_XT30UPB-M_1x02_P5.0mm_Vertical","1",""
+"J_BAT1","BAT 2S (bornera)","Connector_AMASS:AMASS_XT30UPB-M_1x02_P5.0mm_Vertical","1",""
 "J_LED_FRONT1","LED_FRONT (ROJO)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
 "J_LED_LEFT1","LED_LEFT (AMARILLO)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""
 "J_LED_POWER1","POWER LED (verde)","auxi:PinHeader_1x02_P2.54mm_Vertical","1",""

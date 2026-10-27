@@ -12222,7 +12222,7 @@
 				)
 			)
 		)
-		(property "Value" "XT30 BAT 2S"
+		(property "Value" "BAT 2S (bornera)"
 			(at 2.5 4 0)
 			(layer "F.Fab")
 			(uuid "f8edbb2e-973f-43ec-b914-da20c05cf013")
@@ -12494,9 +12494,9 @@
 			(uuid "d82fe5be-842a-412e-a05f-a472aa2d207d")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_AMASS.3dshapes/AMASS_XT30UPB-M_1x02_P5.0mm_Vertical.step"
+		(model "${KICAD10_3DMODEL_DIR}/TerminalBlock_Phoenix.3dshapes/TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz -0.04 0 0)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -14733,9 +14733,9 @@
 			(uuid "03d674aa-ac8b-498a-b876-f7b3c122e99d")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/auxi.3dshapes/LED_D5.0mm_Green.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 -1.27 0)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -16480,9 +16480,9 @@
 			(uuid "b7d285b9-5c30-48da-85bb-e6dc8e9b486b")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/auxi.3dshapes/LED_D5.0mm_Green.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 -1.27 0)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -19185,9 +19185,9 @@
 			(uuid "69b6ff3d-a864-4402-b12c-83b2354cbc01")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/auxi.3dshapes/LED_D5.0mm_Yellow.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 -1.27 0)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -19518,9 +19518,9 @@
 			(uuid "49ded523-2f61-4564-adee-73ec5dc6f8a8")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
+		(model "${KIPRJMOD}/auxi.3dshapes/LED_D5.0mm_Red.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 -1.27 0)
 			)
 			(scale
 				(xyz 1 1 1)
