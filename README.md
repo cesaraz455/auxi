@@ -24,10 +24,11 @@
 |---|---|
 | ESP32-S3-DevKitC-1 (2 × 1×22 female headers) | 2S 18650 battery (XT30) |
 | ESP32-CAM (2 × 1×8 female headers) | Power switch (screw terminal) |
-| TB6612FNG breakout (2 × 1×8 female headers) | Blue power LED (2-pin header) |
+| TB6612FNG breakout (2 × 1×8 female headers) | Green power LED (2-pin header) |
 | MP1584EN mini buck module (5.0 V) | 2 TT motors (screw terminals) |
 | Capacitors, resistors, Schottky diode | 3 VL53L0X sensors (JST-XH 5P) |
-| All connectors | 3 proximity LEDs (2-pin headers) |
+| **3 proximity LEDs (5 mm, soldered directly on the board)** | |
+| All connectors | |
 | | OV2640 camera (flex cable into the ESP32-CAM) |
 
 ## The board: one copper layer, soldered from below
@@ -52,7 +53,7 @@ Seen in KiCad (front of the robot = top edge):
 - **Front (top):** the **ESP32-CAM** is at the front, almost centered (its centre is 14.5 mm to the left of the board centre), with its antenna and flex connector at the top edge, so the camera looks forward. The three **sensor connectors** are side by side along the top edge, to the right of the camera (LEFT, FRONT, RIGHT from left to right). A perfectly centered camera is not possible on one copper layer, because the 5 V and UART tracks of the camera would have to cross the sensor tracks.
 - **Rear (bottom):** the **ESP32-S3** sits in the middle of the rear edge with its **USB end only 1 mm from the bottom edge** (user request: at most 2 mm). The USB-C plug overhangs the edge, so the cable plugs in without any obstacle.
 - **East side:** the TB6612FNG is right next to the ESP32-S3 header row `J3` (short control signals), with the motor terminals on the right edge and the big capacitors, the power LED header and the battery/switch connectors on the east side and the bottom-right corner.
-- **West side:** the MP1584, the 3 proximity LED headers and the big capacitor of the camera.
+- **West side:** the MP1584, the 3 proximity LEDs (soldered directly on the board) and the big capacitor of the camera.
 - The free areas between the groups are GND plane.
 
 ## Why the pins moved
@@ -65,7 +66,7 @@ The mapping changed **once more** when the board orientation was fixed (110 mm s
 
 ```
 BAT 2S (6.0–8.4 V) ─ XT30 ─ external switch ─ +VBAT_SW
-+VBAT_SW ─┬─ R1 ─ blue power LED
++VBAT_SW ─┬─ R1 ─ green power LED
           ├─ bulk caps ─ TB6612 VM (motors)
           └─ MP1584 ─ +5V ─┬─ D1 Schottky ─ +5V_ESP ─ ESP32-S3 5V pin
                            └─ ESP32-CAM 5V pin
@@ -113,15 +114,17 @@ ESP32-S3 3V3 pin ─ +3V3 ─ VL53L0X sensors, TB6612 logic (I2C pull-ups are on
 
 ## Proximity LEDs (university rules)
 
-| Sensor | LED color | Connector |
-|---|---|---|
-| FRONT | Red | `J_LED_FRONT1` |
-| LEFT | Yellow | `J_LED_LEFT1` |
-| RIGHT | Green | `J_LED_RIGHT1` |
+| Sensor | LED color | Position on the board (top view, front at the top) | Pads |
+|---|---|---|---|
+| FRONT | Red | top | `J_LED_FRONT1` |
+| LEFT | Yellow | middle | `J_LED_LEFT1` |
+| RIGHT | Green | bottom | `J_LED_RIGHT1` |
 
 A LED is **on** when its sensor reads ≤ 100 mm. It is **off** when the reading is above 100 mm, invalid or out of range. The firmware may average readings, but it must not use hysteresis that keeps a LED on above 100 mm.
 
-On the board the three LED headers are stacked on the west side, between the MP1584 and the ESP32-S3, top to bottom: FRONT, LEFT, RIGHT. Pin 1 (the **square pad**) is the LED `+` (anode).
+**Decision (user): the three proximity LEDs are 5 mm LEDs soldered directly on the board**, in the pairs of holes marked `J_LED_FRONT1`, `J_LED_LEFT1` and `J_LED_RIGHT1` (no header and no Dupont jumpers). They are stacked on the west side, between the MP1584 and the ESP32-S3, top to bottom: FRONT (red), LEFT (yellow), RIGHT (green). In each pair of holes the **right hole** (the **square pad**, next to the resistor R3, R4 or R5) is the LED `+` (anode, the **long leg**) and the **left hole** is the `−` (cathode, the short leg and the flat side of the LED). A LED soldered backwards does not light and is not damaged. The robot has **no enclosure** (user decision): the board stays visible on top of the chassis, so the LEDs are visible as the university rules require and no windows or holes are needed. Solder them at a normal height.
+
+The **power LED** is different: it is a **green** 5 mm LED that stays off the board, connected to the 2-pin header `J_LED_POWER1` (top right) with Dupont jumpers. Resistor `R1` (1.5 kΩ) gives it about 2.6 mA at 6.0 V and 4.2 mA at 8.4 V with a classic green LED (2–3.6 mA with a bright one). Because the RIGHT proximity LED is also green, check that the two cannot be confused (they are far apart on the board, but both are green).
 
 ## Manufacturing rules for the home-made board
 
@@ -145,7 +148,7 @@ Result in the final board: 167 tracks, of which **162 are 0.4 mm or wider** and 
 |---|---|---|---|
 | 0.80 | 1.6 | 48 | Resistors and capacitors up to 8 mm |
 | 0.95 | 1.75 × 1.95 | 15 | JST-XH sensor connectors |
-| 1.00 | 1.8 (2.0 for the two 470 µF capacitors) | 96 | Female headers (ESP32-S3, ESP32-CAM, TB6612FNG), 2-pin headers, MP1584 pins, 470 µF capacitors |
+| 1.00 | 1.8 (2.0 for the two 470 µF capacitors) | 96 | Female headers (ESP32-S3, ESP32-CAM, TB6612FNG), 2-pin header and LED holes, MP1584 pins, 470 µF capacitors |
 | 1.10 | 2.2 | 2 | 1N5819 diode |
 | 1.30 | 2.6 | 6 | 5.08 mm screw terminals |
 | 1.80 | 3.0 | 2 | XT30 connector |
@@ -164,7 +167,7 @@ Header pins are 0.64 mm square (0.9 mm diagonal), so a 1.0 mm hole is enough. Ch
 4. Page 1 of the PDF shows where every part goes (top view with silkscreen and references).
 5. Solder the 4 pins of the MP1584 **last**, after you set its output (see the warnings below).
 
-The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so the plug overhangs the edge: keep the area around it free of tall parts and make sure the chassis lets the cable come out at the rear (the plug and cable need about 15 × 12 mm). Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF). The long `+3V3` and `+VBAT_SW` tracks run along the east side and the bottom strip of the board, away from the I2C and UART tracks.
+The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so the plug overhangs the edge: keep the area around it free of tall parts and make sure nothing on the chassis blocks the cable at the rear (the plug and cable need about 15 × 12 mm). Use a low-profile **6.3 × 7 mm** capacitor for C9 (100 µF). The long `+3V3` and `+VBAT_SW` tracks run along the east side and the bottom strip of the board, away from the I2C and UART tracks.
 
 ## Repository layout
 

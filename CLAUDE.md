@@ -20,7 +20,7 @@ Guidance for Claude Code when working in this repository. This file is the **com
   - **All connectors.**
 - **Everything else is off-board** and connects to the PCB through headers or connectors:
   - The 3 VL53L0X sensors.
-  - The 3 proximity LEDs and the power LED.
+  - The power LED. (The 3 proximity LEDs are **soldered directly on the PCB**: see §10.)
   - The switch.
   - The motors.
   - The battery.
@@ -57,14 +57,14 @@ Guidance for Claude Code when working in this repository. This file is the **com
 | Number of PCBs | **Exactly one custom PCB.** Commercial modules do not count as extra PCBs. |
 | PCB layers and parts | **1 copper layer (`B.Cu`, the bottom face) with a GND pour on the same layer.** `F.Cu` has no copper. **All components THT** (no SMD), mounted on the top face and **soldered from below**. No plated holes, no vias and no jumper wires. |
 | PCB location | Top level, on 4 M3 standoffs, above the batteries and motors. |
+| Enclosure | **None** (user decision): the robot has no enclosure; the PCB stays visible on top of the chassis. So the LEDs are visible (university rules) and no windows or enclosure clearances are needed. |
 | PCB size | **110 × 140 mm**, set by the user (it was 90 × 100 mm; the extra room is for the single-layer routing). Do not enlarge it without approval. **The 110 mm side is the FRONT of the robot (between the wheels) and the 140 mm side runs front to back. Confirmed by the user with a photo of the chassis.** |
 | On the PCB | ESP32-S3-DevKitC-1, ESP32-CAM, TB6612FNG module, MP1584 module, capacitors, resistors, diode and connectors. |
-| Off-board (with a connector on the PCB) | 3 VL53L0X sensors, 3 proximity LEDs, power LED, switch, 2 motors, battery and OV2640 camera. |
+| Off-board (with a connector on the PCB) | 3 VL53L0X sensors, power LED, switch, 2 motors, battery and OV2640 camera. |
 | Chassis front | Concave area built into the chassis to guide the ball; not a separate part. |
 | Battery | 2 × 18650 in series (2S): 6.0 V minimum, 7.4 V nominal, 8.4 V maximum. On the bottom level, under the PCB. |
 | Battery connector | XT30 (polarized): BAT+ / BAT−. |
 | Switch | Off-board, on the chassis floor. Sits between the battery and the regulator and cuts **the whole** system. |
-| Power LED | Blue, off-board, next to the switch. Connected after the switch; no GPIO controls it. |
 | Main ESP32 | **ESP32-S3-DevKitC-1 N16R8** (16 MB flash, 8 MB octal PSRAM, 44 pins in 2 rows of 22). It may be a clone: verify it against Espressif's documentation. |
 | Controller | Xbox controller over Bluetooth Low Energy (the ESP32-S3 has no Classic Bluetooth). The exact model and library are chosen in firmware. |
 | Motors | 2 × yellow TT gear motors. TB6612FNG VM comes after the switch; firmware limits PWM to 70 % maximum. |
@@ -72,7 +72,8 @@ Guidance for Claude Code when working in this repository. This file is the **com
 | 5 V regulator | Adjustable MP1584EN mini module, set to 5.0 V. |
 | 3.3 V | From the 3V3 regulator on the main ESP32 board. |
 | Sensors | 3 × VL53L0X (GY-530 module) at **3.3 V**, shared I2C bus, one independent XSHUT per sensor. |
-| Proximity LEDs | Off-board. Colors and threshold follow the university rules: FRONT red, RIGHT green, LEFT yellow; on at ≤ 10 cm. |
+| Proximity LEDs | **5 mm LEDs soldered directly on the PCB** (user decision, replaces the off-board header + Dupont idea), in the pairs of holes `J_LED_*`. Colors and threshold follow the university rules: FRONT red (top), LEFT yellow (middle), RIGHT green (bottom); on at ≤ 10 cm. |
+| Power LED | **Green** 5 mm LED (user), off-board, connected to `J_LED_POWER1` with Dupont jumpers, next to the switch. Not controlled by any GPIO. |
 | ESP32-CAM | AI Thinker, no microSD, **removable** (programmed by removing it and using the user's ESP32-CAM-MB base), no programming header. |
 | Camera | OV2640 with a long 24-pin, 0.5 mm pitch flex, fixed at the front of the chassis. |
 | ESP32 ↔ ESP32-CAM UART | Direct traces on the PCB; no connector. |
@@ -130,7 +131,7 @@ This check is mandatory before PCB design. It does not block the schematic.
   - Use standard M3 lengths and document which one.
 - **Wheels:** if the wheels are inside the 150 × 150 mm outline, the PCB must not hit them. Check the wheel height (50 mm diameter) against the PCB height.
 - **Concave area:** the PCB must not block the ball entry or the camera view, unless the user approves it.
-- **Cable path:** the enclosure and chassis must let the battery, motor, sensor, LED, switch and camera cables run up from the bottom level to their connectors.
+- **Cable path:** the chassis must let the battery, motor, sensor, switch and camera cables run up from the bottom level to their connectors (there is no enclosure).
 - **Size: 110 × 140 mm, set by the user.**
   - **Confirmed orientation (user photo):** the 110 mm side is the front of the robot and sits between the two wheels; the 140 mm side runs front to back. Still check the 140 mm length against the front concave area and the rear caster, and the standoff positions.
   - Check that all modules, connectors, M3 holes and antenna keepouts fit that outline, with room to route and to plug cables in by hand.
@@ -153,13 +154,13 @@ These are reference values for the physical layout. Clones vary: confirm them wi
 | TT motor (body) | 70 × 22 × 18; ~37 wide including both shafts | Bottom level, plus the wheel |
 | VL53L0X GY-530 | ~25 × 11 | Off-board, in the concave area |
 | JST-XH 5-pin vertical | ~14.9 × 5.75 × 7 | One per sensor |
-| 2-pin male header, 2.54 mm | ~5.1 × 2.5 × 8.5 | LEDs |
+| 2-pin male header, 2.54 mm | ~5.1 × 2.5 × 8.5 | Power LED (the proximity LEDs have no header) |
 | 2P screw terminal, 5.08 mm | ~10.2 × ~8 × ~10 | Motors and switch |
 | PCB-mount XT30 | Use the Amass drawing | Check vertical vs. horizontal model |
 | 470 µF electrolytic | ~Ø10 × 13–20 | Height depends on voltage and brand |
 | M3 hole | Ø3.2 with ~Ø6.5 keepout | 4 corners |
 
-Modules plugged into female headers sit about 1 cm above the PCB. Account for this in the enclosure height.
+Modules plugged into female headers sit about 1 cm above the PCB. There is no enclosure, so this only matters for anything mounted above the PCB (check that nothing hits the modules).
 
 ---
 
@@ -170,7 +171,7 @@ Modules plugged into female headers sit about 1 cm above the PCB. Account for th
 ```
 BAT 2S ─ XT30 ─ J_SWITCH ═(wires)═ external switch ═(wires)═ J_SWITCH ─ +VBAT_SW
                                                                         │
-+VBAT_SW ─┬─ resistor ─ J_LED_POWER ─(wires)─ external blue LED ─ GND
++VBAT_SW ─┬─ resistor ─ J_LED_POWER ─(wires)─ external green LED ─ GND
           ├─ bulk capacitor ─ TB6612 VM (motors)
           └─ MP1584 ─ +5V ─┬─ Schottky diode ─ +5V_ESP ─ ESP32 5V pin
                            └─ ESP32-CAM 5V pin
@@ -227,9 +228,9 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
   - Estimate the system peak current and justify the choice.
   - Recommend a panel-mount switch: a slide switch if one exists with that rating, otherwise a mini rocker.
   - State the minimum wire gauge.
-- **J_LED_POWER on the PCB:** 2-pin male header, 2.54 mm pitch (`LED+` / `LED−`), for the off-board blue LED next to the switch, connected with Dupont jumpers.
+- **J_LED_POWER on the PCB:** 2-pin male header, 2.54 mm pitch (`LED+` / `LED−`), for the off-board **green** LED next to the switch, connected with Dupont jumpers.
   - The current-limiting resistor is on the PCB. Size it for the whole 6.0–8.4 V range at about 2–5 mA.
-  - **Implemented:** R1 = 1.5 kΩ, which gives 2.0 mA at 6.0 V and 3.6 mA at 8.4 V.
+  - **Implemented:** R1 = 1.5 kΩ. With a classic green LED (Vf ≈ 2.1 V) it gives about 2.6 mA at 6.0 V and 4.2 mA at 8.4 V; with a bright green (Vf ≈ 3 V) about 2.0 and 3.6 mA. Both are safe. (It was sized first for a blue LED.)
 - **Silkscreen:** `SWITCH` / `ON-OFF` on J_SWITCH; `POWER LED` and polarity on J_LED_POWER.
 
 ### 5.5 Battery
@@ -326,7 +327,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - Place the ESP32-CAM with its FPC connector facing the front of the robot. It is at the **front of the PCB, almost centered** (14.5 mm left of the centre, camera looking forward); check that the flex (10 cm or less) reaches the camera mount.
   - Keep the flex path clear, with room to lift the connector latch by hand.
   - Route the flex away from the TB6612, the motor traces and the motor wires.
-  - Explain how to fix the flex to the chassis with strain relief (printed holder or tape) and how the enclosure must keep the field of view clear.
+  - Explain how to fix the flex to the chassis with strain relief (printed holder or tape) and keep the field of view clear (there is no enclosure, so just do not put anything in front of the camera).
 - **Antennas:** copper-free area under the ESP32-CAM antenna. Put the ESP32-S3 and ESP32-CAM antennas on different PCB edges, as far apart as possible, because both use 2.4 GHz.
 
 ---
@@ -367,7 +368,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 
 ---
 
-## 10. Proximity LEDs (off-board, university rules)
+## 10. Proximity LEDs (soldered on the PCB, university rules)
 
 - The 3 proximity LEDs are driven **only by the proximity sensors**. Each LED shows the detection of its own sensor.
 - **The university rules set the colors, and they cannot be changed:**
@@ -382,15 +383,15 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
   - The LED is on when its sensor reads **≤ 100 mm (10 cm)**.
   - The LED is off when the reading is > 100 mm, invalid or out of range.
   - The firmware may average several readings to avoid flicker. It must not use hysteresis that keeps a LED on above 100 mm, because that would break the rules.
-- **Location:** the LEDs are **off the PCB**, mounted on the enclosure where they are visible, as the rules require.
-- **Connection:** each LED has its own 2-pin male header, 2.54 mm pitch (`LED+` / `LED−`), connected with Dupont jumpers.
-  - One connector per LED, to avoid mix-ups.
+- **Location (user decision):** the 3 LEDs are **5 mm LEDs soldered directly on the PCB**, on the west side between the MP1584 and the ESP32-S3, top to bottom: FRONT (red), LEFT (yellow), RIGHT (green) (top view, front of the robot at the top). The robot has **no enclosure** (user decision), so the LEDs stay visible on the board, as the rules require, and no windows are needed.
+- **Connection:** the footprint is still the 2-pin, 2.54 mm pad pair `J_LED_FRONT1` / `J_LED_LEFT1` / `J_LED_RIGHT1`. The LED legs go straight into those holes (no header, no Dupont jumpers).
+  - The **right hole** (square pad, next to the resistor R3, R4 or R5) is the **anode (+, long leg)**. The **left hole** is the cathode (−, short leg, flat side of the LED).
   - Silkscreen with the name, color and polarity (`+` on the anode).
 - **Resistors:** one per LED, on the PCB, sized from each color's Vf for about 2–5 mA at 3.3 V.
   - The current value is 470 Ω, which gives about 2.5–3 mA.
   - **R5 (green) is provisional:** it suits a classic green (Vf ≈ 2.1 V). A bright green (Vf ≈ 3 V) needs a recalculation.
-- **Documentation note:** a LED connected backwards simply does not light and is not damaged. Just flip the connector.
-- **Power LED:** this is a different LED from these three. It is blue, off-board and sits next to the switch (§5.4).
+- **Documentation note:** a LED soldered backwards simply does not light and is not damaged. Desolder it and flip it.
+- **Power LED:** this is a different LED from these three. It is **green** (user), off-board and sits next to the switch (§5.4). Because the RIGHT proximity LED is also green, check that the two cannot be confused (they are far apart on the board, and the power LED has the label `POWER LED`); if the rules require the indicator LEDs to be distinguishable, use another color for the power LED.
 
 ---
 
@@ -415,7 +416,7 @@ On a single copper layer two tracks cannot cross. The pins were **reassigned** s
 
 ## 12. External connection summary
 
-Every off-board component connects to the PCB through a labeled connector. Nothing is soldered directly to the PCB or to the modules.
+Every off-board component connects to the PCB through a labeled connector. Nothing is soldered directly to the modules. **The only exception is the 3 proximity LEDs, which are soldered directly into the `J_LED_*` holes (user decision).**
 
 In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRONT1`…) because KiCad requires it; otherwise it renumbers them at PCB stage.
 
@@ -423,15 +424,15 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 |---|---|---|---|---|
 | J_BAT1 | 2S batteries | XT30 male vertical (AMASS XT30UPB-M) | 1 BAT− (chamfered side), 2 BAT+ (flat side), matching the KiCad footprint's `−`/`+` marks | Near where the battery wires come up |
 | J_SWITCH1 | Switch | 2P screw terminal, 5.08 mm, ≥3 A | SW_BAT, SW_OUT | Near J_BAT1 |
-| J_LED_POWER1 | Power LED (blue) | 2P male header, 2.54 mm | LED+, LED− | Near J_SWITCH1 |
+| J_LED_POWER1 | Power LED (green) | 2P male header, 2.54 mm | LED+, LED− | Near J_SWITCH1 |
 | J_MOTOR_LEFT1 | Left motor | 2P screw terminal, 5.08 mm | M_L1, M_L2 | Right (east) edge of the board, next to the TB6612 (see §18: both motor terminals are on the same edge so the outputs of the driver do not have to cross the ESP32). The left motor cable is simply longer |
 | J_MOTOR_RIGHT1 | Right motor | 2P screw terminal, 5.08 mm | M_R1, M_R2 | Right (east) edge |
 | J_SENSOR_FRONT1 | Front sensor | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_FRONT | Front (top) edge, middle |
 | J_SENSOR_LEFT1 | Left sensor | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_LEFT | Front (top) edge, west |
 | J_SENSOR_RIGHT1 | Right sensor | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_RIGHT | Front (top) edge, east |
-| J_LED_FRONT1 | Red LED | 2P male header, 2.54 mm | LED+, LED− | West side, next to the ESP32-S3 |
-| J_LED_LEFT1 | Yellow LED | 2P male header, 2.54 mm | LED+, LED− | West side, below J_LED_FRONT1 |
-| J_LED_RIGHT1 | Green LED | 2P male header, 2.54 mm | LED+, LED− | West side, below J_LED_LEFT1 |
+| J_LED_FRONT1 | Red LED (5 mm, **soldered here**) | 2 holes, 2.54 mm | LED+ (right hole, square pad), LED− | West side, top of the 3 |
+| J_LED_LEFT1 | Yellow LED (5 mm, **soldered here**) | 2 holes, 2.54 mm | LED+ (right hole, square pad), LED− | West side, middle |
+| J_LED_RIGHT1 | Green LED (5 mm, **soldered here**) | 2 holes, 2.54 mm | LED+ (right hole, square pad), LED− | West side, bottom |
 | ESP32-CAM FPC | OV2640 camera | 24-pin flex (on the module itself) | Camera bus | Toward the front |
 
 **Plug-in modules on the PCB:**
@@ -446,7 +447,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 **Connector rules:**
 
 - **Power connectors** (battery, switch, motors): screw terminals or XT30, rated for the real current.
-- **Low-current signals** (LEDs): 2.54 mm headers with Dupont wires.
+- **Low-current signals:** the power LED uses a 2.54 mm header with Dupont wires; the 3 proximity LEDs are soldered directly in their holes.
 - **Sensors:** polarized JST-XH, so 3V3 and GND cannot be swapped.
 - **Placement:** all connectors on the edges, facing where their cable comes up, with room to plug and unplug by hand.
 
@@ -468,7 +469,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 
 - Use X7R or X5R ceramics in 0805 or larger, and account for capacitance loss with DC bias.
 - Place each 100 nF as close as possible to the pin it decouples.
-- Check that the electrolytics' height fits the enclosure.
+- Check that the electrolytics' height does not hit anything mounted above the PCB (there is no enclosure).
 
 ---
 
@@ -546,8 +547,8 @@ Do not place text on pads or in areas covered by the modules once mounted.
 - ESP32-CAM is removable, with access to the FPC connector latch.
 - The camera flex path is clear and away from the power zone.
 - All off-board connectors are reachable and face where their cables come up: battery, switch, power LED, motors, sensors and LEDs.
-- The enclosure and chassis have a planned cable path.
-- No collisions between components, modules, cables and enclosure.
+- The chassis has a planned cable path.
+- No collisions between components, modules, cables and the chassis.
 
 ---
 
@@ -600,7 +601,7 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 | TB6612FNG | `U_TB1` (178.64, 148.76), `U_TB2` (196.42, 148.76), rotated 180° | Right next to `J3`. Control row toward the ESP32, power row toward the east edge |
 | MP1584 | centre (118.0, 160.0), rotated 90° | West side. OUT+ toward the camera (north), IN+ toward the rear (south) |
 | Sensors | `J_SENSOR_LEFT1` (165.0, 53.0), `FRONT1` (175.0, 53.0), `RIGHT1` (185.0, 53.0), rotated 270° | Along the front edge, to the right of the camera, pins running south |
-| Proximity LEDs | headers at x = 133.5, y = 154.0 / 159.5 / 165.0 (FRONT, LEFT, RIGHT), resistors R3–R5 at x = 138–146 | West side, between the MP1584 and the ESP32-S3 |
+| Proximity LEDs | pad pairs at x = 133.5, y = 154.0 / 159.5 / 165.0 (FRONT red, LEFT yellow, RIGHT green), resistors R3–R5 at x = 138–146 | West side, between the MP1584 and the ESP32-S3. The 5 mm LEDs are soldered directly into the pads; `+` is the right (square) pad |
 | Motors | `J_MOTOR_RIGHT1` (209.5, 115.76), `J_MOTOR_LEFT1` (209.5, 159.76) | East edge, wire entry toward the edge |
 | Power | `J_SWITCH1` (209.5, 176.0), `J_BAT1` (185.64, 182.5), `J_LED_POWER1` (204.0, 53.0) | The big VBAT capacitors C1, C3, C5 and the small ones form a compact cluster at x ≈ 192–204, y ≈ 80–135 (not a long column: see below) |
 | M3 holes | 5 mm from each corner | |
@@ -666,11 +667,11 @@ The user had no calipers, so they approved using common web dimensions (§4.4). 
 | Qty | Description |
 |---|---|
 | 1 | Switch ≥ 5 A DC and ≥ 12 V DC, **verified in its datasheet** (panel-mount mini rocker). Confirm it against the measured stall current. |
-| 1 | 5 mm blue LED (power) |
-| 1 + 1 + 1 | 5 mm LEDs: red, yellow and green (see the R5 note in §10) |
+| 1 | 5 mm **green** LED (power, off-board, on `J_LED_POWER1`) |
+| 1 + 1 + 1 | 5 mm LEDs: red, yellow and green, **soldered directly on the PCB** (see the R5 note in §10) |
 | 3 | VL53L0X GY-530 modules |
 | 3 | 5-pin JST-XH cables, ≤ 25 cm (with XHP-5 female housing) |
-| 4 × 2 | Female Dupont jumpers for the 4 LEDs |
+| 2 | Female Dupont jumpers for the power LED (the 3 proximity LEDs need none) |
 | 1 | OV2640 camera with a long 24-pin, 0.5 mm pitch flex (≤ 10 cm if possible) |
 | 2 | TT gear motors + 2 × 50 mm wheels + 1 caster |
 | 2 | 100 nF 50 V ceramic capacitors for the motor terminals |
@@ -712,7 +713,7 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 7. Does the 150 × 150 mm chassis include the wheels?
 8. ~~Orientation of the 110 × 140 mm PCB~~ **Resolved by the user's photo:** the 110 mm side is the front (between the wheels). Still to check: that the 140 mm length clears the front concave area and the rear caster, that the USB cable at the rear edge has a way out, and that the ESP32-CAM (front, 14.5 mm left of the centre) is not too far from the camera mount.
 9. Real measurements of the TT motor, battery holder and 50 mm wheels, and the height available on the bottom level.
-10. Location of the proximity LEDs on the enclosure, per the rules.
+10. ~~Location of the proximity LEDs~~ **Decided by the user:** soldered directly on the PCB (west side). There is no enclosure, so the LEDs are visible. Still to check only that the green power LED is not confused with the green proximity LED.
 11. Camera flex length, based on the final ESP32-CAM position.
 12. Height of the electrolytic capacitors that will be bought (C1, C3, C11), and a low-profile 6.3 × 7 mm part for C9 (it sits next to the ESP32 USB plug area).
 

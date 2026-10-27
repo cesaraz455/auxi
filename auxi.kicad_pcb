@@ -14535,7 +14535,7 @@
 				)
 			)
 		)
-		(property "Value" "POWER LED (azul)"
+		(property "Value" "POWER LED (verde)"
 			(at 0 4.92 0)
 			(layer "F.Fab")
 			(uuid "dc71e274-9f6a-4896-9b19-7fd8638c7d6d")
