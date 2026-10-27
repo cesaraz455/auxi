@@ -10,7 +10,7 @@
 
 **auxi** plays soccer in a university robot competition. A person drives it with an Xbox controller over Bluetooth Low Energy, and its front piece guides a ball while it pushes it. The competition rules shape the design: the robot must stay within 150 mm and 850 g, three colored LEDs must light when something is closer than 10 cm to each of its three distance sensors, and it must not interfere with other teams (for example with its Wi-Fi video).
 
-It is also a learning project of a first-semester team, so simple, robust and easy-to-assemble solutions are preferred. This repository holds the electronics: **one custom PCB** that carries the controller modules, the motor driver, the power regulator, all connectors and the 4 LEDs. The chassis is printed separately (Section 5) and the firmware does not exist yet.
+It is also a learning project of a first-semester team, so simple, robust and easy-to-assemble solutions are preferred. This repository holds the electronics: **one custom PCB** that carries the controller modules, the motor driver, the power regulator, all connectors and the 4 LEDs. The chassis is printed separately (Section 5). The firmware is already written and lives in a **separate GitHub repository**; it uses the pin map of Section 8, so any change to that map must be made in both repositories.
 
 **Contents**
 
@@ -37,7 +37,7 @@ It is also a learning project of a first-semester team, so simple, robust and ea
 
 ## 2. The robot
 
-- **Drive:** 2 yellow TT gear motors plus 1 rear caster wheel.
+- **Drive:** 2 yellow TT gear motors plus 1 rear ball caster whose ball is a **metal sphere**.
 - **Chassis:** 3D-printed, 144.1 mm long (limit 150 mm). The front is a printed **V or curved piece that guides the ball**. See [Section 5](#5-the-printed-chassis).
 - **Two-level layout:**
   - **Bottom level (chassis):** base, motors with 63 mm wheels, caster, battery (at the rear, behind a door), ballast and wiring.
@@ -95,7 +95,7 @@ The chassis is 3D-printed and its files live in the chassis project, not in this
 | Item | Printed chassis |
 |---|---|
 | Size and weight | **144.1 mm long** (limit 150 mm). About **762.5 g** estimated with 3 ballast plates and the standard tray; target 800 g, **regulation limit 850 g**. Weigh the real robot |
-| Drive | 2 TT motors in aluminium brackets, **63 mm wheels**, W420 rear caster |
+| Drive | 2 TT motors in aluminium brackets, **63 mm wheels**, W420 rear ball caster with a **metal sphere** |
 | Battery | 2 protected 18650 cells in a holder **at the rear**, behind a door, so they can be charged without removing the board |
 | PCB mounting | 4 printed columns with **M3 × 25** screws; printed spacers keep the board **10 mm above the tray** so cables pass under it |
 | Camera | The **camera arch** rests on the two front corners of the PCB. Its cradle holds a standard 24-pin camera (lens forward, tilted 25° down) with its **~2 cm flex**, plugged into the ESP32-CAM below it. The long flex of the first plan is no longer needed |
@@ -118,7 +118,7 @@ The chassis is 3D-printed and its files live in the chassis project, not in this
 
 ## 6. Why the pins moved
 
-A single layer cannot cross two tracks. To avoid any crossing (and any jumper wire), the GPIOs were **reassigned** so the signals leave the ESP32 headers in the same order as their destinations. The firmware has not been written yet, so this costs nothing. See the new table in [Section 8](#8-pin-map-gpio).
+A single layer cannot cross two tracks. To avoid any crossing (and any jumper wire), the GPIOs were **reassigned** so the signals leave the ESP32 headers in the same order as their destinations. This was done before the firmware was written, so it cost nothing; the firmware (separate repository) already uses the map. See the table in [Section 8](#8-pin-map-gpio).
 
 The mapping changed **once more** when the board orientation was fixed (110 mm side = front): the I2C pins and the camera UART pins moved to the order that the new layout needs, and the UART **TX and RX swapped places** (`GPIO18` is now the ESP32 transmit pin). Always check the table below.
 
@@ -276,7 +276,7 @@ The full design specification (confirmed decisions, power, pinout, connectors, c
 - [x] **Stage 3:** printed chassis, LEDs soldered on the board, 4 screw terminals (3D models, schematic texts and documents updated; the board itself did not change)
 - [ ] Close the open items against the real purchased modules
 - [ ] 2D space check (top and side views) inside the chassis, with real measurements
-- [ ] Firmware (main ESP32-S3 and ESP32-CAM), using the pin map above
+- [x] Firmware (main ESP32-S3 and ESP32-CAM), using the pin map above. It lives in a separate GitHub repository
 
 ## 16. Open items
 

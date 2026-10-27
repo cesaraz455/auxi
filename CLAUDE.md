@@ -38,9 +38,9 @@ Contents (every cross-reference in this file says "Section N"):
 
 **What the robot is for.** auxi plays soccer in a university robot competition. A person drives it with an Xbox controller over Bluetooth Low Energy; its front piece guides a ball while it pushes it. The competition rules shape the design: the robot must stay within 150 mm and 850 g, it must show with three colored LEDs when something is closer than 10 cm to each of its three distance sensors, and it must not interfere with other teams (for example with its Wi-Fi video). It is also a learning project: the team is in its first semester, so simple, robust and easy-to-assemble solutions are preferred over clever ones.
 
-**What this repository holds.** The electronics: one custom PCB that carries the controller modules, the motor driver, the power regulator, all connectors and the 4 LEDs. The chassis is printed separately (Section 4.1), and the firmware does not exist yet.
+**What this repository holds.** The electronics: one custom PCB that carries the controller modules, the motor driver, the power regulator, all connectors and the 4 LEDs. The chassis is printed separately (Section 4.1). The firmware (main ESP32-S3 and ESP32-CAM) is already written and lives in a **separate GitHub repository**; it uses the pin mapping of Section 6.1, so any change to that mapping must be made in both repositories.
 
-- **Drive:** 2 driven wheels (yellow TT gear motors) plus 1 rear caster wheel.
+- **Drive:** 2 driven wheels (yellow TT gear motors) plus 1 rear ball caster whose ball is a **metal sphere**.
 - **Chassis:** 3D-printed (see Section 4). About 144 mm long (limit 150 mm). The front is a **printed V (07) or curved (08) piece that guides the ball**; it is a swappable part bolted to the base.
 - **Two-level architecture:**
   - **Bottom level (chassis):** base, tray, motors, caster, battery (at the rear, behind a door), ballast and wiring.
@@ -127,7 +127,7 @@ The chassis is 3D-printed. These are its facts. The files of the printed parts l
 - **Printed parts:** 01 base · 02 tray (Warren truss, LITE or standard) · 03 columns ×4 · 04 sensor supports ×3 · 05 motor cradles ×2 · 07 V front or 08 curved front · 09 caster shims · 10 ballast box · 11 bottom lid · 12 switch tower · 13 camera arch · 14 battery door · 15 PCB spacers ×4 · 16 camera cradle (25°; 15° and 35° optional). Optional: 06 clamps, 17 printed motor bracket, 18 motor shims.
 - **Base (01):** the floor of the robot. It has the pivots for the motor cradles and the front, the ballast opening and the caster columns.
 - **Drive:** two TT motors bolted to aluminium brackets (2 × M3 × 30), fixed to the cradles 05 with 2 × M3 × 20 from below. **Wheels: 63 mm.**
-- **Caster:** W420 (15.8 mm ball, 20.0 mm tall) on two base columns with 2 mm shims. The battery holder sits above it at Z = 24.
+- **Caster:** ball caster W420 (15.8 mm ball, 20.0 mm tall). The ball is a **metal sphere** (user decision). on two base columns with 2 mm shims. The battery holder sits above it at Z = 24.
 - **Battery:** two protected 18650 cells in a holder **at the rear**. The holder comes out at the back after removing two filament pins and the door (14). Charge outside the robot with a balancing 2S charger.
 - **Ballast:** box 10 under the base, closed with lid 11 (2 screws). Three 37 mm steel strips of about 47 g each at the start.
 - **Tray (02) and columns (03):** four columns carry the tray; the tray ties the columns together at the top and holds the sensor supports. Printed spacers (15) keep the PCB **10 mm above the tray**, so cables run under the PCB without being pressed against the solder joints.
@@ -322,7 +322,7 @@ ESP32 3V3 pin ─ +3V3 ─┬─ 3 × VL53L0X
 
 ### Section 6.1 Pin mapping (revised for the single-layer PCB, implemented in the schematic)
 
-On a single copper layer two tracks cannot cross. The pins were **reassigned** so that the signals leave the ESP32 headers in the same order as their destinations. The firmware does not exist yet, so the change costs nothing. This **replaces** the earlier mapping (SDA GPIO8, SCL GPIO9, XSHUT 4/5/6, LEDs 10/11/12, motors on 1/2/42/41/40/39/21).
+On a single copper layer two tracks cannot cross. The pins were **reassigned** so that the signals leave the ESP32 headers in the same order as their destinations. The change was made before the firmware was written, so it cost nothing; the firmware (separate repository) already uses the mapping below. This **replaces** the earlier mapping (SDA GPIO8, SCL GPIO9, XSHUT 4/5/6, LEDs 10/11/12, motors on 1/2/42/41/40/39/21).
 
 | Signal | GPIO | Header pin | Reason |
 |---|---|---|---|
