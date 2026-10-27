@@ -681,7 +681,15 @@ What was changed in the KiCad files:
 | `auxi.kicad_pcb` | **3D models only.** `J_LED_FRONT1` / `J_LED_LEFT1` / `J_LED_RIGHT1` / `J_LED_POWER1`: the pin-header model was replaced by a colored 5 mm LED (`auxi.3dshapes/LED_D5.0mm_Red.wrl`, `_Yellow.wrl`, `_Green.wrl`; offset `0 −1.27 0` so the LED sits between the two pads; 8.6 mm high). `J_BAT1`: the XT30 model was replaced by the Phoenix MKDS 5.08 mm terminal model (offset `−0.04 0 0` to split the 0.08 mm pitch difference), and its value is now `BAT 2S (bornera)`. |
 | `auxi.kicad_sch`, `auxi.kicad_sym` | **No electrical change** (same nets and pins). The description of `Conn_LED` now says the LED is soldered in the holes, `J_BAT1` value is `BAT 2S (bornera)` and the notes of the power block say the same. |
 | `auxi.3dshapes/` | New: the three LED models (VRML, 0.1 inch units, as KiCad expects). |
-| `docs/` | **Pending regeneration** (needs `kicad-cli`, which was not available when these edits were made): schematic PDF, 1:1 PDF and the three renders must be regenerated, and ERC/DRC re-run. Only the BOM row of `J_BAT1` was edited by hand. |
+| `docs/` | Regenerated with KiCad 10.0.7: schematic PDF, BOM, the three 2D renders and page 1 of the 1:1 PDF (pages 2 and 3, the copper, are unchanged because the copper did not change). Two new 3D renders show the new LED and terminal models. |
+
+**Verification done in Stage 3 (KiCad 10.0.7, `kicad-cli`):**
+
+- ERC: **0 violations**.
+- DRC (zones refilled, custom rules, schematic parity): **0 errors, 0 unconnected items, 1 silkscreen warning** (the same one as before). The result is identical to the previous commit; the only parity difference is the new `Description` text of the 4 LED symbols.
+- 3D render: the 4 LEDs sit between their two pads, the battery terminal sits on the old XT30 pads with its wire entry toward the rear edge, and nothing leaves the board outline. The `BAT-` / `BAT+` silkscreen text above `J_BAT1` is partly hidden by the body of the terminal, but the `-` and `+` marks at each side of the pads stay visible.
+- Regenerated 2D renders: `auxi_pcb_bottom.png` is pixel-identical to the previous one (the copper did not change).
+- VRML note for the LED models: KiCad silently drops a model that has an `ambientColor` field (the correct VRML field is `ambientIntensity`).
 
 **Limitation:** the library copy `auxi.pretty/PinHeader_1x02_P2.54mm_Vertical.kicad_mod` still points to the pin-header 3D model, because its pads are the right ones for the LEDs and the footprint was not allowed to change. The LED models live in the PCB file. If someone resets those 4 footprints from the library ("Update footprint from library"), the header model comes back and the LED model has to be set again.
 
@@ -776,7 +784,8 @@ The project is **not** finished just because a `.kicad_sch` file exists: it must
 | `auxi.pretty/PinSocket_1x08…`, `PinSocket_1x22…`, `PinHeader_1x02…`, `JST_XH_B5B-XH-A…` | Copies of the standard footprints with bigger pads (pad = drill + 0.8 mm). The schematic uses these |
 | `docs/auxi_esquematico.pdf`, `docs/auxi_bom_pcb.csv` | Regenerate after schematic changes |
 | `docs/auxi_pcb_real_scale.pdf` | 3 pages at 1:1 (letter): top view, `B.Cu` copper, `B.Cu` mirrored. Regenerate after PCB changes |
-| `docs/auxi_pcb_top.png`, `docs/auxi_pcb_bottom.png`, `docs/auxi_pcb_placement.png` | Renders. Regenerate after PCB changes |
+| `docs/auxi_pcb_top.png`, `docs/auxi_pcb_bottom.png`, `docs/auxi_pcb_placement.png` | 2D renders. Regenerate after PCB changes |
+| `docs/auxi_pcb_3d_top.png`, `docs/auxi_pcb_3d_iso.png` | 3D renders (`kicad-cli pcb render`) showing the 3D models of the parts |
 | `auxi_drc_violations.json` | Last DRC report |
 | `auxi.kicad_prl` | Local view settings; gitignored |
 

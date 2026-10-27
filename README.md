@@ -45,6 +45,10 @@ The board is made for **home etching and hand drilling**, because most local fab
 
 ![Bottom view (copper side)](docs/auxi_pcb_bottom.png)
 
+3D view (the four LEDs and the four screw terminals as built):
+
+![3D view](docs/auxi_pcb_3d_iso.png)
+
 ### Layout in one paragraph
 
 Seen in KiCad (front of the robot = top edge):
@@ -214,7 +218,8 @@ The **USB end** of the ESP32-S3 is only **1 mm** from the rear board edge, so th
 | `docs/auxi_esquematico.pdf` | Schematic PDF export |
 | `docs/auxi_pcb_real_scale.pdf` | 1:1 prints: top view, copper, mirrored copper |
 | `docs/auxi_bom_pcb.csv` | PCB BOM |
-| `docs/auxi_pcb_top.png`, `docs/auxi_pcb_bottom.png`, `docs/auxi_pcb_placement.png` | Renders of the board |
+| `docs/auxi_pcb_top.png`, `docs/auxi_pcb_bottom.png`, `docs/auxi_pcb_placement.png` | 2D renders of the board |
+| `docs/auxi_pcb_3d_top.png`, `docs/auxi_pcb_3d_iso.png` | 3D renders of the board |
 
 The full design specification (confirmed decisions, power, pinout, connectors, capacitors, PCB rules and open items) is in [`CLAUDE.md`](CLAUDE.md). It is the source of truth for every design decision.
 
