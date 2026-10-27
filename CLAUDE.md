@@ -458,7 +458,7 @@ In the schematic, reference designators end in a digit (`J_BAT1`, `J_SENSOR_FRON
 | Location | Value | Minimum voltage |
 |---|---|---|
 | `+VBAT_SW`, next to J_SWITCH | 470 µF low-ESR electrolytic + 100 nF X7R | 16 V (25 V preferred) |
-| TB6612 VM, right at the header | 220 µF electrolytic + 100 nF | 16 V (25 V preferred) |
+| TB6612 VM, right at the header | 220 µF electrolytic + 100 nF | 16 V (C3 uses 220 µF 16 V: the rail is 8.4 V at most, user decision) |
 | MP1584 input | 22 µF + 100 nF | 16 V (25 V preferred) |
 | MP1584 output (`+5V`) | 100 µF electrolytic + 10 µF ceramic | 10 V |
 | ESP32 5V pin (after the diode) | 47–100 µF + 100 nF | 10 V |
