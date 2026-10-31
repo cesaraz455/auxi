@@ -368,6 +368,7 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
   - No interfieren con la cámara, los pines de arranque (GPIO0, 2, 12, 15), el LED de flash (GPIO4) ni la PSRAM (GPIO16).
   - No uses GPIO1/GPIO3 (U0) para este enlace.
   - IO14 puede emitir unos pocos bytes basura al arrancar; el firmware debe descartarlos.
+- **Montaje espejo (confirmado por el usuario):** los dos headers de la cámara quedaron en espejo respecto a la vista superior del módulo (columna izquierda de la PCB, de arriba abajo: IO4, IO2, IO14, IO15, IO13, IO12, GND, 5V; derecha: GND, U0T, U0R, VCC, GND, IO0, IO16, 3V3). La cámara se monta **girada por su cara**, de modo que sus pines de la derecha caen en los headers de la izquierda y viceversa. Antes de alimentarla, comprobar con multímetro que el pin `5V` y el pin `GND` del módulo coinciden con los de la PCB. Con la cámara volteada, su conector FPC queda hacia la PCB: revisar el recorrido del flex (ver más abajo).
 - **Pines sin conectar:**
   - Todos los demás pines quedan sin conectar.
   - Los pines 3V3 y VCC del módulo son **salidas** y no se conectan.
