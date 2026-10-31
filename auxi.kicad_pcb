@@ -5323,7 +5323,7 @@
 			(drill 0.95)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SDA")
+			(net "SCL")
 			(uuid "578e43f8-e1f8-494b-9126-4865493cd921")
 		)
 		(pad "4" thru_hole oval
@@ -5332,7 +5332,7 @@
 			(drill 0.95)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SCL")
+			(net "SDA")
 			(uuid "c9ac0a56-3934-4c73-941f-804100a39b40")
 		)
 		(pad "5" thru_hole oval
@@ -13046,7 +13046,7 @@
 			(drill 0.95)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SDA")
+			(net "SCL")
 			(uuid "d2fd6099-2f98-4a1f-8438-6d14f64705be")
 		)
 		(pad "4" thru_hole oval
@@ -13055,7 +13055,7 @@
 			(drill 0.95)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SCL")
+			(net "SDA")
 			(uuid "57700904-49e7-4d5c-adcf-92769bce9793")
 		)
 		(pad "5" thru_hole oval
@@ -19796,7 +19796,7 @@
 			(drill 0.95)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SDA")
+			(net "SCL")
 			(uuid "c766d4a7-5be0-42fb-9bc0-b82c9523d38e")
 		)
 		(pad "4" thru_hole oval
@@ -19805,7 +19805,7 @@
 			(drill 0.95)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SCL")
+			(net "SDA")
 			(uuid "3a5e7732-c07c-4237-9aca-2c54ce5b675e")
 		)
 		(pad "5" thru_hole oval
@@ -20114,7 +20114,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SCL")
+			(net "SDA")
 			(uuid "d787c1f5-9b28-4d23-9a11-3d6e08b0b42f")
 		)
 		(pad "8" thru_hole circle
@@ -20123,7 +20123,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "SDA")
+			(net "SCL")
 			(uuid "cc425fb9-991c-42c8-b773-765040a15db1")
 		)
 		(pad "9" thru_hole circle
@@ -20476,7 +20476,7 @@
 			)
 		)
 	)
-	(gr_text "JST: 1=3V3 2=GND 3=SDA 4=SCL 5=XSHUT"
+	(gr_text "JST: 1=3V3 2=GND 3=SCL 4=SDA 5=XSHUT"
 		(at 172 108 0)
 		(layer "F.SilkS")
 		(uuid "8fdb9a30-9d52-4672-902a-e187c02ca27a")
@@ -21394,7 +21394,7 @@
 		(end 175 58)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "1baf10df-bb49-4375-82ef-dc8aa5ebda50")
 	)
 	(segment
@@ -21402,7 +21402,7 @@
 		(end 185 58)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "6b4c51b2-6f23-4f6b-9676-b77f45c70828")
 	)
 	(segment
@@ -21410,7 +21410,7 @@
 		(end 165 58)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "a59fcffd-3f1f-4334-9bb5-2d84871cd4f6")
 	)
 	(segment
@@ -21418,7 +21418,7 @@
 		(end 143.4 143.68)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "bfb72f36-5b9f-4e63-a603-101f65b73e9f")
 	)
 	(segment
@@ -21426,7 +21426,7 @@
 		(end 162 61.2)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "bff749e6-afed-418b-aae3-fde7403eae7a")
 	)
 	(segment
@@ -21434,7 +21434,7 @@
 		(end 143.4 61.2)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "c544932d-7aa4-4ccd-875e-ad3bd1741a2d")
 	)
 	(segment
@@ -21442,7 +21442,7 @@
 		(end 162 58)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SDA")
+		(net "SCL")
 		(uuid "d6b85fee-bcde-4679-95a4-e1d59a0fde5c")
 	)
 	(segment
@@ -21450,7 +21450,7 @@
 		(end 185 60.5)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "419ee04f-6b4c-4999-ac2e-80ea35b77222")
 	)
 	(segment
@@ -21458,7 +21458,7 @@
 		(end 163 60.5)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "6668b869-62c2-4d21-9eec-5d168fe947b1")
 	)
 	(segment
@@ -21466,7 +21466,7 @@
 		(end 163 62.4)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "df364fa9-c8de-4693-a22d-bcdb58d77dc8")
 	)
 	(segment
@@ -21474,7 +21474,7 @@
 		(end 144.4 141.14)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "e5e278d9-6a5f-4d54-82ca-1f6a46fa1948")
 	)
 	(segment
@@ -21482,7 +21482,7 @@
 		(end 144.4 62.4)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "ebcd6bb4-ebdc-41c8-a919-9e566ddb6ef4")
 	)
 	(segment
@@ -21490,7 +21490,7 @@
 		(end 175 60.5)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "f9c6d439-ac6b-4807-86e5-2a46775b8d42")
 	)
 	(segment
@@ -21498,7 +21498,7 @@
 		(end 165 60.5)
 		(width 0.4)
 		(layer "B.Cu")
-		(net "SCL")
+		(net "SDA")
 		(uuid "fef5c27d-ba02-4404-aa52-dada75be135b")
 	)
 	(segment

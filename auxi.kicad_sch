@@ -1443,7 +1443,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT."
+			(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SCL, 4 SDA, 5 XSHUT."
 				(at 0 0 0)
 				(effects
 					(font
@@ -1514,7 +1514,7 @@
 				(pin passive line
 					(at 20.32 2.54 180)
 					(length 2.54)
-					(name "SDA"
+					(name "SCL"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1532,7 +1532,7 @@
 				(pin passive line
 					(at 20.32 0 180)
 					(length 2.54)
-					(name "SCL"
+					(name "SDA"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4950,7 +4950,7 @@
 		)
 		(uuid "f0017daa-410f-4c98-8521-aa4de14f7888")
 	)
-	(label "SCL"
+	(label "SDA"
 		(at 251.46 115.57 180)
 		(effects
 			(font
@@ -4960,7 +4960,7 @@
 		)
 		(uuid "ea52ef36-26d0-4b54-8606-beb0b6d5d922")
 	)
-	(label "SDA"
+	(label "SCL"
 		(at 251.46 118.11 180)
 		(effects
 			(font
@@ -5020,7 +5020,7 @@
 		)
 		(uuid "d660e573-29cd-44c9-a950-0eda10032f01")
 	)
-	(label "SDA"
+	(label "SCL"
 		(at 165.1 43.18 0)
 		(effects
 			(font
@@ -5030,7 +5030,7 @@
 		)
 		(uuid "fbd6aeef-be50-4017-98d2-c54893d11dcb")
 	)
-	(label "SDA"
+	(label "SCL"
 		(at 165.1 68.58 0)
 		(effects
 			(font
@@ -5040,7 +5040,7 @@
 		)
 		(uuid "43eaa25c-a9df-4b20-895b-a35fccfbb98b")
 	)
-	(label "SDA"
+	(label "SCL"
 		(at 165.1 93.98 0)
 		(effects
 			(font
@@ -5050,7 +5050,7 @@
 		)
 		(uuid "141394dc-6db8-407f-b524-b1ffb59ab294")
 	)
-	(label "SCL"
+	(label "SDA"
 		(at 165.1 45.72 0)
 		(effects
 			(font
@@ -5060,7 +5060,7 @@
 		)
 		(uuid "d0a47f13-f79e-444f-b933-7bb843d77dba")
 	)
-	(label "SCL"
+	(label "SDA"
 		(at 165.1 71.12 0)
 		(effects
 			(font
@@ -5070,7 +5070,7 @@
 		)
 		(uuid "bed1b7a0-1cad-45ca-9e4d-58c0cbdb4ea5")
 	)
-	(label "SCL"
+	(label "SDA"
 		(at 165.1 96.52 0)
 		(effects
 			(font
@@ -5293,7 +5293,7 @@
 		)
 		(uuid "f6d3d42c-5c95-4f27-be8d-62cbb8698e43")
 	)
-	(text "Pinout oficial Espressif v1.1 - VERIFICAR contra el clon comprado.\nNo usar: GPIO0/3/45/46 (arranque), 19/20 (USB), 43/44 (consola),\n35/36/37 (PSRAM octal), 38/48 (LED RGB), 47.\nBluetooth: solo BLE (control Xbox por BLE).\nPCB de 1 capa: pines reasignados para que las pistas no se crucen.\nJ1: XSHUT R/F/L=GPIO4/5/6, SCL=GPIO7, SDA=GPIO15,\nUART RX(cam->esp)=GPIO17, UART TX(esp->cam)=GPIO18,\nLED F/L/R=GPIO8/9/10. J3: PWMB=1, BIN2=2, BIN1=42, STBY=41,\nAIN1=40, AIN2=39, PWMA=21."
+	(text "Pinout oficial Espressif v1.1 - VERIFICAR contra el clon comprado.\nNo usar: GPIO0/3/45/46 (arranque), 19/20 (USB), 43/44 (consola),\n35/36/37 (PSRAM octal), 38/48 (LED RGB), 47.\nBluetooth: solo BLE (control Xbox por BLE).\nPCB de 1 capa: pines reasignados para que las pistas no se crucen.\nJ1: XSHUT R/F/L=GPIO4/5/6, SDA=GPIO7, SCL=GPIO15,\nUART RX(cam->esp)=GPIO17, UART TX(esp->cam)=GPIO18,\nLED F/L/R=GPIO8/9/10. J3: PWMB=1, BIN2=2, BIN1=42, STBY=41,\nAIN1=40, AIN2=39, PWMA=21."
 		(exclude_from_sim no)
 		(at 255 189.00 0)
 		(effects
@@ -5362,7 +5362,7 @@
 		)
 		(uuid "1e416bb4-8f10-4056-9eb5-5469e2e42dfa")
 	)
-	(text "Orden en los 3 conectores:\n1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.\nI2C compartido a 100 kHz,\ncables de 25 cm o menos.\nPull-ups I2C: los GY-530 ya los\nincluyen. Sin pull-ups extra en la placa.\nFirmware: todos los XSHUT en bajo,\nactivar uno a uno y asignar\n0x30, 0x31, 0x32."
+	(text "Orden en los 3 conectores:\n1 3V3, 2 GND, 3 SCL, 4 SDA, 5 XSHUT.\nI2C compartido a 100 kHz,\ncables de 25 cm o menos.\nPull-ups I2C: los GY-530 ya los\nincluyen. Sin pull-ups extra en la placa.\nFirmware: todos los XSHUT en bajo,\nactivar uno a uno y asignar\n0x30, 0x31, 0x32."
 		(exclude_from_sim no)
 		(at 30 70 0)
 		(effects
@@ -7579,7 +7579,7 @@
 				)
 			)
 		)
-		(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT."
+		(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SCL, 4 SDA, 5 XSHUT."
 			(at 144.78 45.72 0)
 			(hide yes)
 			(effects
@@ -7793,7 +7793,7 @@
 				)
 			)
 		)
-		(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT."
+		(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SCL, 4 SDA, 5 XSHUT."
 			(at 144.78 71.12 0)
 			(hide yes)
 			(effects
@@ -8007,7 +8007,7 @@
 				)
 			)
 		)
-		(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT."
+		(property "Description" "Conector JST-XH 5P para modulo VL53L0X (GY-530). Pines: 1 3V3, 2 GND, 3 SCL, 4 SDA, 5 XSHUT."
 			(at 144.78 96.52 0)
 			(hide yes)
 			(effects

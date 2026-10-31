@@ -331,8 +331,8 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
 | XSHUT_RIGHT | GPIO4 | J1-4 | Las líneas XSHUT son las más interiores del grupo que va al norte: la primera va al conector de sensor más al este (RIGHT) y la última al más al oeste (LEFT), así que ninguna línea se cruza con otra |
 | XSHUT_FRONT | GPIO5 | J1-5 | |
 | XSHUT_LEFT | GPIO6 | J1-6 | |
-| SDA | GPIO7 | J1-7 | SCL y SDA giran hacia el este por encima de las líneas XSHUT, a la altura de los pines 4 y 3 de los conectores de sensores (primero SCL, luego SDA) |
-| SCL | GPIO15 | J1-8 | **Fuente de verdad: el firmware** (`esp32-robot/src/main.cpp`: `SDA_PIN 7`, `SCL_PIN 15`). El esquemático y la PCB todavía tienen SCL en GPIO7 y SDA en GPIO15 (ver Sección 20, punto 0) |
+| SDA | GPIO7 | J1-7 | SDA y SCL giran hacia el este por encima de las líneas XSHUT, a la altura de los pines 4 y 3 de los conectores de sensores (primero SDA, luego SCL) |
+| SCL | GPIO15 | J1-8 | **Fuente de verdad: el firmware** (`esp32-robot/src/main.cpp`: `SDA_PIN 7`, `SCL_PIN 15`). Esquemático y PCB ya coinciden (ver Sección 20, punto 0) |
 | UART_CAM_TO_ESP | GPIO17 | J1-10 | **RX** del ESP32. El pin de UART superior va al pin superior de la cámara (IO14 = TX de la cámara), el inferior al pin inferior de la cámara, para que los dos carriles no se crucen |
 | UART_ESP_TO_CAM | GPIO18 | J1-11 | **TX** del ESP32 (RX de la cámara, IO13) |
 | LED_FRONT | GPIO8 | J1-12 | |
@@ -403,7 +403,7 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
   - GPIO1 no se usa.
 - **Alimentación:** **3.3 V**, para que los pull-ups de I2C del módulo nunca puedan poner 5 V en el ESP32.
 - **Conectores:** un JST-XH de 5 pines por sensor: `SENSOR_FRONT`, `SENSOR_LEFT`, `SENSOR_RIGHT`.
-  - Mismo orden en los tres: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.
+  - Mismo orden en los tres: 1 3V3, 2 GND, 3 SCL, 4 SDA, 5 XSHUT.
   - En la PCB los tres van **uno al lado del otro a lo largo del borde delantero (superior), a la derecha de la cámara**, LEFT (oeste), FRONT, RIGHT (este), separados 10 mm, con los pines alejándose del borde (pin 1 = 3V3 más cerca del borde). Los buses 3V3, SDA y SCL son entonces tres pistas horizontales rectas que pasan por el pad del mismo número de cada conector, así que no pueden cruzarse. Cada pista XSHUT llega al pin 5 desde abajo.
 - **Bus I2C:** un solo bus compartido (SDA en GPIO7, SCL en GPIO15, ver Sección 6.1), se recomiendan 100 kHz y cables de 25 cm o menos.
 - **XSHUT:** RIGHT en GPIO4, FRONT en GPIO5, LEFT en GPIO6.
@@ -482,9 +482,9 @@ En el esquemático, las referencias terminan en un dígito (`J_BAT1`, `J_SENSOR_
 | J_LED_POWER1 | LED verde de encendido (5 mm, **soldado aquí**) | 2 agujeros, 2.54 mm | LED+ (agujero derecho, pad cuadrado), LED− | Adelante a la derecha de la placa, junto a R1 |
 | J_MOTOR_LEFT1 | Motor izquierdo | Bornera de tornillo de 2 polos, 5.08 mm | M_L1, M_L2 | Borde derecho (este) de la placa, junto al TB6612 (ver Sección 18: las dos borneras de motor están en el mismo borde para que las salidas del driver no tengan que cruzar el ESP32). El cable del motor izquierdo simplemente es más largo |
 | J_MOTOR_RIGHT1 | Motor derecho | Bornera de tornillo de 2 polos, 5.08 mm | M_R1, M_R2 | Borde derecho (este) |
-| J_SENSOR_FRONT1 | Sensor frontal | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_FRONT | Borde delantero (superior), en medio |
-| J_SENSOR_LEFT1 | Sensor izquierdo | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_LEFT | Borde delantero (superior), oeste |
-| J_SENSOR_RIGHT1 | Sensor derecho | JST-XH 5P vertical | 3V3, GND, SDA, SCL, XSHUT_RIGHT | Borde delantero (superior), este |
+| J_SENSOR_FRONT1 | Sensor frontal | JST-XH 5P vertical | 3V3, GND, SCL, SDA, XSHUT_FRONT | Borde delantero (superior), en medio |
+| J_SENSOR_LEFT1 | Sensor izquierdo | JST-XH 5P vertical | 3V3, GND, SCL, SDA, XSHUT_LEFT | Borde delantero (superior), oeste |
+| J_SENSOR_RIGHT1 | Sensor derecho | JST-XH 5P vertical | 3V3, GND, SCL, SDA, XSHUT_RIGHT | Borde delantero (superior), este |
 | J_LED_FRONT1 | LED rojo (5 mm, **soldado aquí**) | 2 agujeros, 2.54 mm | LED+ (agujero derecho, pad cuadrado), LED− | Lado oeste, el de arriba de los 3 |
 | J_LED_LEFT1 | LED amarillo (5 mm, **soldado aquí**) | 2 agujeros, 2.54 mm | LED+ (agujero derecho, pad cuadrado), LED− | Lado oeste, en medio |
 | J_LED_RIGHT1 | LED verde (5 mm, **soldado aquí**) | 2 agujeros, 2.54 mm | LED+ (agujero derecho, pad cuadrado), LED− | Lado oeste, abajo |
@@ -662,7 +662,7 @@ El usuario no tenía calibrador, así que aprobó usar dimensiones comunes de la
 | Agujeros M3 | a 5 mm de cada esquina | |
 
 - **Por qué esta disposición (planaridad de una sola capa).** Cada señal debe llegar a su destino sin cruzar a otra, así que los pines de los headers del ESP32 están en el mismo orden que los destinos alrededor del módulo:
-  - **Columna oeste `J1`, de arriba abajo:** 3V3, los 3 XSHUT, SCL, SDA (van al norte, separados 1 mm, **entre la cámara y el ESP32**, luego al este por encima de la cámara hasta los sensores a lo largo del borde delantero), las 2 líneas de UART (al norte, dentro de las columnas de la cámara), las 3 líneas de LED (al suroeste, hacia los pares de agujeros de los LED) y el pin 5V (al sur).
+  - **Columna oeste `J1`, de arriba abajo:** 3V3, los 3 XSHUT, SDA, SCL (van al norte, separados 1 mm, **entre la cámara y el ESP32**, luego al este por encima de la cámara hasta los sensores a lo largo del borde delantero), las 2 líneas de UART (al norte, dentro de las columnas de la cámara), las 3 líneas de LED (al suroeste, hacia los pares de agujeros de los LED) y el pin 5V (al sur).
   - **Columna este `J3`:** las 7 señales del TB6612, pistas horizontales rectas hasta el driver.
   - La pista de 5V de la cámara va desde el MP1584 al norte por el lado oeste hasta y = 140, luego al este hasta x = 138 y al norte hacia la cámara, **por fuera** (al oeste) de los dos carriles de UART (x = 140.5 y 142.5). Ambos entran a la cámara por su interior; los carriles de UART giran al oeste hacia los pines 4 y 6, y el carril de 5V hacia el pin 1.
   - El 3V3 para el pin VCC del TB6612 cruza el zócalo del ESP32 **bajo el módulo** y pasa entre los pads 9 y 10 de `J3` con 0.3 mm; la misma red sube luego al norte en x = 190.5 y va al oeste por el borde superior hasta el pin 1 de los conectores de sensores. Por eso los condensadores grandes y `J_LED_POWER1` se mantienen en un grupo compacto en x ≥ 192 y no en una columna larga: una columna larga de +VBAT_SW en el lado este encerraría el pin VCC.
@@ -789,7 +789,7 @@ El proyecto **no** está terminado solo porque exista un archivo `.kicad_sch`: d
 
 **Necesarios para finalizar el esquemático:**
 
-0. **SDA/SCL invertidos en el diseño.** El firmware (fuente de verdad, repositorio `esp32-robot`) usa SDA = GPIO7 y SCL = GPIO15. El esquemático (`auxi.kicad_sch`, etiquetas `SCL`/`SDA` en `U_ESP_J1` y la nota de pinout) y la PCB (nets y pistas de J1-7 y J1-8) siguen con SCL = GPIO7 y SDA = GPIO15. Hay que intercambiar las dos redes en el ESP32-S3 y volver a enrutar esas dos pistas (en una sola capa se cruzarían con las de los conectores de sensores; evaluar un puente o intercambiar los pines SDA/SCL en los conectores). Mientras no se haga, la PCB actual no funcionará con el firmware.
+0. **SDA/SCL (resuelto).** El firmware es la fuente de verdad: SDA = GPIO7 y SCL = GPIO15. Para no tocar el cobre se renombraron las redes `SDA` y `SCL` en el esquemático y la PCB: las pistas son las mismas, pero ahora J1-7 es `SDA` y J1-8 es `SCL`, y en los tres conectores de sensor el **pin 3 es SCL y el pin 4 es SDA** (antes al revés). Hay que cablear los sensores con ese orden (coincide con el orden SCL, SDA de los módulos GY-530). Falta abrir KiCad y ejecutar ERC/DRC y actualizar la PCB desde el esquemático para confirmar que no hay diferencias, y regenerar las imágenes/PDF de `docs/` si muestran el texto del conector.
 
 1. Confirmar que el ESP32-S3-DevKitC-1 N16R8 comprado coincide con la distribución oficial de pines. Si es un clon, pedir fotos de ambas caras. Confirmar también la revisión de su LED RGB y la separación entre sus filas.
 2. Distribución real de pines del TB6612FNG comprado (se supuso el orden de SparkFun), del MP1584 (el footprint `auxi:MP1584_Mini_PROVISIONAL` tiene pads estimados) y del GY-530 (nivel de XSHUT; los pull-ups ya están en el módulo, por eso se quitaron R3/R4).
