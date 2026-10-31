@@ -331,8 +331,8 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
 | XSHUT_RIGHT | GPIO4 | J1-4 | Las líneas XSHUT son las más interiores del grupo que va al norte: la primera va al conector de sensor más al este (RIGHT) y la última al más al oeste (LEFT), así que ninguna línea se cruza con otra |
 | XSHUT_FRONT | GPIO5 | J1-5 | |
 | XSHUT_LEFT | GPIO6 | J1-6 | |
-| SCL | GPIO7 | J1-7 | SCL y SDA giran hacia el este por encima de las líneas XSHUT, a la altura de los pines 4 y 3 de los conectores de sensores (primero SCL, luego SDA) |
-| SDA | GPIO15 | J1-8 | |
+| SDA | GPIO7 | J1-7 | SCL y SDA giran hacia el este por encima de las líneas XSHUT, a la altura de los pines 4 y 3 de los conectores de sensores (primero SCL, luego SDA) |
+| SCL | GPIO15 | J1-8 | **Fuente de verdad: el firmware** (`esp32-robot/src/main.cpp`: `SDA_PIN 7`, `SCL_PIN 15`). El esquemático y la PCB todavía tienen SCL en GPIO7 y SDA en GPIO15 (ver Sección 20, punto 0) |
 | UART_CAM_TO_ESP | GPIO17 | J1-10 | **RX** del ESP32. El pin de UART superior va al pin superior de la cámara (IO14 = TX de la cámara), el inferior al pin inferior de la cámara, para que los dos carriles no se crucen |
 | UART_ESP_TO_CAM | GPIO18 | J1-11 | **TX** del ESP32 (RX de la cámara, IO13) |
 | LED_FRONT | GPIO8 | J1-12 | |
@@ -346,7 +346,7 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
 | AIN2 | GPIO39 | J3-9 | |
 | PWMA | GPIO21 | J3-18 | |
 
-- **Nota para el firmware:** I2C no está en los pines por defecto de Arduino. Usa `Wire.begin(15, 7)` (SDA = GPIO15, SCL = GPIO7). La UART de la cámara tampoco está en los pines por defecto de `Serial1`: `Serial1.begin(115200, SERIAL_8N1, 17, 18)` (RX = GPIO17, TX = GPIO18). **TX y RX de la UART cambiaron de lugar respecto al mapa anterior.**
+- **Nota para el firmware:** I2C no está en los pines por defecto de Arduino. Usa `Wire.begin(7, 15)` (SDA = GPIO7, SCL = GPIO15; así está en el firmware, que es la fuente de verdad). La UART de la cámara tampoco está en los pines por defecto de `Serial1`: `Serial1.begin(115200, SERIAL_8N1, 17, 18)` (RX = GPIO17, TX = GPIO18). **TX y RX de la UART cambiaron de lugar respecto al mapa anterior.**
 - **Sin usar a propósito:**
   - 0, 3, 45, 46 (arranque).
   - 19, 20 (USB).
@@ -405,7 +405,7 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
 - **Conectores:** un JST-XH de 5 pines por sensor: `SENSOR_FRONT`, `SENSOR_LEFT`, `SENSOR_RIGHT`.
   - Mismo orden en los tres: 1 3V3, 2 GND, 3 SDA, 4 SCL, 5 XSHUT.
   - En la PCB los tres van **uno al lado del otro a lo largo del borde delantero (superior), a la derecha de la cámara**, LEFT (oeste), FRONT, RIGHT (este), separados 10 mm, con los pines alejándose del borde (pin 1 = 3V3 más cerca del borde). Los buses 3V3, SDA y SCL son entonces tres pistas horizontales rectas que pasan por el pad del mismo número de cada conector, así que no pueden cruzarse. Cada pista XSHUT llega al pin 5 desde abajo.
-- **Bus I2C:** un solo bus compartido (SDA en GPIO15, SCL en GPIO7, ver Sección 6.1), se recomiendan 100 kHz y cables de 25 cm o menos.
+- **Bus I2C:** un solo bus compartido (SDA en GPIO7, SCL en GPIO15, ver Sección 6.1), se recomiendan 100 kHz y cables de 25 cm o menos.
 - **XSHUT:** RIGHT en GPIO4, FRONT en GPIO5, LEFT en GPIO6.
 - **Pull-ups:**
   - Revisa los de los módulos (tres en paralelo).
@@ -788,6 +788,8 @@ El proyecto **no** está terminado solo porque exista un archivo `.kicad_sch`: d
 ## Sección 20. Puntos abiertos (detente y pregunta si siguen sin resolverse)
 
 **Necesarios para finalizar el esquemático:**
+
+0. **SDA/SCL invertidos en el diseño.** El firmware (fuente de verdad, repositorio `esp32-robot`) usa SDA = GPIO7 y SCL = GPIO15. El esquemático (`auxi.kicad_sch`, etiquetas `SCL`/`SDA` en `U_ESP_J1` y la nota de pinout) y la PCB (nets y pistas de J1-7 y J1-8) siguen con SCL = GPIO7 y SDA = GPIO15. Hay que intercambiar las dos redes en el ESP32-S3 y volver a enrutar esas dos pistas (en una sola capa se cruzarían con las de los conectores de sensores; evaluar un puente o intercambiar los pines SDA/SCL en los conectores). Mientras no se haga, la PCB actual no funcionará con el firmware.
 
 1. Confirmar que el ESP32-S3-DevKitC-1 N16R8 comprado coincide con la distribución oficial de pines. Si es un clon, pedir fotos de ambas caras. Confirmar también la revisión de su LED RGB y la separación entre sus filas.
 2. Distribución real de pines del TB6612FNG comprado (se supuso el orden de SparkFun), del MP1584 (el footprint `auxi:MP1584_Mini_PROVISIONAL` tiene pads estimados) y del GY-530 (nivel de XSHUT; los pull-ups ya están en el módulo, por eso se quitaron R3/R4).
