@@ -5385,7 +5385,7 @@
 		)
 		(uuid "a11f5d46-d7e7-4848-8f7e-aafb08976d3e")
 	)
-	(text "FRONT = ROJO, LEFT = AMARILLO, RIGHT = VERDE. Encendido si distancia <= 100 mm.\nLos LED de 5 mm se sueldan DIRECTO en los pares de agujeros J_LED_*\n(pata larga = anodo = pad cuadrado, junto a la resistencia).\nPin 1 = LED+ (anodo), pin 2 = LED- (GND). ~2.5-3 mA a 3.3 V.\nR5 (verde) PROVISIONAL: 470 ohm vale para verde clasico (Vf ~2.1 V);\nhay que recalcularla si el LED es verde brillante (Vf ~3 V)."
+	(text "FRONT = ROJO, LEFT = AMARILLO, RIGHT = VERDE. Encendido si distancia <= 150 mm (15 cm).\nLos LED de 5 mm se sueldan DIRECTO en los pares de agujeros J_LED_*\n(pata larga = anodo = pad cuadrado, junto a la resistencia).\nPin 1 = LED+ (anodo), pin 2 = LED- (GND). ~2.5-3 mA a 3.3 V.\nR5 (verde) PROVISIONAL: 470 ohm vale para verde clasico (Vf ~2.1 V);\nhay que recalcularla si el LED es verde brillante (Vf ~3 V)."
 		(exclude_from_sim no)
 		(at 150 222 0)
 		(effects
