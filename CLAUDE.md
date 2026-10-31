@@ -38,7 +38,7 @@ Contenido (todas las referencias cruzadas de este archivo dicen "Sección N"):
 
 **auxi** es un pequeño robot de fútbol, un proyecto universitario de primer semestre. Este repositorio contiene el diseño en KiCad de su **única PCB personalizada**.
 
-**Para qué sirve el robot.** auxi juega fútbol en una competencia universitaria de robots. Una persona lo maneja con un control Xbox por Bluetooth Low Energy; su pieza delantera guía una pelota mientras la empuja. Las reglas de la competencia condicionan el diseño: el robot debe medir como máximo 150 mm y pesar como máximo 850 g, debe mostrar con tres LED de colores cuando algo está a menos de 10 cm de cada uno de sus tres sensores de distancia, y no debe interferir con otros equipos (por ejemplo con su video por Wi-Fi). También es un proyecto de aprendizaje: el equipo está en su primer semestre, así que se prefieren las soluciones simples, robustas y fáciles de armar sobre las ingeniosas.
+**Para qué sirve el robot.** auxi juega fútbol en una competencia universitaria de robots. Una persona lo maneja con un control Xbox por Bluetooth Low Energy; su pieza delantera guía una pelota mientras la empuja. Las reglas de la competencia condicionan el diseño: el robot debe medir como máximo 150 mm y pesar como máximo 850 g, debe mostrar con tres LED de colores cuando algo está cerca de cada uno de sus tres sensores de distancia (el firmware está configurado para encender cada LED a 15 cm), y no debe interferir con otros equipos (por ejemplo con su video por Wi-Fi). También es un proyecto de aprendizaje: el equipo está en su primer semestre, así que se prefieren las soluciones simples, robustas y fáciles de armar sobre las ingeniosas.
 
 **Qué contiene este repositorio.** La parte electrónica: una PCB personalizada que lleva los módulos controladores, el driver de motores, el regulador de voltaje, todos los conectores y los 4 LED. El chasis se imprime aparte (Sección 4.1). El firmware (ESP32 principal y ESP32-CAM) ya está escrito y vive en un **repositorio de GitHub separado**; usa el mapa de pines de la Sección 6.1, así que cualquier cambio en ese mapa debe hacerse en los dos repositorios.
 
@@ -106,7 +106,7 @@ Contenido (todas las referencias cruzadas de este archivo dicen "Sección N"):
 | Regulador de 5 V | Módulo ajustable MP1584EN mini, ajustado a 5.0 V. |
 | 3.3 V | Del regulador de 3V3 de la placa del ESP32 principal. |
 | Sensores | 3 × VL53L0X (módulo GY-530) a **3.3 V**, bus I2C compartido, un XSHUT independiente por sensor. |
-| LED de proximidad | **LED de 5 mm soldados directamente en la PCB** (decisión del usuario), en los pares de agujeros `J_LED_*`. Los colores y el umbral siguen las reglas de la universidad: FRONT rojo (arriba), LEFT amarillo (en medio), RIGHT verde (abajo); encendidos a ≤ 10 cm. |
+| LED de proximidad | **LED de 5 mm soldados directamente en la PCB** (decisión del usuario), en los pares de agujeros `J_LED_*`. Los colores siguen las reglas de la universidad: FRONT rojo (arriba), LEFT amarillo (en medio), RIGHT verde (abajo). **Los sensores están configurados en el firmware para encender su LED a ≤ 15 cm (150 mm).** |
 | LED de encendido | LED de 5 mm **verde, soldado directamente en la PCB** en `J_LED_POWER1` (decisión del usuario, reemplaza la idea del header externo + Dupont), con R1 = 1.5 kΩ. No lo controla ningún GPIO. |
 | ESP32-CAM | AI Thinker, sin microSD, **desmontable** (se programa quitándola y usando la base ESP32-CAM-MB del usuario), sin header de programación. |
 | Cámara | Módulo OV2640 estándar (24 pines, paso 0.5 mm, flex de ~2 cm) en una cuna impresa (16) del arco de la cámara (13), con la lente mirando al frente e inclinada 25° hacia abajo. Ver Sección 7. |
@@ -433,9 +433,10 @@ En una sola capa de cobre dos pistas no pueden cruzarse. Los pines se **reasigna
 | LEFT | LED_LEFT | **Amarillo** | J_LED_LEFT |
 
 - **Regla de activación:**
-  - El LED está encendido cuando su sensor lee **≤ 100 mm (10 cm)**.
-  - El LED está apagado cuando la lectura es > 100 mm, inválida o fuera de rango.
-  - El firmware puede promediar varias lecturas para evitar parpadeo. No debe usar histéresis que mantenga un LED encendido por encima de 100 mm, porque rompería las reglas.
+  - **Umbral configurado en el firmware: 15 cm (150 mm).**
+  - El LED está encendido cuando su sensor lee **≤ 150 mm (15 cm)**.
+  - El LED está apagado cuando la lectura es > 150 mm, inválida o fuera de rango.
+  - El firmware puede promediar varias lecturas para evitar parpadeo. No debe usar histéresis que mantenga un LED encendido por encima de 150 mm, porque rompería la regla de activación.
 - **Ubicación (decisión del usuario):** los 3 LED son **LED de 5 mm soldados directamente en la PCB**, en el lado oeste entre el MP1584 y el ESP32-S3, de arriba abajo: FRONT (rojo), LEFT (amarillo), RIGHT (verde) (vista superior, frente del robot arriba). El robot **no tiene carcasa** (decisión del usuario), así que los LED quedan visibles en la placa, como exigen las reglas, y no hacen falta ventanas.
 - **Conexión:** el footprint sigue siendo el par de pads de 2 pines y 2.54 mm `J_LED_FRONT1` / `J_LED_LEFT1` / `J_LED_RIGHT1`. Las patas del LED entran directo en esos agujeros (sin header, sin cables Dupont).
   - El **agujero derecho** (pad cuadrado, junto a la resistencia R3, R4 o R5) es el **ánodo (+, pata larga)**. El **agujero izquierdo** es el cátodo (−, pata corta, lado plano del LED).
@@ -712,7 +713,7 @@ Qué se cambió en los archivos de KiCad:
 | Archivo | Cambio |
 |---|---|
 | `auxi.kicad_pcb` | **Solo modelos 3D.** `J_LED_FRONT1` / `J_LED_LEFT1` / `J_LED_RIGHT1` / `J_LED_POWER1`: el modelo del header de pines se reemplazó por un LED de 5 mm de color (`auxi.3dshapes/LED_D5.0mm_Red.wrl`, `_Yellow.wrl`, `_Green.wrl`; desplazamiento `0 −1.27 0` para que el LED quede entre los dos pads; 8.6 mm de alto). `J_BAT1`: el modelo del XT30 se reemplazó por el modelo de la bornera Phoenix MKDS de 5.08 mm (desplazamiento `−0.04 0 0` para repartir la diferencia de paso de 0.08 mm), y su valor ahora es `BAT 2S (bornera)`. |
-| `auxi.kicad_sch`, `auxi.kicad_sym` | **Sin cambio eléctrico** (mismas redes y pines). La descripción de `Conn_LED` ahora dice que el LED se suelda en los agujeros, el valor de `J_BAT1` es `BAT 2S (bornera)` y las notas del bloque de alimentación dicen lo mismo. |
+| `auxi.kicad_sch`, `auxi.kicad_sym` | **Sin cambio eléctrico** (mismas redes y pines). La descripción de `Conn_LED` ahora dice que el LED se suelda en los agujeros, el valor de `J_BAT1` es `BAT 2S (bornera)`, las notas del bloque de alimentación dicen lo mismo y la nota de los LED de proximidad indica el umbral de 15 cm. |
 | `auxi.3dshapes/` | Nuevo: los tres modelos de LED (VRML, unidades de 0.1 pulgada, como espera KiCad). |
 | `docs/` | Regenerados con KiCad 10.0.7: PDF del esquemático, BOM, los tres renders 2D y la página 1 del PDF a 1:1 (las páginas 2 y 3, el cobre, no cambian porque el cobre no cambió). Dos renders 3D nuevos muestran los nuevos modelos de LED y bornera. |
 
